@@ -14,7 +14,7 @@ namespace Repo.Models
     
     public partial class assetCategory
     {
-        public long ID { get; set; }
+        public byte[] ID { get; set; }
         public string Category { get; set; }
     }
 }

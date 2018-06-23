@@ -17,8 +17,8 @@ namespace Repo.Models
         public long ID { get; set; }
         public string Company1 { get; set; }
         public string Company_Code { get; set; }
-        public decimal Margin { get; set; }
-        public decimal LMargin { get; set; }
-        public decimal DMargin { get; set; }
+        public Nullable<decimal> Margin { get; set; }
+        public Nullable<decimal> LMargin { get; set; }
+        public Nullable<decimal> DMargin { get; set; }
     }
 }

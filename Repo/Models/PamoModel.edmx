@@ -5,13 +5,11 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="PamoDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.analysis' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="analysis">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="iclass" Type="varchar" MaxLength="50" />
           <Property Name="idetails" Type="varchar" MaxLength="100" />
           <Property Name="idate" Type="date" />
@@ -21,14 +19,11 @@ warning 6002: The table/view 'PamoDb.dbo.analysis' does not have a primary key d
           <Property Name="edate" Type="date" />
           <Property Name="eamount" Type="decimal" Precision="13" Scale="2" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.anc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="anc">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="FHR" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="date" />
           <Property Name="Card Number" Type="varchar" MaxLength="50" />
           <Property Name="Visit" Type="varchar" MaxLength="50" />
@@ -65,15 +60,13 @@ warning 6002: The table/view 'PamoDb.dbo.anc' does not have a primary key define
           <Property Name="Urine" Type="varchar" MaxLength="50" />
           <Property Name="Presentation" Type="varchar" MaxLength="50" />
           <Property Name="Lie" Type="varchar" MaxLength="50" />
-          <Property Name="FHR" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="FHR" Type="varchar" MaxLength="32" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.appointment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="appointment">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="date" />
           <Property Name="Appt Date" Type="date" />
           <Property Name="Doctor" Type="varchar" MaxLength="50" />
@@ -82,22 +75,18 @@ warning 6002: The table/view 'PamoDb.dbo.appointment' does not have a primary ke
           <Property Name="Appt Type" Type="varchar" MaxLength="50" />
           <Property Name="Time" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.assetCategory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="assetCategory">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="binary" MaxLength="8" Nullable="false" />
           <Property Name="Category" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.assets' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="assets">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Code" Type="varchar" MaxLength="50" />
           <Property Name="Location" Type="varchar" MaxLength="50" />
           <Property Name="Category" Type="varchar" MaxLength="50" />
@@ -121,23 +110,18 @@ warning 6002: The table/view 'PamoDb.dbo.assets' does not have a primary key def
           <Property Name="Depreciation Method" Type="varchar" MaxLength="50" />
           <Property Name="Netbook Value" Type="decimal" Precision="11" Scale="2" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.assetStatus' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="assetStatus">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.attendance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="attendance">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Position" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card Number" Type="varchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
           <Property Name="Attended" Type="smallint" />
@@ -155,28 +139,24 @@ warning 6002: The table/view 'PamoDb.dbo.attendance' does not have a primary key
           <Property Name="Special Code" Type="varchar" MaxLength="50" />
           <Property Name="Description" Type="varchar(max)" />
           <Property Name="Package" Type="varchar" MaxLength="50" />
-          <Property Name="Position" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Position" Type="varchar" MaxLength="200" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.bank' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="bank">
           <Key>
             <PropertyRef Name="BankID" />
           </Key>
-          <Property Name="BankID" Type="int" Nullable="false" />
+          <Property Name="BankID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Branch" Type="varchar" MaxLength="50" />
           <Property Name="Online" Type="smallint" />
           <Property Name="Location" Type="varchar" MaxLength="50" />
           <Property Name="BankCode" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.bills' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="bills">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card Number" Type="varchar" MaxLength="50" />
           <Property Name="Patient Name" Type="varchar" MaxLength="50" />
           <Property Name="NHIS Number" Type="varchar" MaxLength="50" />
@@ -196,35 +176,29 @@ warning 6002: The table/view 'PamoDb.dbo.bills' does not have a primary key defi
           <Property Name="Quantity" Type="int" />
           <Property Name="Doctor" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.billType' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="billType">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.billupdate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="billupdate">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Transaction Type" Type="varchar" MaxLength="50" />
           <Property Name="Rate" Type="decimal" Precision="13" Scale="2" />
           <Property Name="Qty" Type="bigint" />
           <Property Name="Amount" Type="decimal" Precision="13" Scale="2" />
           <Property Name="Cashier" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.biovitals' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="biovitals">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card Number" Type="varchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
           <Property Name="Weight" Type="decimal" Precision="5" Scale="2" />
@@ -251,25 +225,21 @@ warning 6013: The table/view 'PamoDb.dbo.booln2' does not have a primary key def
           <Property Name="val" Type="smallint" />
           <Property Name="type" Type="varchar" MaxLength="5" />
         </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.budget' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="budget">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="50" />
           <Property Name="Month" Type="date" />
           <Property Name="Class" Type="varchar" MaxLength="50" />
           <Property Name="Budget" Type="decimal" Precision="13" Scale="2" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.cash' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="cash">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
           <Property Name="Classification" Type="varchar" MaxLength="50" />
@@ -288,13 +258,11 @@ warning 6013: The table/view 'PamoDb.dbo.category' does not have a primary key d
           <Property Name="CatID" Type="varchar" MaxLength="15" />
           <Property Name="Category" Type="varchar" MaxLength="50" />
         </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.cheque' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="cheque">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
           <Property Name="Bank" Type="varchar" MaxLength="50" />
@@ -326,30 +294,23 @@ warning 6002: The table/view 'PamoDb.dbo.claims' does not have a primary key def
           <Property Name="Amount Word" Type="varchar" MaxLength="240" Nullable="false" />
           <Property Name="Enrollee Code" Type="varchar" MaxLength="120" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.cms_access_levels' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="cms_access_levels">
           <Key>
             <PropertyRef Name="access_lvl" />
           </Key>
-          <Property Name="access_lvl" Type="int" Nullable="false" />
+          <Property Name="access_lvl" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="access_name" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.company' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="company">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Margin" />
-            <PropertyRef Name="LMargin" />
-            <PropertyRef Name="DMargin" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Company" Type="varchar" MaxLength="50" />
           <Property Name="Company Code" Type="varchar" MaxLength="25" />
-          <Property Name="Margin" Type="decimal" Precision="11" Scale="2" Nullable="false" />
-          <Property Name="LMargin" Type="decimal" Precision="11" Scale="2" Nullable="false" />
-          <Property Name="DMargin" Type="decimal" Precision="11" Scale="2" Nullable="false" />
+          <Property Name="Margin" Type="decimal" Precision="11" Scale="2" />
+          <Property Name="LMargin" Type="decimal" Precision="11" Scale="2" />
+          <Property Name="DMargin" Type="decimal" Precision="11" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6013: The table/view 'PamoDb.dbo.company info' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
@@ -362,41 +323,32 @@ warning 6013: The table/view 'PamoDb.dbo.company info' does not have a primary k
           <Property Name="Country" Type="varchar" MaxLength="50" />
           <Property Name="Facility No" Type="varchar" MaxLength="30" />
         </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.complaint' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="complaint">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Category" />
-            <PropertyRef Name="Descriptor" />
-            <PropertyRef Name="Remark" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card Number" Type="varchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
-          <Property Name="Category" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="Category" Type="varchar" MaxLength="70" />
           <Property Name="Complaint" Type="varchar(max)" />
-          <Property Name="Descriptor" Type="varchar" MaxLength="70" Nullable="false" />
-          <Property Name="Remark" Type="varchar(max)" Nullable="false" />
+          <Property Name="Descriptor" Type="varchar" MaxLength="70" />
+          <Property Name="Remark" Type="varchar(max)" />
           <Property Name="Taken By" Type="varchar" MaxLength="50" />
           <Property Name="AttID" Type="bigint" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.consultingRoom' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="consultingRoom">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Room" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.contract' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="contract">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Contractor" Type="varchar" MaxLength="50" />
           <Property Name="Contract Date" Type="date" />
           <Property Name="Contract Title" Type="varchar" MaxLength="50" />
@@ -410,13 +362,11 @@ warning 6002: The table/view 'PamoDb.dbo.contract' does not have a primary key d
           <Property Name="Account" Type="varchar" MaxLength="50" />
           <Property Name="Remark" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.delivery' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="delivery">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="date" />
           <Property Name="Card Number" Type="varchar" MaxLength="50" />
           <Property Name="Parity" Type="varchar" MaxLength="50" />
@@ -440,25 +390,20 @@ warning 6002: The table/view 'PamoDb.dbo.delivery' does not have a primary key d
           <Property Name="Still Birth" Type="smallint" />
           <Property Name="Multiple" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.department' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="department">
           <Key>
             <PropertyRef Name="Dept ID" />
-            <PropertyRef Name="company" />
           </Key>
-          <Property Name="Dept ID" Type="bigint" Nullable="false" />
+          <Property Name="Dept ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Dept" Type="varchar" MaxLength="50" />
           <Property Name="DirID" Type="varchar" MaxLength="15" />
-          <Property Name="company" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="company" Type="varchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.diagnosis' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="diagnosis">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card Number" Type="varchar" MaxLength="50" />
           <Property Name="Diagnosis" Type="varchar" MaxLength="50" />
           <Property Name="Description" Type="varchar" MaxLength="200" />
@@ -467,49 +412,41 @@ warning 6002: The table/view 'PamoDb.dbo.diagnosis' does not have a primary key 
           <Property Name="Follow Up" Type="varchar" MaxLength="200" />
           <Property Name="AttID" Type="bigint" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.diagnosis type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="diagnosis type">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="50" />
           <Property Name="Classification" Type="varchar" MaxLength="80" />
           <Property Name="G-DRG" Type="varchar" MaxLength="30" />
           <Property Name="Tarrif" Type="decimal" Precision="11" Scale="2" />
           <Property Name="Tarrif (Catering)" Type="numeric" Precision="11" Scale="2" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.doctors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="doctors">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Doctor" Type="varchar" MaxLength="50" />
           <Property Name="Specialization" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.drrounds' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="drrounds">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="date" />
           <Property Name="Card Number" Type="varchar" MaxLength="50" />
           <Property Name="Hour" Type="varchar" MaxLength="12" />
           <Property Name="Nurse" Type="varchar" MaxLength="50" />
           <Property Name="Note" Type="varchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.drug' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="drug">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Drug Code" Type="varchar" MaxLength="50" />
           <Property Name="Drug Name" Type="varchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
@@ -521,8 +458,6 @@ warning 6002: The table/view 'PamoDb.dbo.drug' does not have a primary key defin
           <Property Name="AttID" Type="bigint" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.encounter' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="encounter">
           <Key>
             <PropertyRef Name="ID" />
@@ -541,21 +476,18 @@ warning 6002: The table/view 'PamoDb.dbo.encounter' does not have a primary key 
           <Property Name="Approved" Type="decimal" Precision="11" Scale="2" />
           <Property Name="Patient" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.eregister' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="eregister">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Company" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card Number" Type="varchar" MaxLength="50" />
           <Property Name="HMO" Type="varchar" MaxLength="50" />
           <Property Name="Code" Type="varchar" MaxLength="50" />
           <Property Name="Family Name" Type="varchar" MaxLength="50" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Location" Type="varchar" MaxLength="50" />
-          <Property Name="Company" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Company" Type="varchar" MaxLength="50" />
           <Property Name="Company Code" Type="varchar" MaxLength="50" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="Position" Type="varchar" MaxLength="50" />
@@ -590,29 +522,22 @@ warning 6002: The table/view 'PamoDb.dbo.eregister' does not have a primary key 
           <Property Name="Age Group" Type="varchar" MaxLength="50" />
           <Property Name="NHIS" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.event' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="event">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="varchar(max)" />
           <Property Name="Content" Type="varchar(max)" />
           <Property Name="Date" Type="date" />
           <Property Name="Author" Type="varchar" MaxLength="32" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.events' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="events">
           <Key>
-            <PropertyRef Name="event_id" />
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Date" />
-            <PropertyRef Name="Author" />
           </Key>
           <Property Name="event_id" Type="int" Nullable="false" />
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="varchar(max)" />
           <Property Name="Content" Type="varchar(max)" />
           <Property Name="Date" Type="date" Nullable="false" />
@@ -630,88 +555,70 @@ warning 6002: The table/view 'PamoDb.dbo.grade level' does not have a primary ke
           <Property Name="company" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="id" Type="bigint" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.grouping' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="grouping">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Age Group" Type="varchar" MaxLength="50" />
           <Property Name="Sex" Type="varchar" MaxLength="10" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.haematology' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="haematology">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Card" />
-            <PropertyRef Name="Report" />
-            <PropertyRef Name="Date" />
-            <PropertyRef Name="Remarks" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card" Type="varchar" MaxLength="24" Nullable="false" />
           <Property Name="Report" Type="varchar(max)" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Remarks" Type="varchar(max)" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.heads' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="heads">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
           <Property Name="Code" Type="varchar" MaxLength="50" />
           <Property Name="Remarks" Type="varchar" MaxLength="50" />
           <Property Name="Category" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.history' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="history">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card Number" Type="varchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
           <Property Name="History" Type="varchar(max)" />
           <Property Name="Taken By" Type="varchar" MaxLength="50" />
           <Property Name="AttID" Type="bigint" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.hmo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="hmo">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="HMO" Type="varchar" MaxLength="50" />
           <Property Name="Address" Type="varchar" MaxLength="100" />
           <Property Name="HMO Code" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.investigations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="investigations">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Investigations" Type="varchar" MaxLength="50" />
           <Property Name="Category" Type="varchar" MaxLength="50" />
           <Property Name="G-DRG" Type="varchar" MaxLength="30" />
           <Property Name="Tarrif" Type="decimal" Precision="11" Scale="2" />
           <Property Name="Tarrif (Catering)" Type="numeric" Precision="11" Scale="2" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.investigatn' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="investigatn">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card Number" Type="varchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
           <Property Name="Investigation" Type="varchar" MaxLength="70" />
@@ -721,15 +628,12 @@ warning 6002: The table/view 'PamoDb.dbo.investigatn' does not have a primary ke
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="invID" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.lab' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="lab">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="id_test" />
           </Key>
           <Property Name="Card" Type="varchar" MaxLength="20" />
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_test" Type="int" Nullable="false" />
           <Property Name="Sodium" Type="varchar" MaxLength="20" />
           <Property Name="Potasium" Type="varchar" MaxLength="20" />
@@ -777,14 +681,12 @@ warning 6002: The table/view 'PamoDb.dbo.lab' does not have a primary key define
           <Property Name="Date" Type="date" />
           <Property Name="Remarks" Type="varchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.lab2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="lab2">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="Card" Type="varchar" MaxLength="20" />
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Sodium" Type="varchar" MaxLength="20" />
           <Property Name="Potasium" Type="varchar" MaxLength="20" />
           <Property Name="Chloride" Type="varchar" MaxLength="20" />
@@ -829,14 +731,11 @@ warning 6002: The table/view 'PamoDb.dbo.lab2' does not have a primary key defin
           <Property Name="Bilbrium" Type="varchar" MaxLength="20" />
           <Property Name="Others" Type="varchar" MaxLength="20" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.labh' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="labh">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="id_test" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card" Type="varchar" MaxLength="20" />
           <Property Name="id_test" Type="int" Nullable="false" />
           <Property Name="Hb" Type="varchar" MaxLength="20" />
@@ -869,15 +768,11 @@ warning 6002: The table/view 'PamoDb.dbo.labh' does not have a primary key defin
           <Property Name="Date" Type="date" />
           <Property Name="Remarks" Type="varchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.labp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="labp">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="id_test" />
-            <PropertyRef Name="sReport" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card" Type="varchar" MaxLength="20" />
           <Property Name="id_test" Type="int" Nullable="false" />
           <Property Name="Macroscopy" Type="varchar" MaxLength="50" />
@@ -911,13 +806,11 @@ warning 6002: The table/view 'PamoDb.dbo.labp' does not have a primary key defin
           <Property Name="Date" Type="date" />
           <Property Name="Remarks" Type="varchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.labrequest' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="labrequest">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card Number" Type="varchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
           <Property Name="Test" Type="varchar" MaxLength="70" />
@@ -927,16 +820,13 @@ warning 6002: The table/view 'PamoDb.dbo.labrequest' does not have a primary key
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="Paid" Type="smallint" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.labw' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="labw">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="id_test" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Card" Type="varchar" MaxLength="20" />
-          <Property Name="id_test" Type="int" Nullable="false" />
+          <Property Name="id_test" Type="int" />
           <Property Name="wH" Type="varchar" MaxLength="50" />
           <Property Name="wO" Type="varchar" MaxLength="50" />
           <Property Name="wAH" Type="varchar" MaxLength="50" />
@@ -1780,237 +1670,50 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Property Name="zz" Type="decimal" Precision="10" Scale="2" />
         </EntityType>-->
         <EntityContainer Name="PamoDbModelStoreContainer">
-          <EntitySet Name="analysis" EntityType="Self.analysis" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [analysis].[ID] AS [ID], 
-    [analysis].[iclass] AS [iclass], 
-    [analysis].[idetails] AS [idetails], 
-    [analysis].[idate] AS [idate], 
-    [analysis].[iamount] AS [iamount], 
-    [analysis].[eclass] AS [eclass], 
-    [analysis].[edetails] AS [edetails], 
-    [analysis].[edate] AS [edate], 
-    [analysis].[eamount] AS [eamount]
-    FROM [dbo].[analysis] AS [analysis]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="anc" EntityType="Self.anc" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [anc].[ID] AS [ID], 
-    [anc].[Date] AS [Date], 
-    [anc].[Card Number] AS [Card Number], 
-    [anc].[Visit] AS [Visit], 
-    [anc].[Parity] AS [Parity], 
-    [anc].[BP] AS [BP], 
-    [anc].[Height] AS [Height], 
-    [anc].[Weight] AS [Weight], 
-    [anc].[Gestation] AS [Gestation], 
-    [anc].[FHH] AS [FHH], 
-    [anc].[EDD] AS [EDD], 
-    [anc].[HB@Reg] AS [HB@Reg], 
-    [anc].[HB@36wk] AS [HB@36wk], 
-    [anc].[Blood Group] AS [Blood Group], 
-    [anc].[Sickling] AS [Sickling], 
-    [anc].[VDLL] AS [VDLL], 
-    [anc].[PMTCT] AS [PMTCT], 
-    [anc].[ARV] AS [ARV], 
-    [anc].[TT] AS [TT], 
-    [anc].[IPT] AS [IPT], 
-    [anc].[ITW] AS [ITW], 
-    [anc].[Diagnosis] AS [Diagnosis], 
-    [anc].[Remark] AS [Remark], 
-    [anc].[Referred To] AS [Referred To], 
-    [anc].[Risk Factor] AS [Risk Factor], 
-    [anc].[Physician] AS [Physician], 
-    [anc].[Cycle] AS [Cycle], 
-    [anc].[LMP] AS [LMP], 
-    [anc].[Gestation Age] AS [Gestation Age], 
-    [anc].[Temp] AS [Temp], 
-    [anc].[SFH] AS [SFH], 
-    [anc].[HIV] AS [HIV], 
-    [anc].[Hep B] AS [Hep B], 
-    [anc].[PH] AS [PH], 
-    [anc].[Urine] AS [Urine], 
-    [anc].[Presentation] AS [Presentation], 
-    [anc].[Lie] AS [Lie], 
-    [anc].[FHR] AS [FHR]
-    FROM [dbo].[anc] AS [anc]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="appointment" EntityType="Self.appointment" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [appointment].[ID] AS [ID], 
-    [appointment].[Date] AS [Date], 
-    [appointment].[Appt Date] AS [Appt Date], 
-    [appointment].[Doctor] AS [Doctor], 
-    [appointment].[Card Number] AS [Card Number], 
-    [appointment].[AttID] AS [AttID], 
-    [appointment].[Appt Type] AS [Appt Type], 
-    [appointment].[Time] AS [Time]
-    FROM [dbo].[appointment] AS [appointment]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="assetCategory" EntityType="Self.assetCategory" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [assetCategory].[ID] AS [ID], 
-    [assetCategory].[Category] AS [Category]
-    FROM [dbo].[assetCategory] AS [assetCategory]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="assets" EntityType="Self.assets" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [assets].[ID] AS [ID], 
-    [assets].[Code] AS [Code], 
-    [assets].[Location] AS [Location], 
-    [assets].[Category] AS [Category], 
-    [assets].[Name] AS [Name], 
-    [assets].[Description] AS [Description], 
-    [assets].[Make] AS [Make], 
-    [assets].[Quantity] AS [Quantity], 
-    [assets].[Date Acquired] AS [Date Acquired], 
-    [assets].[Date Sold] AS [Date Sold], 
-    [assets].[Purchase Price] AS [Purchase Price], 
-    [assets].[Current Value] AS [Current Value], 
-    [assets].[Status] AS [Status], 
-    [assets].[Serial No] AS [Serial No], 
-    [assets].[Next Maintenance] AS [Next Maintenance], 
-    [assets].[Comment] AS [Comment], 
-    [assets].[Sold] AS [Sold], 
-    [assets].[Amount Sold] AS [Amount Sold], 
-    [assets].[Depreciation] AS [Depreciation], 
-    [assets].[Life Span] AS [Life Span], 
-    [assets].[Depreciation Rate] AS [Depreciation Rate], 
-    [assets].[Depreciation Method] AS [Depreciation Method], 
-    [assets].[Netbook Value] AS [Netbook Value]
-    FROM [dbo].[assets] AS [assets]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="assetStatus" EntityType="Self.assetStatus" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [assetStatus].[ID] AS [ID], 
-    [assetStatus].[Status] AS [Status]
-    FROM [dbo].[assetStatus] AS [assetStatus]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="attendance" EntityType="Self.attendance" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [attendance].[ID] AS [ID], 
-    [attendance].[Card Number] AS [Card Number], 
-    [attendance].[Date] AS [Date], 
-    [attendance].[Attended] AS [Attended], 
-    [attendance].[Consultant] AS [Consultant], 
-    [attendance].[Room] AS [Room], 
-    [attendance].[Diagnosis] AS [Diagnosis], 
-    [attendance].[Service Type] AS [Service Type], 
-    [attendance].[Outcome] AS [Outcome], 
-    [attendance].[Attendance Type] AS [Attendance Type], 
-    [attendance].[Age] AS [Age], 
-    [attendance].[NHIS No] AS [NHIS No], 
-    [attendance].[Sex] AS [Sex], 
-    [attendance].[Month] AS [Month], 
-    [attendance].[schemeID] AS [schemeID], 
-    [attendance].[Special Code] AS [Special Code], 
-    [attendance].[Description] AS [Description], 
-    [attendance].[Package] AS [Package], 
-    [attendance].[Position] AS [Position]
-    FROM [dbo].[attendance] AS [attendance]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="bank" EntityType="Self.bank" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [bank].[BankID] AS [BankID], 
-    [bank].[Name] AS [Name], 
-    [bank].[Branch] AS [Branch], 
-    [bank].[Online] AS [Online], 
-    [bank].[Location] AS [Location], 
-    [bank].[BankCode] AS [BankCode]
-    FROM [dbo].[bank] AS [bank]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="bills" EntityType="Self.bills" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [bills].[ID] AS [ID], 
-    [bills].[Card Number] AS [Card Number], 
-    [bills].[Patient Name] AS [Patient Name], 
-    [bills].[NHIS Number] AS [NHIS Number], 
-    [bills].[Shift] AS [Shift], 
-    [bills].[Date] AS [Date], 
-    [bills].[Company Name] AS [Company Name], 
-    [bills].[Category] AS [Category], 
-    [bills].[Cashier] AS [Cashier], 
-    [bills].[Bill Type] AS [Bill Type], 
-    [bills].[Amount] AS [Amount], 
-    [bills].[Amount Paid] AS [Amount Paid], 
-    [bills].[Transaction Type] AS [Transaction Type], 
-    [bills].[Details] AS [Details], 
-    [bills].[Month] AS [Month], 
-    [bills].[Year] AS [Year], 
-    [bills].[Paid] AS [Paid], 
-    [bills].[Quantity] AS [Quantity], 
-    [bills].[Doctor] AS [Doctor]
-    FROM [dbo].[bills] AS [bills]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="billType" EntityType="Self.billType" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [billType].[ID] AS [ID], 
-    [billType].[Type] AS [Type]
-    FROM [dbo].[billType] AS [billType]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="billupdate" EntityType="Self.billupdate" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [billupdate].[ID] AS [ID], 
-    [billupdate].[Transaction Type] AS [Transaction Type], 
-    [billupdate].[Rate] AS [Rate], 
-    [billupdate].[Qty] AS [Qty], 
-    [billupdate].[Amount] AS [Amount], 
-    [billupdate].[Cashier] AS [Cashier]
-    FROM [dbo].[billupdate] AS [billupdate]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="biovitals" EntityType="Self.biovitals" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [biovitals].[ID] AS [ID], 
-    [biovitals].[Card Number] AS [Card Number], 
-    [biovitals].[Date] AS [Date], 
-    [biovitals].[Weight] AS [Weight], 
-    [biovitals].[Height] AS [Height], 
-    [biovitals].[BP] AS [BP], 
-    [biovitals].[Fasting] AS [Fasting], 
-    [biovitals].[Mass] AS [Mass], 
-    [biovitals].[AttID] AS [AttID], 
-    [biovitals].[Taken By] AS [Taken By], 
-    [biovitals].[Pulse] AS [Pulse], 
-    [biovitals].[Temp] AS [Temp], 
-    [biovitals].[RBS] AS [RBS]
-    FROM [dbo].[biovitals] AS [biovitals]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="budget" EntityType="Self.budget" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [budget].[ID] AS [ID], 
-    [budget].[Type] AS [Type], 
-    [budget].[Month] AS [Month], 
-    [budget].[Class] AS [Class], 
-    [budget].[Budget] AS [Budget]
-    FROM [dbo].[budget] AS [budget]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="cash" EntityType="Self.cash" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [cash].[ID] AS [ID], 
-    [cash].[Type] AS [Type], 
-    [cash].[Date] AS [Date], 
-    [cash].[Classification] AS [Classification], 
-    [cash].[Particulars] AS [Particulars], 
-    [cash].[Amount] AS [Amount], 
-    [cash].[Source] AS [Source], 
-    [cash].[Recipient] AS [Recipient], 
-    [cash].[Paid] AS [Paid], 
-    [cash].[Remark] AS [Remark], 
-    [cash].[Bank] AS [Bank], 
-    [cash].[Account] AS [Account]
-    FROM [dbo].[cash] AS [cash]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="cheque" EntityType="Self.cheque" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [cheque].[ID] AS [ID], 
-    [cheque].[Type] AS [Type], 
-    [cheque].[Date] AS [Date], 
-    [cheque].[Bank] AS [Bank], 
-    [cheque].[Cheque No] AS [Cheque No], 
-    [cheque].[Amount] AS [Amount], 
-    [cheque].[Particulars] AS [Particulars]
-    FROM [dbo].[cheque] AS [cheque]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="analysis" EntityType="Self.analysis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="anc" EntityType="Self.anc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="appointment" EntityType="Self.appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="assetCategory" EntityType="Self.assetCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="assets" EntityType="Self.assets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="assetStatus" EntityType="Self.assetStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="attendance" EntityType="Self.attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bank" EntityType="Self.bank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bills" EntityType="Self.bills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="billType" EntityType="Self.billType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="billupdate" EntityType="Self.billupdate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="biovitals" EntityType="Self.biovitals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="budget" EntityType="Self.budget" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cash" EntityType="Self.cash" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cheque" EntityType="Self.cheque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cms_access_levels" EntityType="Self.cms_access_levels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="company" EntityType="Self.company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="complaint" EntityType="Self.complaint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="consultingRoom" EntityType="Self.consultingRoom" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contract" EntityType="Self.contract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="delivery" EntityType="Self.delivery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="diagnosis" EntityType="Self.diagnosis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="diagnosis type" EntityType="Self.diagnosis type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="doctors" EntityType="Self.doctors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="drrounds" EntityType="Self.drrounds" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="drug" EntityType="Self.drug" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="encounter" EntityType="Self.encounter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="eregister" EntityType="Self.eregister" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="event" EntityType="Self.event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="events" EntityType="Self.events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="grouping" EntityType="Self.grouping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="haematology" EntityType="Self.haematology" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="heads" EntityType="Self.heads" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="history" EntityType="Self.history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hmo" EntityType="Self.hmo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="investigations" EntityType="Self.investigations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="investigatn" EntityType="Self.investigatn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lab" EntityType="Self.lab" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lab2" EntityType="Self.lab2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="labh" EntityType="Self.labh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="labp" EntityType="Self.labp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="labrequest" EntityType="Self.labrequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="labw" EntityType="Self.labw" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="claims" EntityType="Self.claims" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [claims].[ID] AS [ID], 
@@ -2024,505 +1727,12 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
     [claims].[Enrollee Code] AS [Enrollee Code]
     FROM [dbo].[claims] AS [claims]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="cms_access_levels" EntityType="Self.cms_access_levels" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [cms_access_levels].[access_lvl] AS [access_lvl], 
-    [cms_access_levels].[access_name] AS [access_name]
-    FROM [dbo].[cms_access_levels] AS [cms_access_levels]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="company" EntityType="Self.company" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [company].[ID] AS [ID], 
-    [company].[Company] AS [Company], 
-    [company].[Company Code] AS [Company Code], 
-    [company].[Margin] AS [Margin], 
-    [company].[LMargin] AS [LMargin], 
-    [company].[DMargin] AS [DMargin]
-    FROM [dbo].[company] AS [company]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="complaint" EntityType="Self.complaint" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [complaint].[ID] AS [ID], 
-    [complaint].[Card Number] AS [Card Number], 
-    [complaint].[Date] AS [Date], 
-    [complaint].[Category] AS [Category], 
-    [complaint].[Complaint] AS [Complaint], 
-    [complaint].[Descriptor] AS [Descriptor], 
-    [complaint].[Remark] AS [Remark], 
-    [complaint].[Taken By] AS [Taken By], 
-    [complaint].[AttID] AS [AttID]
-    FROM [dbo].[complaint] AS [complaint]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="consultingRoom" EntityType="Self.consultingRoom" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [consultingRoom].[ID] AS [ID], 
-    [consultingRoom].[Room] AS [Room]
-    FROM [dbo].[consultingRoom] AS [consultingRoom]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="contract" EntityType="Self.contract" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [contract].[ID] AS [ID], 
-    [contract].[Contractor] AS [Contractor], 
-    [contract].[Contract Date] AS [Contract Date], 
-    [contract].[Contract Title] AS [Contract Title], 
-    [contract].[Contract Category] AS [Contract Category], 
-    [contract].[Paid] AS [Paid], 
-    [contract].[Amount] AS [Amount], 
-    [contract].[Amount Paid] AS [Amount Paid], 
-    [contract].[Contact] AS [Contact], 
-    [contract].[Contract Status] AS [Contract Status], 
-    [contract].[Bank] AS [Bank], 
-    [contract].[Account] AS [Account], 
-    [contract].[Remark] AS [Remark]
-    FROM [dbo].[contract] AS [contract]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="delivery" EntityType="Self.delivery" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [delivery].[ID] AS [ID], 
-    [delivery].[Date] AS [Date], 
-    [delivery].[Card Number] AS [Card Number], 
-    [delivery].[Parity] AS [Parity], 
-    [delivery].[Presentation] AS [Presentation], 
-    [delivery].[Birth Weight] AS [Birth Weight], 
-    [delivery].[Sex] AS [Sex], 
-    [delivery].[Delivery Type] AS [Delivery Type], 
-    [delivery].[Condition] AS [Condition], 
-    [delivery].[APGAR Score] AS [APGAR Score], 
-    [delivery].[Fully Dilate] AS [Fully Dilate], 
-    [delivery].[Delivered By] AS [Delivered By], 
-    [delivery].[Vit A1] AS [Vit A1], 
-    [delivery].[Vit A2] AS [Vit A2], 
-    [delivery].[AVR] AS [AVR], 
-    [delivery].[Complication] AS [Complication], 
-    [delivery].[IPT Doses] AS [IPT Doses], 
-    [delivery].[PMTC] AS [PMTC], 
-    [delivery].[Remark] AS [Remark], 
-    [delivery].[Refered To] AS [Refered To], 
-    [delivery].[Refered From] AS [Refered From], 
-    [delivery].[Still Birth] AS [Still Birth], 
-    [delivery].[Multiple] AS [Multiple]
-    FROM [dbo].[delivery] AS [delivery]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="department" EntityType="Self.department" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [department].[Dept ID] AS [Dept ID], 
-    [department].[Dept] AS [Dept], 
-    [department].[DirID] AS [DirID], 
-    [department].[company] AS [company]
-    FROM [dbo].[department] AS [department]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="diagnosis" EntityType="Self.diagnosis" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [diagnosis].[ID] AS [ID], 
-    [diagnosis].[Card Number] AS [Card Number], 
-    [diagnosis].[Diagnosis] AS [Diagnosis], 
-    [diagnosis].[Description] AS [Description], 
-    [diagnosis].[Date] AS [Date], 
-    [diagnosis].[Diagnosed by] AS [Diagnosed by], 
-    [diagnosis].[Follow Up] AS [Follow Up], 
-    [diagnosis].[AttID] AS [AttID]
-    FROM [dbo].[diagnosis] AS [diagnosis]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="diagnosis type" EntityType="Self.diagnosis type" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [diagnosis type].[ID] AS [ID], 
-    [diagnosis type].[Type] AS [Type], 
-    [diagnosis type].[Classification] AS [Classification], 
-    [diagnosis type].[G-DRG] AS [G-DRG], 
-    [diagnosis type].[Tarrif] AS [Tarrif], 
-    [diagnosis type].[Tarrif (Catering)] AS [Tarrif (Catering)]
-    FROM [dbo].[diagnosis type] AS [diagnosis type]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="doctors" EntityType="Self.doctors" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [doctors].[ID] AS [ID], 
-    [doctors].[Doctor] AS [Doctor], 
-    [doctors].[Specialization] AS [Specialization]
-    FROM [dbo].[doctors] AS [doctors]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="drrounds" EntityType="Self.drrounds" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [drrounds].[ID] AS [ID], 
-    [drrounds].[Date] AS [Date], 
-    [drrounds].[Card Number] AS [Card Number], 
-    [drrounds].[Hour] AS [Hour], 
-    [drrounds].[Nurse] AS [Nurse], 
-    [drrounds].[Note] AS [Note]
-    FROM [dbo].[drrounds] AS [drrounds]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="drug" EntityType="Self.drug" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [drug].[ID] AS [ID], 
-    [drug].[Drug Code] AS [Drug Code], 
-    [drug].[Drug Name] AS [Drug Name], 
-    [drug].[Date] AS [Date], 
-    [drug].[Qnty] AS [Qnty], 
-    [drug].[Cost] AS [Cost], 
-    [drug].[Patient Name] AS [Patient Name], 
-    [drug].[Given By] AS [Given By], 
-    [drug].[Card Number] AS [Card Number], 
-    [drug].[AttID] AS [AttID], 
-    [drug].[Status] AS [Status]
-    FROM [dbo].[drug] AS [drug]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="encounter" EntityType="Self.encounter" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [encounter].[ID] AS [ID], 
-    [encounter].[First Name] AS [First Name], 
-    [encounter].[Surname] AS [Surname], 
-    [encounter].[Card Number] AS [Card Number], 
-    [encounter].[Facility] AS [Facility], 
-    [encounter].[Dept] AS [Dept], 
-    [encounter].[Date] AS [Date], 
-    [encounter].[Diagnosis] AS [Diagnosis], 
-    [encounter].[Service] AS [Service], 
-    [encounter].[Cost] AS [Cost], 
-    [encounter].[Provider] AS [Provider], 
-    [encounter].[Approved] AS [Approved], 
-    [encounter].[Patient] AS [Patient]
-    FROM [dbo].[encounter] AS [encounter]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="eregister" EntityType="Self.eregister" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [eregister].[ID] AS [ID], 
-    [eregister].[Card Number] AS [Card Number], 
-    [eregister].[HMO] AS [HMO], 
-    [eregister].[Code] AS [Code], 
-    [eregister].[Family Name] AS [Family Name], 
-    [eregister].[Name] AS [Name], 
-    [eregister].[Location] AS [Location], 
-    [eregister].[Company] AS [Company], 
-    [eregister].[Company Code] AS [Company Code], 
-    [eregister].[Status] AS [Status], 
-    [eregister].[Position] AS [Position], 
-    [eregister].[Designation] AS [Designation], 
-    [eregister].[Occupation] AS [Occupation], 
-    [eregister].[DoB] AS [DoB], 
-    [eregister].[Dept] AS [Dept], 
-    [eregister].[Sex] AS [Sex], 
-    [eregister].[Marital Status] AS [Marital Status], 
-    [eregister].[Age] AS [Age], 
-    [eregister].[Blood Group] AS [Blood Group], 
-    [eregister].[National ID] AS [National ID], 
-    [eregister].[Phone] AS [Phone], 
-    [eregister].[Address] AS [Address], 
-    [eregister].[Diabetes] AS [Diabetes], 
-    [eregister].[Epilepsy] AS [Epilepsy], 
-    [eregister].[Hypertension] AS [Hypertension], 
-    [eregister].[Sickle Cell] AS [Sickle Cell], 
-    [eregister].[Allergies] AS [Allergies], 
-    [eregister].[Others] AS [Others], 
-    [eregister].[Reg Date] AS [Reg Date], 
-    [eregister].[NHIS No] AS [NHIS No], 
-    [eregister].[NKin] AS [NKin], 
-    [eregister].[NKContact] AS [NKContact], 
-    [eregister].[Scheme] AS [Scheme], 
-    [eregister].[SchemeID] AS [SchemeID], 
-    [eregister].[Religion] AS [Religion], 
-    [eregister].[Postal Address] AS [Postal Address], 
-    [eregister].[email] AS [email], 
-    [eregister].[District] AS [District], 
-    [eregister].[Sub District] AS [Sub District], 
-    [eregister].[Age Group] AS [Age Group], 
-    [eregister].[NHIS] AS [NHIS]
-    FROM [dbo].[eregister] AS [eregister]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="event" EntityType="Self.event" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [event].[ID] AS [ID], 
-    [event].[Title] AS [Title], 
-    [event].[Content] AS [Content], 
-    [event].[Date] AS [Date], 
-    [event].[Author] AS [Author]
-    FROM [dbo].[event] AS [event]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="events" EntityType="Self.events" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [events].[event_id] AS [event_id], 
-    [events].[ID] AS [ID], 
-    [events].[Title] AS [Title], 
-    [events].[Content] AS [Content], 
-    [events].[Date] AS [Date], 
-    [events].[Author] AS [Author]
-    FROM [dbo].[events] AS [events]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="grade level" EntityType="Self.grade level" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [grade level].[GL] AS [GL], 
     [grade level].[company] AS [company], 
     [grade level].[id] AS [id]
     FROM [dbo].[grade level] AS [grade level]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="grouping" EntityType="Self.grouping" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [grouping].[ID] AS [ID], 
-    [grouping].[Age Group] AS [Age Group], 
-    [grouping].[Sex] AS [Sex]
-    FROM [dbo].[grouping] AS [grouping]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="haematology" EntityType="Self.haematology" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [haematology].[ID] AS [ID], 
-    [haematology].[Card] AS [Card], 
-    [haematology].[Report] AS [Report], 
-    [haematology].[Date] AS [Date], 
-    [haematology].[Remarks] AS [Remarks]
-    FROM [dbo].[haematology] AS [haematology]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="heads" EntityType="Self.heads" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [heads].[ID] AS [ID], 
-    [heads].[Description] AS [Description], 
-    [heads].[Code] AS [Code], 
-    [heads].[Remarks] AS [Remarks], 
-    [heads].[Category] AS [Category]
-    FROM [dbo].[heads] AS [heads]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="history" EntityType="Self.history" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [history].[ID] AS [ID], 
-    [history].[Card Number] AS [Card Number], 
-    [history].[Date] AS [Date], 
-    [history].[History] AS [History], 
-    [history].[Taken By] AS [Taken By], 
-    [history].[AttID] AS [AttID]
-    FROM [dbo].[history] AS [history]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="hmo" EntityType="Self.hmo" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [hmo].[ID] AS [ID], 
-    [hmo].[HMO] AS [HMO], 
-    [hmo].[Address] AS [Address], 
-    [hmo].[HMO Code] AS [HMO Code]
-    FROM [dbo].[hmo] AS [hmo]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="investigations" EntityType="Self.investigations" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [investigations].[ID] AS [ID], 
-    [investigations].[Investigations] AS [Investigations], 
-    [investigations].[Category] AS [Category], 
-    [investigations].[G-DRG] AS [G-DRG], 
-    [investigations].[Tarrif] AS [Tarrif], 
-    [investigations].[Tarrif (Catering)] AS [Tarrif (Catering)]
-    FROM [dbo].[investigations] AS [investigations]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="investigatn" EntityType="Self.investigatn" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [investigatn].[ID] AS [ID], 
-    [investigatn].[Card Number] AS [Card Number], 
-    [investigatn].[Date] AS [Date], 
-    [investigatn].[Investigation] AS [Investigation], 
-    [investigatn].[Remark] AS [Remark], 
-    [investigatn].[Request By] AS [Request By], 
-    [investigatn].[AttID] AS [AttID], 
-    [investigatn].[Status] AS [Status], 
-    [investigatn].[invID] AS [invID]
-    FROM [dbo].[investigatn] AS [investigatn]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="lab" EntityType="Self.lab" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [lab].[Card] AS [Card], 
-    [lab].[ID] AS [ID], 
-    [lab].[id_test] AS [id_test], 
-    [lab].[Sodium] AS [Sodium], 
-    [lab].[Potasium] AS [Potasium], 
-    [lab].[Chloride] AS [Chloride], 
-    [lab].[Bicarbonate] AS [Bicarbonate], 
-    [lab].[Urea] AS [Urea], 
-    [lab].[Creatitine] AS [Creatitine], 
-    [lab].[Uric Acid] AS [Uric Acid], 
-    [lab].[Calcium] AS [Calcium], 
-    [lab].[Phosphorus] AS [Phosphorus], 
-    [lab].[Total Proteins] AS [Total Proteins], 
-    [lab].[Albumin] AS [Albumin], 
-    [lab].[Cholesterol] AS [Cholesterol], 
-    [lab].[Triglyceride] AS [Triglyceride], 
-    [lab].[HDL] AS [HDL], 
-    [lab].[LDL] AS [LDL], 
-    [lab].[SGOT] AS [SGOT], 
-    [lab].[SGPT] AS [SGPT], 
-    [lab].[Alk Phos] AS [Alk Phos], 
-    [lab].[Amylase] AS [Amylase], 
-    [lab].[Acid Phost] AS [Acid Phost], 
-    [lab].[Acid Phosp] AS [Acid Phosp], 
-    [lab].[PSA] AS [PSA], 
-    [lab].[Fasting] AS [Fasting], 
-    [lab].[Random] AS [Random], 
-    [lab].[2HPP] AS [2HPP], 
-    [lab].[GTT] AS [GTT], 
-    [lab].[Total] AS [Total], 
-    [lab].[Direct] AS [Direct], 
-    [lab].[Indirect] AS [Indirect], 
-    [lab].[Pregnancy Test] AS [Pregnancy Test], 
-    [lab].[Stool Occult Blood] AS [Stool Occult Blood], 
-    [lab].[Appearance] AS [Appearance], 
-    [lab].[PH] AS [PH], 
-    [lab].[Urobilinogen] AS [Urobilinogen], 
-    [lab].[Colour] AS [Colour], 
-    [lab].[Protein] AS [Protein], 
-    [lab].[Nitrite] AS [Nitrite], 
-    [lab].[Glucose] AS [Glucose], 
-    [lab].[Ascorbic Acid] AS [Ascorbic Acid], 
-    [lab].[Ketones] AS [Ketones], 
-    [lab].[SG] AS [SG], 
-    [lab].[Bilbrium] AS [Bilbrium], 
-    [lab].[Others] AS [Others], 
-    [lab].[Date] AS [Date], 
-    [lab].[Remarks] AS [Remarks]
-    FROM [dbo].[lab] AS [lab]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="lab2" EntityType="Self.lab2" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [lab2].[Card] AS [Card], 
-    [lab2].[ID] AS [ID], 
-    [lab2].[Sodium] AS [Sodium], 
-    [lab2].[Potasium] AS [Potasium], 
-    [lab2].[Chloride] AS [Chloride], 
-    [lab2].[Bicarbonate] AS [Bicarbonate], 
-    [lab2].[Urea] AS [Urea], 
-    [lab2].[Creatitine] AS [Creatitine], 
-    [lab2].[Uric Acid] AS [Uric Acid], 
-    [lab2].[Calcium] AS [Calcium], 
-    [lab2].[Phosphorus] AS [Phosphorus], 
-    [lab2].[Total Proteins] AS [Total Proteins], 
-    [lab2].[Albumin] AS [Albumin], 
-    [lab2].[Cholesterol] AS [Cholesterol], 
-    [lab2].[Triglyceride] AS [Triglyceride], 
-    [lab2].[HDL] AS [HDL], 
-    [lab2].[LDL] AS [LDL], 
-    [lab2].[SGOT] AS [SGOT], 
-    [lab2].[SGPT] AS [SGPT], 
-    [lab2].[Alk Phos] AS [Alk Phos], 
-    [lab2].[Amylase] AS [Amylase], 
-    [lab2].[Acid Phost] AS [Acid Phost], 
-    [lab2].[Acid Phosp] AS [Acid Phosp], 
-    [lab2].[PSA] AS [PSA], 
-    [lab2].[Fasting] AS [Fasting], 
-    [lab2].[Random] AS [Random], 
-    [lab2].[2HPP] AS [2HPP], 
-    [lab2].[GTT] AS [GTT], 
-    [lab2].[Total] AS [Total], 
-    [lab2].[Direct] AS [Direct], 
-    [lab2].[Indirect] AS [Indirect], 
-    [lab2].[Pregnancy Test] AS [Pregnancy Test], 
-    [lab2].[Stool Occult Blood] AS [Stool Occult Blood], 
-    [lab2].[Appearance] AS [Appearance], 
-    [lab2].[PH] AS [PH], 
-    [lab2].[Urobilinogen] AS [Urobilinogen], 
-    [lab2].[Colour] AS [Colour], 
-    [lab2].[Protein] AS [Protein], 
-    [lab2].[Nitrite] AS [Nitrite], 
-    [lab2].[Glucose] AS [Glucose], 
-    [lab2].[Ascorbic Acid] AS [Ascorbic Acid], 
-    [lab2].[Ketones] AS [Ketones], 
-    [lab2].[SG] AS [SG], 
-    [lab2].[Bilbrium] AS [Bilbrium], 
-    [lab2].[Others] AS [Others]
-    FROM [dbo].[lab2] AS [lab2]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="labh" EntityType="Self.labh" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [labh].[ID] AS [ID], 
-    [labh].[Card] AS [Card], 
-    [labh].[id_test] AS [id_test], 
-    [labh].[Hb] AS [Hb], 
-    [labh].[Pcv] AS [Pcv], 
-    [labh].[WBC] AS [WBC], 
-    [labh].[MCHC] AS [MCHC], 
-    [labh].[ESR] AS [ESR], 
-    [labh].[Relics] AS [Relics], 
-    [labh].[Malaria Parasite] AS [Malaria Parasite], 
-    [labh].[Diff N] AS [Diff N], 
-    [labh].[Diff L] AS [Diff L], 
-    [labh].[Diff M] AS [Diff M], 
-    [labh].[Diff E] AS [Diff E], 
-    [labh].[Diff B] AS [Diff B], 
-    [labh].[Blood Film] AS [Blood Film], 
-    [labh].[Sicklin Test] AS [Sicklin Test], 
-    [labh].[Platelets Count] AS [Platelets Count], 
-    [labh].[Bleeding Time] AS [Bleeding Time], 
-    [labh].[Clothing Time] AS [Clothing Time], 
-    [labh].[Blood Group] AS [Blood Group], 
-    [labh].[Genotype] AS [Genotype], 
-    [labh].[Mantoux] AS [Mantoux], 
-    [labh].[VDRL] AS [VDRL], 
-    [labh].[Hepatitis] AS [Hepatitis], 
-    [labh].[HBeAg] AS [HBeAg], 
-    [labh].[Coombs Direct] AS [Coombs Direct], 
-    [labh].[Coombs Indirect] AS [Coombs Indirect], 
-    [labh].[HIV] AS [HIV], 
-    [labh].[Serum] AS [Serum], 
-    [labh].[Date] AS [Date], 
-    [labh].[Remarks] AS [Remarks]
-    FROM [dbo].[labh] AS [labh]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="labp" EntityType="Self.labp" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [labp].[ID] AS [ID], 
-    [labp].[Card] AS [Card], 
-    [labp].[id_test] AS [id_test], 
-    [labp].[Macroscopy] AS [Macroscopy], 
-    [labp].[Microscopy] AS [Microscopy], 
-    [labp].[Microfilaria] AS [Microfilaria], 
-    [labp].[Sputumaafb] AS [Sputumaafb], 
-    [labp].[Time Produced] AS [Time Produced], 
-    [labp].[Time Received] AS [Time Received], 
-    [labp].[Time Analyzed] AS [Time Analyzed], 
-    [labp].[Appearance] AS [Appearance], 
-    [labp].[Consistency] AS [Consistency], 
-    [labp].[Volume] AS [Volume], 
-    [labp].[Active] AS [Active], 
-    [labp].[Sluggish] AS [Sluggish], 
-    [labp].[Dead] AS [Dead], 
-    [labp].[TCC] AS [TCC], 
-    [labp].[MNC] AS [MNC], 
-    [labp].[AC] AS [AC], 
-    [labp].[sComment] AS [sComment], 
-    [labp].[Pus Cells] AS [Pus Cells], 
-    [labp].[Epithelial Cells] AS [Epithelial Cells], 
-    [labp].[RBC] AS [RBC], 
-    [labp].[Casts] AS [Casts], 
-    [labp].[Sperm Cells] AS [Sperm Cells], 
-    [labp].[Bacterial Cells] AS [Bacterial Cells], 
-    [labp].[Yeast Cells] AS [Yeast Cells], 
-    [labp].[Trichomonas] AS [Trichomonas], 
-    [labp].[Haematobium] AS [Haematobium], 
-    [labp].[cReport] AS [cReport], 
-    [labp].[sReport] AS [sReport], 
-    [labp].[Date] AS [Date], 
-    [labp].[Remarks] AS [Remarks]
-    FROM [dbo].[labp] AS [labp]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="labrequest" EntityType="Self.labrequest" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [labrequest].[ID] AS [ID], 
-    [labrequest].[Card Number] AS [Card Number], 
-    [labrequest].[Date] AS [Date], 
-    [labrequest].[Test] AS [Test], 
-    [labrequest].[Remark] AS [Remark], 
-    [labrequest].[Doctor] AS [Doctor], 
-    [labrequest].[AttID] AS [AttID], 
-    [labrequest].[Status] AS [Status], 
-    [labrequest].[Paid] AS [Paid]
-    FROM [dbo].[labrequest] AS [labrequest]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="labw" EntityType="Self.labw" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [labw].[ID] AS [ID], 
-    [labw].[Card] AS [Card], 
-    [labw].[id_test] AS [id_test], 
-    [labw].[wH] AS [wH], 
-    [labw].[wO] AS [wO], 
-    [labw].[wAH] AS [wAH], 
-    [labw].[wAO] AS [wAO], 
-    [labw].[wBH] AS [wBH], 
-    [labw].[wBO] AS [wBO], 
-    [labw].[wCH] AS [wCH], 
-    [labw].[wCO] AS [wCO], 
-    [labw].[wElisa] AS [wElisa], 
-    [labw].[Date] AS [Date], 
-    [labw].[Remarks] AS [Remarks]
-    FROM [dbo].[labw] AS [labw]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="lga" EntityType="Self.lga" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -3171,7 +2381,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="iclass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="idetails" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="idate" Type="DateTime" Precision="0" />
@@ -3184,9 +2394,8 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
         <EntityType Name="anc">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="FHR" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Visit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3223,13 +2432,13 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Property Name="Urine" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Presentation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Lie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FHR" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FHR" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="appointment">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Appt_Date" Type="DateTime" Precision="0" />
           <Property Name="Doctor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3242,14 +2451,14 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" />
           <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="asset">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3277,15 +2486,14 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="attendance">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Position" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Attended" Type="Int16" />
@@ -3303,13 +2511,13 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Property Name="Special_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Package" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Position" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="bank">
           <Key>
             <PropertyRef Name="BankID" />
           </Key>
-          <Property Name="BankID" Type="Int32" Nullable="false" />
+          <Property Name="BankID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Online" Type="Int16" />
@@ -3320,7 +2528,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Patient_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NHIS_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3344,14 +2552,14 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="billupdate">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Transaction_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Rate" Type="Decimal" Precision="13" Scale="2" />
           <Property Name="Qty" Type="Int64" />
@@ -3362,7 +2570,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Weight" Type="Decimal" Precision="5" Scale="2" />
@@ -3380,7 +2588,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Month" Type="DateTime" Precision="0" />
           <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3390,7 +2598,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Classification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3407,7 +2615,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Bank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3415,63 +2623,35 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Property Name="Amount" Type="Decimal" Precision="13" Scale="2" />
           <Property Name="Particulars" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="claim">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="HCP_Name" />
-            <PropertyRef Name="Enrollee_Name" />
-            <PropertyRef Name="Date" />
-            <PropertyRef Name="Item" />
-            <PropertyRef Name="Price" />
-            <PropertyRef Name="Remarks" />
-            <PropertyRef Name="Amount_Word" />
-            <PropertyRef Name="Enrollee_Code" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="HCP_Name" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Enrollee_Name" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Item" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Price" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Remarks" Type="String" MaxLength="460" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Amount_Word" Type="String" MaxLength="240" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Enrollee_Code" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityType Name="cms_access_levels">
           <Key>
             <PropertyRef Name="access_lvl" />
           </Key>
-          <Property Name="access_lvl" Type="Int32" Nullable="false" />
+          <Property Name="access_lvl" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="access_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="company">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Margin" />
-            <PropertyRef Name="LMargin" />
-            <PropertyRef Name="DMargin" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Company1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Company_Code" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Margin" Type="Decimal" Precision="11" Scale="2" Nullable="false" />
-          <Property Name="LMargin" Type="Decimal" Precision="11" Scale="2" Nullable="false" />
-          <Property Name="DMargin" Type="Decimal" Precision="11" Scale="2" Nullable="false" />
+          <Property Name="Margin" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="LMargin" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="DMargin" Type="Decimal" Precision="11" Scale="2" />
         </EntityType>
         <EntityType Name="complaint">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Category" />
-            <PropertyRef Name="Descriptor" />
-            <PropertyRef Name="Remark" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="Category" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
           <Property Name="Complaint1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Descriptor" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descriptor" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Taken_By" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AttID" Type="Int64" />
         </EntityType>
@@ -3479,14 +2659,14 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Room" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="contract">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Contractor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Contract_Date" Type="DateTime" Precision="0" />
           <Property Name="Contract_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3504,7 +2684,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Parity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3531,18 +2711,17 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
         <EntityType Name="department">
           <Key>
             <PropertyRef Name="Dept_ID" />
-            <PropertyRef Name="company" />
           </Key>
-          <Property Name="Dept_ID" Type="Int64" Nullable="false" />
+          <Property Name="Dept_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Dept" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DirID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="company" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="company" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="diagnosi">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Diagnosis" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -3555,7 +2734,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Classification" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Name="G_DRG" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -3566,7 +2745,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Doctor1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Specialization" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -3574,7 +2753,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Hour" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
@@ -3585,7 +2764,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Drug_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Drug_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
@@ -3618,16 +2797,15 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
         <EntityType Name="eregister">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Company" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="HMO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Family_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Company_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3666,7 +2844,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
@@ -3674,45 +2852,28 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
         </EntityType>
         <EntityType Name="event1">
           <Key>
-            <PropertyRef Name="event_id" />
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Date" />
-            <PropertyRef Name="Author" />
           </Key>
           <Property Name="event_id" Type="Int32" Nullable="false" />
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Author" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityType Name="grade_level">
-          <Key>
-            <PropertyRef Name="GL" />
-            <PropertyRef Name="company" />
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="GL" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="company" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="id" Type="Int64" Nullable="false" />
-        </EntityType>
         <EntityType Name="grouping">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Age_Group" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="haematology">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Card" />
-            <PropertyRef Name="Report" />
-            <PropertyRef Name="Date" />
-            <PropertyRef Name="Remarks" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card" Type="String" MaxLength="24" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Report" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
@@ -3722,7 +2883,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3732,7 +2893,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="History1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -3743,7 +2904,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="HMO1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="HMO_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3752,7 +2913,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Investigations" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="G_DRG" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -3763,7 +2924,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Investigation" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
@@ -3776,10 +2937,9 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
         <EntityType Name="lab">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="id_test" />
           </Key>
           <Property Name="Card" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_test" Type="Int32" Nullable="false" />
           <Property Name="Sodium" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Potasium" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -3832,7 +2992,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="Card" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Sodium" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Potasium" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Chloride" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -3880,9 +3040,8 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
         <EntityType Name="labh">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="id_test" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="id_test" Type="Int32" Nullable="false" />
           <Property Name="Hb" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -3918,10 +3077,8 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
         <EntityType Name="labp">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="id_test" />
-            <PropertyRef Name="sReport" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="id_test" Type="Int32" Nullable="false" />
           <Property Name="Macroscopy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3959,7 +3116,7 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Test" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
@@ -3972,11 +3129,10 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
         <EntityType Name="labw">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="id_test" />
           </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Card" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="id_test" Type="Int32" Nullable="false" />
+          <Property Name="id_test" Type="Int32" />
           <Property Name="wH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="wO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="wAH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -3988,6 +3144,38 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <Property Name="wElisa" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="claim">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="HCP_Name" />
+            <PropertyRef Name="Enrollee_Name" />
+            <PropertyRef Name="Date" />
+            <PropertyRef Name="Item" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="Remarks" />
+            <PropertyRef Name="Amount_Word" />
+            <PropertyRef Name="Enrollee_Code" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="HCP_Name" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Enrollee_Name" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Item" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="460" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Amount_Word" Type="String" MaxLength="240" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Enrollee_Code" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="grade_level">
+          <Key>
+            <PropertyRef Name="GL" />
+            <PropertyRef Name="company" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="GL" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="company" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="lga">
           <Key>
@@ -4710,7 +3898,6 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <EntitySet Name="budgets" EntityType="Self.budget" />
           <EntitySet Name="cashes" EntityType="Self.cash" />
           <EntitySet Name="cheques" EntityType="Self.cheque" />
-          <EntitySet Name="claims" EntityType="Self.claim" />
           <EntitySet Name="cms_access_levels" EntityType="Self.cms_access_levels" />
           <EntitySet Name="companies" EntityType="Self.company" />
           <EntitySet Name="complaints" EntityType="Self.complaint" />
@@ -4727,7 +3914,6 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <EntitySet Name="eregisters" EntityType="Self.eregister" />
           <EntitySet Name="events" EntityType="Self.event" />
           <EntitySet Name="events1" EntityType="Self.event1" />
-          <EntitySet Name="grade_levels" EntityType="Self.grade_level" />
           <EntitySet Name="groupings" EntityType="Self.grouping" />
           <EntitySet Name="haematologies" EntityType="Self.haematology" />
           <EntitySet Name="heads" EntityType="Self.head" />
@@ -4741,6 +3927,8 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
           <EntitySet Name="labps" EntityType="Self.labp" />
           <EntitySet Name="labrequests" EntityType="Self.labrequest" />
           <EntitySet Name="labws" EntityType="Self.labw" />
+          <EntitySet Name="claims" EntityType="Self.claim" />
+          <EntitySet Name="grade_levels" EntityType="Self.grade_level" />
           <EntitySet Name="lgas" EntityType="Self.lga" />
           <EntitySet Name="locations" EntityType="Self.location" />
           <EntitySet Name="logins" EntityType="Self.login" />
@@ -5056,21 +4244,6 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="claims">
-            <EntityTypeMapping TypeName="PamoDbModel.claim">
-              <MappingFragment StoreEntitySet="claims">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="HCP_Name" ColumnName="HCP Name" />
-                <ScalarProperty Name="Enrollee_Name" ColumnName="Enrollee Name" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Item" ColumnName="Item" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Amount_Word" ColumnName="Amount Word" />
-                <ScalarProperty Name="Enrollee_Code" ColumnName="Enrollee Code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="cms_access_levels">
             <EntityTypeMapping TypeName="PamoDbModel.cms_access_levels">
               <MappingFragment StoreEntitySet="cms_access_levels">
@@ -5322,15 +4495,6 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="grade_levels">
-            <EntityTypeMapping TypeName="PamoDbModel.grade_level">
-              <MappingFragment StoreEntitySet="grade level">
-                <ScalarProperty Name="GL" ColumnName="GL" />
-                <ScalarProperty Name="company" ColumnName="company" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5628,6 +4792,30 @@ warning 6013: The table/view 'PamoDb.dbo.zz' does not have a primary key defined
                 <ScalarProperty Name="wElisa" ColumnName="wElisa" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="claims">
+            <EntityTypeMapping TypeName="PamoDbModel.claim">
+              <MappingFragment StoreEntitySet="claims">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="HCP_Name" ColumnName="HCP Name" />
+                <ScalarProperty Name="Enrollee_Name" ColumnName="Enrollee Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Amount_Word" ColumnName="Amount Word" />
+                <ScalarProperty Name="Enrollee_Code" ColumnName="Enrollee Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="grade_levels">
+            <EntityTypeMapping TypeName="PamoDbModel.grade_level">
+              <MappingFragment StoreEntitySet="grade level">
+                <ScalarProperty Name="GL" ColumnName="GL" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

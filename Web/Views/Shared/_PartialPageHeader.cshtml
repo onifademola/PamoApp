@@ -1,0 +1,50 @@
+﻿
+<span class="title" id="txt1" style="color:darkblue; font-weight:300; font-size:medium"></span>
+<span class="description" id="txt2" style="color:dodgerblue"></span><br />
+<span>
+    @*<text style=" font-weight:200" id="clockboxTime2"></text>*@
+    @*<marquee behavior="scroll" direction="left" id="schldtl" style="color:white; font-weight:600">Pamo Clinic App</marquee>*@
+</span>
+
+
+<script>
+    function gPeriod() {
+
+        $.ajax({
+            url: "/Home/GetCurrentPeriod",
+            success: function (data) {
+                $("#csess").html(data != null ? data : 'N/A');
+            }
+        })
+    };
+
+    $(function () {
+        gPeriod();
+    });
+
+    $(function () {
+        function GetClocker() {
+            var ds = new Date();
+            var snday = ds.getDay(), snmonth = ds.getMonth(), sndate = ds.getDate(), snyear = ds.getYear();
+            if (snyear < 1000) snyear += 1900;
+            var snhour = ds.getHours(), snmin = ds.getMinutes(), snsec = ds.getSeconds(), sap;
+
+            if (snhour == 0) { sap = " AM"; snhour = 12; }
+            else if (snhour < 12) { sap = " AM"; }
+            else if (snhour == 12) { sap = " PM"; }
+            else if (snhour > 12) { sap = " PM"; snhour -= 12; }
+
+            if (snmin <= 9) snmin = "0" + snmin;
+            if (snsec <= 9) snsec = "0" + snsec;
+
+            document.getElementById('clockboxTime2').innerHTML = "" + snhour + ":" + snmin + ":" + snsec + sap + "";
+        }
+
+        //window.onload = function () {
+
+        //};
+
+        GetClocker();
+        setInterval(GetClocker, 1000);
+    });
+</script>

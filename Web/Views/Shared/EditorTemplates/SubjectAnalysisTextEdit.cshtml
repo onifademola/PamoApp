@@ -1,0 +1,14 @@
+﻿@using SIM.Model.ViewModel
+
+@(Html.Kendo().ComboBox()
+
+          .Name("Rating")
+          .DataTextField("Description")
+          .DataValueField("Description")
+          .Filter("contains")
+          .Suggest(true)
+          .Placeholder("choose a grade...")
+          .BindTo((IEnumerable<OtherGradingSystemVm>)ViewData["gradSys"])
+          .HtmlAttributes(new { data_value_primitive = true })
+//.BindTo((IList<SelectListItem>)ViewData["gradSys"]) //IEnumerable<OtherGradingSystemVm>
+)

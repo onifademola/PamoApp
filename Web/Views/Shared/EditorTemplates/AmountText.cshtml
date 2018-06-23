@@ -1,0 +1,8 @@
+@model double?
+
+@(Html.Kendo().NumericTextBoxFor(m => m)
+      .HtmlAttributes(new { style = "text-align:right;" })
+      .Min(0)
+      .Format("{0:0,00.00}")
+      .Spinners(true)
+)

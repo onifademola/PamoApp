@@ -1,0 +1,32 @@
+﻿@*@using DevExpress.Web.Mvc*@
+@using DevExpress.Web.Mvc.UI
+<head>
+    @Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView, Theme = "DevEx" },
+    //new StyleSheet { ExtensionSuite = ExtensionSuite.GridView, Theme = "Aqua" },
+    //new StyleSheet { ExtensionSuite = ExtensionSuite.GridView, Theme = "Glass" },
+    //new StyleSheet { ExtensionSuite = ExtensionSuite.GridView, Theme = "Office2010Blue" },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.GridView, Theme = "Office2010Black" },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.PivotGrid },
+    //new StyleSheet { ExtensionSuite = ExtensionSuite.Chart },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Report },
+    //new StyleSheet { ExtensionSuite = ExtensionSuite.Scheduler },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList }
+    )
+
+    @Html.DevExpress().GetScripts(
+    new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+    new Script { ExtensionSuite = ExtensionSuite.GridView },
+    new Script { ExtensionSuite = ExtensionSuite.PivotGrid },
+    new Script { ExtensionSuite = ExtensionSuite.Editors },
+    //new Script { ExtensionSuite = ExtensionSuite.Chart },
+    new Script { ExtensionSuite = ExtensionSuite.Report },
+    //new Script { ExtensionSuite = ExtensionSuite.Scheduler },
+    new Script { ExtensionSuite = ExtensionSuite.TreeList }
+)
+
+</head>

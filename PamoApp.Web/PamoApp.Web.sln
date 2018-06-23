@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "..\Web\Web.csproj", "{B38D9D96-687E-457B-9FD4-7E89E0A1822F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repo", "..\Repo\Repo.csproj", "{D5C78442-CC37-452C-92CA-987414489E48}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B38D9D96-687E-457B-9FD4-7E89E0A1822F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B38D9D96-687E-457B-9FD4-7E89E0A1822F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B38D9D96-687E-457B-9FD4-7E89E0A1822F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B38D9D96-687E-457B-9FD4-7E89E0A1822F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5C78442-CC37-452C-92CA-987414489E48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5C78442-CC37-452C-92CA-987414489E48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5C78442-CC37-452C-92CA-987414489E48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5C78442-CC37-452C-92CA-987414489E48}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

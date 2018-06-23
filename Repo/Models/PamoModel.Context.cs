@@ -40,7 +40,6 @@ namespace Repo.Models
         public virtual DbSet<budget> budgets { get; set; }
         public virtual DbSet<cash> cashes { get; set; }
         public virtual DbSet<cheque> cheques { get; set; }
-        public virtual DbSet<claim> claims { get; set; }
         public virtual DbSet<cms_access_levels> cms_access_levels { get; set; }
         public virtual DbSet<company> companies { get; set; }
         public virtual DbSet<complaint> complaints { get; set; }
@@ -57,7 +56,6 @@ namespace Repo.Models
         public virtual DbSet<eregister> eregisters { get; set; }
         public virtual DbSet<@event> events { get; set; }
         public virtual DbSet<event1> events1 { get; set; }
-        public virtual DbSet<grade_level> grade_levels { get; set; }
         public virtual DbSet<grouping> groupings { get; set; }
         public virtual DbSet<haematology> haematologies { get; set; }
         public virtual DbSet<head> heads { get; set; }
@@ -71,6 +69,8 @@ namespace Repo.Models
         public virtual DbSet<labp> labps { get; set; }
         public virtual DbSet<labrequest> labrequests { get; set; }
         public virtual DbSet<labw> labws { get; set; }
+        public virtual DbSet<claim> claims { get; set; }
+        public virtual DbSet<grade_level> grade_levels { get; set; }
         public virtual DbSet<lga> lgas { get; set; }
         public virtual DbSet<location> locations { get; set; }
         public virtual DbSet<login> logins { get; set; }

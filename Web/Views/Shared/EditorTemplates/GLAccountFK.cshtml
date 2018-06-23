@@ -1,0 +1,14 @@
+﻿
+@(Html.Kendo().ComboBox()
+
+          .Name("GLAccountId")
+          .DataTextField("Description")
+          .DataValueField("GLAccountId")
+          .Filter("contains")
+          .HighlightFirst(true)
+          .Suggest(true)
+          .Placeholder("Select GL Account")
+          .BindTo((System.Collections.IEnumerable)ViewData["glAccts"])
+          .AutoBind(true)
+          .IgnoreCase(true)
+)

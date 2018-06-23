@@ -26,6 +26,21 @@ namespace Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
+                "~/Scripts/kendo/kendo.all.min.js",
+                // "~/Scripts/kendo/kendo.timezones.min.js", // uncomment if using the Scheduler
+                "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/kendo/css").Include(
+                "~/Content/kendo/kendo.common.min.css",
+                "~/Content/kendo/kendo.default.min.css"));
+
+            bundles.IgnoreList.Clear();
+
+            // Set EnableOptimizations to false for debugging. For more information,
+            // visit http://go.microsoft.com/fwlink/?LinkId=301862
+            BundleTable.EnableOptimizations = true;
         }
     }
 }

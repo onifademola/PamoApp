@@ -1,0 +1,13 @@
+﻿
+@(Html.Kendo().ComboBox()
+
+          .Name("BValue")
+          .DataTextField("Text")
+          .DataValueField("Text")
+          .Filter("contains")
+          .HighlightFirst(true)
+          .Suggest(true)
+          .Placeholder("choose a grade...")
+          .BindTo((IEnumerable<SelectListItem>)ViewData["behavsGrad"])
+          .HtmlAttributes(new { data_value_primitive = true })
+)

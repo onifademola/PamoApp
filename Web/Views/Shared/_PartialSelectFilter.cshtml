@@ -1,0 +1,33 @@
+﻿
+<div class="col-md-4" id="filterBox">
+    <div class="panel panel-color panel-blue">
+        <div class="panel-heading" style="background-color:#1C3857;">
+            <i class="fa-5x fa fa-hand-o-right pull-left"></i>
+            <h5 class="panel-title" style="font-size:14px"> Select Filter</h5>
+            <div class="panel-options">
+                <a href="#" data-toggle="panel">
+                    <span class="collapse-icon">&ndash;</span>
+                    <span class="expand-icon">+</span>
+                </a>
+                <a href="#" data-toggle="reload" id="filterReload">
+                    <i class="fa-rotate-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div id="strt"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(
+        function () {
+            $("#strt").append($("#cmb1"));
+            $("#cmb1").append($("#cmb2"));
+            $("#cmb2").append($("#cmb3"));
+            $("#cmb3").append($("#cmb4"));
+            $("#cmb4").append($("#cmb5"));
+        }
+    )
+</script>

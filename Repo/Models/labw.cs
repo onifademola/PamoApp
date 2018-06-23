@@ -16,7 +16,7 @@ namespace Repo.Models
     {
         public long ID { get; set; }
         public string Card { get; set; }
-        public int id_test { get; set; }
+        public Nullable<int> id_test { get; set; }
         public string wH { get; set; }
         public string wO { get; set; }
         public string wAH { get; set; }

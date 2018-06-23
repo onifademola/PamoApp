@@ -1,0 +1,231 @@
+﻿<!-- #region REDEEMERS SCORES NAV -Start -->
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+<!-- #region Admin Scores Unit -->
+<li>
+    <a href="">
+        <i class="entypo-pencil"></i>
+        <span>Admin Scores Unit</span>
+    </a>
+    <ul>
+        <li>
+            <a href="/Remark/Attendance">
+                <i class="entypo-moon"></i>
+                <span>Manage Attendance</span>
+            </a>
+        </li>
+        <li>
+            <a href="/ReportRIS/ScoreMTIndex">
+                <i class="entypo-check"></i>
+                <span>Manage Mid Term Scores</span>
+            </a>
+        </li>
+        <li>
+            <a href="/ReportRIS/ScoreIndex">
+                <i class="entypo-check"></i>
+                <span>Manage Terminal Scores</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Remark/TraitTerminal">
+                <i class="entypo-signal"></i>
+                <span>Manage Psychomotors/Traits</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Remark/Score">
+                <i class="entypo-thumbs-up"></i>
+                <span>Manage Remarks</span>
+            </a>
+        </li>
+    </ul>
+</li>
+<!-- #endregion -->
+                    }
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Teacher"))
+                    {
+<!-- #region Teachers Score Unit -->
+<li>
+    <a href="/Score/Index">
+        <i class="entypo-pencil"></i>
+        <span>Scores Unit</span>
+    </a>
+    <ul>
+        <li>
+            <a href="/Remark/TeachersAttendance">
+                <i class="entypo-moon"></i>
+                <span>Manage Attendance</span>
+            </a>
+        </li>
+        <li>
+            <a href="/ReportRIS/ScoreMTTeacherIndex">
+                <i class="entypo-check"></i>
+                <span>Manage Mid Term Scores</span>
+            </a>
+        </li>
+        <li>
+            <a href="/ReportRIS/ScoreTeacherIndex">
+                <i class="entypo-check"></i>
+                <span>Manage Terminal Scores</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Remark/TeacherTrait">
+                <i class="entypo-signal"></i>
+                <span>Manage Psychomotors/Traits</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Remark/TeacherScore">
+                <i class="entypo-thumbs-up"></i>
+                <span>Manage Remarks</span>
+            </a>
+        </li>        
+    </ul>
+</li>
+<!-- #endregion -->
+                    }
+
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+<!-- #region Admin Scores Upload Unit -->
+<li>
+    @*<a href="#">
+            <i class="entypo-upload-cloud"></i>
+            <span>Admin Scores Upload</span>
+        </a>
+        <ul>
+            <li>
+                <a href="/ScoreUpload/MTAdminUpload">
+                    <i class="entypo-check"></i>
+                    <span>Mid Term Scores</span>
+                </a>
+            </li>
+            <li>
+                <a href="/ScoreUpload/AdminUpload">
+                    <i class="entypo-check"></i>
+                    <span>Terminal Scores</span>
+                </a>
+            </li>
+        </ul>*@
+</li>
+<!-- #endregion -->
+                    }
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Teacher"))
+                    {
+<!-- #region Teachers Score Upload Unit -->
+<li>
+    @*<a href="#">
+            <i class="entypo-upload-cloud"></i>
+            <span>Scores Upload Unit</span>
+        </a>
+        <ul>
+            <li>
+                <a href="/ScoreUpload/MTTeacherUpload">
+                    <i class="entypo-check"></i>
+                    <span>Mid Term Scores</span>
+                </a>
+            </li>
+            <li>
+                <a href="/ScoreUpload/TeacherUpload">
+                    <i class="entypo-check"></i>
+                    <span>Terminal Scores</span>
+                </a>
+            </li>
+        </ul>*@
+</li>
+<!-- #endregion -->
+                    }
+
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+<li>
+    <a href="#">
+        <i class="entypo-clipboard"></i>
+        <span>Report Unit</span>
+    </a>
+    <ul>
+        <li>
+            <a href="/ReportRIS/IndexGeneralReports">
+                <i class="entypo-progress-1"></i>
+                <span>Print Report Cards</span>
+            </a>
+        </li>
+        <li>
+            <a href="/Student/Report">
+                <i class="entypo-progress-1"></i>
+                <span>Print Student Reports</span>
+            </a>
+        </li>
+        <li>
+            <a href="/ReportRIS/GeneralSpreadSheet">
+                <i class="entypo-chart-area"></i>
+                <span>Print SpreadSheets</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+@*<li>
+        <a href="#">
+            <i class="entypo-docs"></i>
+            <span>Transcript Unit</span>
+        </a>
+        <ul>
+            <li>
+                <a href="/ReportTHRESH/TranscriptPivot">
+                    <i class="entypo-newspaper"></i>
+                    <span>Excel Format</span>
+                </a>
+            </li>
+            <li>
+                <a href="/ReportTHRESH/IndexSTranscriptReports">
+                    <i class="entypo-doc-text-inv"></i>
+                    <span>PDF Format</span>
+                </a>
+            </li>
+        </ul>
+    </li>*@
+
+<li>
+    <a href="#">
+        <i class="entypo-mail"></i>
+        <span>Email Report</span>
+    </a>
+    <ul>
+        <li>
+            <a href="/ReportRIS/EmailGeneralReports">
+                <i class="entypo-progress-1"></i>
+                <span>Send Report Cards</span>
+            </a>
+        </li>
+        @*<li>
+                <a href="/ReportTHRESH/EmailSelectedReports">
+                    <i class="entypo-progress-1"></i>
+                    <span>Optionally Send Report Cards</span>
+                </a>
+            </li>*@
+    </ul>
+</li>
+}
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Parent"))
+{
+    <li>
+        <a href="/ReportPSEED/Wards">
+            <i class="entypo-record"></i>
+            <span>View Reports</span>
+        </a>
+    </li>
+                    @*<li>
+                            <a href="/Parent/Transcript">
+                                <i class="entypo-users"></i>
+                                <span>View Transcript</span>
+                            </a>
+                        </li>*@
+}
+
+<!-- #endregion REDEEMERS SCORES NAV -End -->

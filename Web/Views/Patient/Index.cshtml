@@ -1,0 +1,191 @@
+﻿@using Kendo.Mvc
+@{
+    ViewBag.Title = "Students";
+}
+
+<script type="text/javascript">
+        $(document).ready(
+            function () {
+                $("#txt1").html("ACTIVE STUDENTS ");
+                $("#txt2").html("(Manage active Students info)");
+                //$("#txtWarning").html("System failure imminent, carefully change COMPUTE TYPE & CLASS HIERARCHY under strict change request, and only when agreed and advised by the SCHOOL ADMINISTRATORS!");
+        });
+</script>
+
+<div class="row">
+    <div class="col-md-4">
+    </div>
+
+    <div class="col-md-12" id="pageGrid">
+        @(Html.Kendo().Grid<Repo.DTOs.dto_Patients>()
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            //columns.Select();
+            columns.Bound(p => p.ID).Sortable(false).Filterable(false)//.Title("Select")//.ClientTemplate("<input type='checkbox' />")
+                .ClientTemplate("<input name=\"selectedTchLogIds\" type=\"checkbox\" id=\"chbox\" value=\"#=ID#\" />")
+            //.HeaderTemplate("<input type=\"checkbox\" class=\"selectAll\" />")
+            //.HeaderTemplate("<input class=\"selectAll\" type=\"checkbox\" id=\"allBox\" onclick=\"toggleSelection()\" />").Width(20)
+            .HeaderTemplate("<input type='checkbox' id='masterCheckBox'/>").Width(60).Lockable(true).Locked();
+            
+
+            columns.Bound(c => c.Card_Number).Width(120).Locked().Lockable(true);
+            columns.Bound(c => c.Name).Width(120).Locked().Lockable(true);
+            columns.Bound(c => c.Family_Name).Width(120);
+            columns.Bound(c => c.Sex).Width(60);
+            //columns.ForeignKey(p => p.LastSessionID, (System.Collections.IEnumerable)ViewData["sessns"], "SessionId", "SessionName")
+            //.Title("Last Session").Width(80);
+            //columns.ForeignKey(p => p.LastTermID, (System.Collections.IEnumerable)ViewData["trms"], "TermId", "TermDescription")
+            //.Title("Last Term").Width(120);
+            //columns.ForeignKey(p => p.LastClassID, (System.Collections.IEnumerable)ViewData["cls"], "ClassArmId", "ClassArm")
+            //.Title("Last Class").Width(150);
+            //columns.ForeignKey(c => c.Status, (System.Collections.IEnumerable)ViewData["studStat"], "Value", "Text").Title("Status").Width(100);
+            columns.Bound(c => c.DoB).Width(100).Format("{0:dd/MM/yyyy}");
+            columns.Bound(c => c.HMO).Width(100);
+            columns.Bound(c => c.SchemeID).Width(100);
+            columns.Bound(c => c.Position).Width(100);
+            columns.Bound(c => c.Marital_Status).Width(100);
+            columns.Bound(c => c.Reg_Date).Width(100).Format("{0:dd/MM/yyyy}");
+            columns.Bound(c => c.Phone).Width(100);
+            //columns.Bound(p => p.StudentId).Width(120).Title("Change Photo").Lockable(true).Sortable(false).Filterable(false)
+            //            .ClientTemplate("<a href='" + Url.Action("Edit", "Student") + "/#=StudentId#'>Photo Edit</a>");
+            //columns.Command(c => { c.Edit(); c.Destroy(); }).Width(172);
+        })
+        .ToolBar(toolbar =>
+        {
+            toolbar.Create();
+            toolbar.Save();
+            toolbar.Excel();
+        })
+                .ColumnMenu()
+                .HtmlAttributes(new { style = "height:580px;" })
+                .Editable(editable => editable.Mode(GridEditMode.InCell))
+                .Filterable()
+                .Scrollable()
+                .Groupable()
+                .Sortable()
+                        .Selectable(selectable => selectable
+                    .Mode(GridSelectionMode.Single))
+
+                .Resizable(r => r.Columns(true))
+                .Excel(excel => excel
+                    .FileName("PatientList.xlsx")
+                    .Filterable(true)
+                    .AllPages(true)
+                    .ProxyURL(Url.Action("Excel_Export_Save", "Score"))
+                )
+                .Pageable(pageable => pageable
+                    .Refresh(true)
+                    .PageSizes(new[] { 5, 10, 25, 50, 100, 250, 500 }))
+                    
+                            //.ButtonCount(5))
+                            //.Pageable(p => p.PageSizes(new[] { 10, 25, 50, 100 }))
+                            .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .Batch(true)
+                            .ServerOperation(false)
+                            .Events(e =>
+                            {
+                                e.Error("error_handler");
+                            })
+                                    .Model(model =>
+                                    {
+                                        model.Id(p => p.ID);
+                                        //model.Field(p => p.StudentId).Editable(false);                                        
+                                    })
+                                    .Create(update => update.Action("Patients_Create", "Patient"))
+                                            .Read(read => read.Action("Patients_Read", "Patient"))
+                                            .Update(update => update.Action("Patients_BatchUpdate", "Patient"))
+                                            .Destroy(update => update.Action("Patients_Destroy", "Patient"))
+                )
+        )
+    </div>
+</div>
+
+<script type="text/javascript">
+    //persist state
+    $(function () {
+        var grid = $("#studGrid").data("kendoGrid");
+
+        $("#save").click(function (e) {
+            e.preventDefault();
+            localStorage["kendo-grid-options"] = kendo.stringify(grid.getOptions());
+        });
+
+        $("#load").click(function (e) {
+            e.preventDefault();
+            var options = localStorage["kendo-grid-options"];
+            if (options) {
+                grid.setOptions(JSON.parse(options));
+            }
+        });
+    });
+
+    $(function () {
+        //disable button on load
+        $("#btnSubmit").attr('disabled', 'disabled');
+    });
+
+    $('#studStatDrpdwn').change(function () {
+        var valu = $("#studStatDrpdwn").val()
+        if (valu && valu != '' && valu != 'Select a Class...') {
+            $("#btnSubmit").removeAttr('disabled', 'disabled');
+        } else {
+            $("#btnSubmit").attr('disabled', 'disabled');
+        };
+    });
+
+    $("#masterCheckBox").click(function () {
+        if (document.getElementById('masterCheckBox').checked) {
+
+            $('tr').find('[type=checkbox]').prop('checked', true);
+            $('tr.k-state-selected').find('[type=checkbox]').prop('checked', true);
+        }
+        else {
+            $('tr').find('[type=checkbox]').prop('checked', false);
+            $('tr.k-state-selected').find('[type=checkbox]').prop('checked', false);
+        }
+    });
+
+    $("#btnSubmit").click(function () {
+
+        var data = {
+            pupStat: $("#studStatDrpdwn").data("kendoDropDownList").value()
+            //clsArmTermId: $("#classz").data("kendoDropDownList").value(),
+            //termId: $("#termz").data("kendoDropDownList").value()
+        };
+
+        //get values for class registration grid
+        var clsRegGrid = $("#studGrid").data("kendoGrid");
+
+        // mvc model binder requires arrays to be in specific format
+        clsRegGrid.tbody
+            .find(":checked")
+            .each(function (idx) {
+                data["selectedTchLogIds[" + idx + "]"] = $(this).val();
+            });
+
+        //post the selected items and the selected value
+        $.post("/Student/UpdateStatus",
+            data,
+            function () {
+                //rebind the grid to show the updated items
+                clsRegGrid.dataSource.read();
+            }
+        );
+    });
+
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    };
+</script>
