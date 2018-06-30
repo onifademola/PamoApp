@@ -14,12 +14,14 @@ namespace Repo.Models
     
     public partial class procedur
     {
-        public long ID { get; set; }
-        public string Card_Number { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string CardNumber { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public string Procedure { get; set; }
+        public string C_Procedure { get; set; }
         public string Remark { get; set; }
+        public Nullable<int> DoctorID { get; set; }
         public string Doctor { get; set; }
-        public Nullable<long> AttID { get; set; }
+        public Nullable<int> AttID { get; set; }
     }
 }

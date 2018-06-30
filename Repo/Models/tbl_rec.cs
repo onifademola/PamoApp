@@ -15,8 +15,9 @@ namespace Repo.Models
     public partial class tbl_rec
     {
         public int id_rec { get; set; }
+        public Nullable<int> PatientID { get; set; }
         public string Card { get; set; }
         public string transact { get; set; }
-        public System.DateTime Date { get; set; }
+        public System.DateTime C_Date { get; set; }
     }
 }

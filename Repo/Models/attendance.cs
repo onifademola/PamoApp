@@ -14,22 +14,25 @@ namespace Repo.Models
     
     public partial class attendance
     {
-        public long ID { get; set; }
-        public string Card_Number { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<short> Attended { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string CardNumber { get; set; }
+        public Nullable<System.DateTime> C_Date { get; set; }
+        public Nullable<bool> Attended { get; set; }
+        public Nullable<int> DoctorID { get; set; }
         public string Consultant { get; set; }
+        public Nullable<int> ConsultingRoomID { get; set; }
         public string Room { get; set; }
         public string Diagnosis { get; set; }
-        public string Service_Type { get; set; }
+        public string ServiceType { get; set; }
         public string Outcome { get; set; }
-        public string Attendance_Type { get; set; }
+        public string AttendanceType { get; set; }
         public string Age { get; set; }
-        public string NHIS_No { get; set; }
+        public string NHISNo { get; set; }
         public string Sex { get; set; }
         public string Month { get; set; }
-        public string schemeID { get; set; }
-        public string Special_Code { get; set; }
+        public string SchemeID { get; set; }
+        public string SpecialCode { get; set; }
         public string Description { get; set; }
         public string Package { get; set; }
         public string Position { get; set; }

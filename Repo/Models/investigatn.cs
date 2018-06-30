@@ -14,12 +14,14 @@ namespace Repo.Models
     
     public partial class investigatn
     {
-        public long ID { get; set; }
-        public string Card_Number { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string CardNumber { get; set; }
+        public Nullable<System.DateTime> C_Date { get; set; }
         public string Investigation { get; set; }
         public string Remark { get; set; }
-        public string Request_By { get; set; }
+        public Nullable<int> DoctorID { get; set; }
+        public string RequestBy { get; set; }
         public Nullable<long> AttID { get; set; }
         public string Status { get; set; }
         public string invID { get; set; }

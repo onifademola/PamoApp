@@ -74,22 +74,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\dto_Patients.cs" />
-    <Compile Include="Models\analysis.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\anc.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\appointment.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\asset.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\assetCategory.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\assetStatu.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\attendance.cs">
@@ -110,25 +98,10 @@
     <Compile Include="Models\biovital.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\budget.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\cash.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\cheque.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\claim.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\cms_access_levels.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\company.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\complaint.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\consultingRoom.cs">
@@ -156,12 +129,6 @@
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\drug.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\encounter.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\eregister.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\event.cs">
@@ -197,9 +164,6 @@
     <Compile Include="Models\lab.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\lab2.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\labh.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
@@ -218,49 +182,22 @@
     <Compile Include="Models\location.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\login.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\monitor.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\mrequisition.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\mrestock.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\mstock.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\next_kin.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\nhis_mrequisition.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\nhis_mrestock.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\nhis_mstock.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\nhis_requisition.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\nhis_restock.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\nhis_stock.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\nurse.cs">
+    <Compile Include="Models\NurseNote.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\office.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\operation.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PamoModel.Context.cs">
@@ -278,16 +215,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PamoModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\pension_manager.cs">
+    <Compile Include="Models\patient.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PatientComplaint.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\phyexam.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\pnc.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\position.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\prescription.cs">
@@ -306,6 +243,12 @@
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\restock.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RolePermission.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\round.cs">
@@ -338,10 +281,10 @@
     <Compile Include="Models\stockCategory.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\supplier.cs">
+    <Compile Include="Models\surgery.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\surgery.cs">
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tarrif.cs">
@@ -359,22 +302,40 @@
     <Compile Include="Models\unit.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserClaim.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserLogin.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRegistrationToken.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserType.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ward.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\wardreq.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ward_type.cs">
+    <Compile Include="Models\WardType.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repos\IRepoBER.cs" />
     <Compile Include="Repos\IRepositoryBase.cs" />
     <Compile Include="Repos\IRepo_Labs.cs" />
     <Compile Include="Repos\IRepo_Patient.cs" />
+    <Compile Include="Repos\IRepo_Util.cs" />
+    <Compile Include="Repos\RepoBER.cs" />
+    <Compile Include="Repos\RepositoryActionResult.cs" />
+    <Compile Include="Repos\RepositoryActionStatus.cs" />
     <Compile Include="Repos\RepositoryBase.cs" />
     <Compile Include="Repos\Repo_Labs.cs" />
     <Compile Include="Repos\Repo_Patient.cs" />
+    <Compile Include="Repos\Repo_Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

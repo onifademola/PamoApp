@@ -14,13 +14,14 @@ namespace Repo.Models
     
     public partial class diagnosi
     {
-        public long ID { get; set; }
-        public string Card_Number { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string CardNumber { get; set; }
         public string Diagnosis { get; set; }
         public string Description { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string Diagnosed_by { get; set; }
-        public string Follow_Up { get; set; }
-        public Nullable<long> AttID { get; set; }
+        public Nullable<System.DateTime> C_Date { get; set; }
+        public Nullable<int> DiagnosedByID { get; set; }
+        public string DiagnosedBy { get; set; }
+        public Nullable<int> AttID { get; set; }
     }
 }

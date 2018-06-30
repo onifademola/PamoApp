@@ -19,5 +19,7 @@ namespace Repo.Models
         public string title_complaint { get; set; }
         public string codes { get; set; }
         public string Descriptors { get; set; }
+    
+        public virtual tbl_complaint_category tbl_complaint_category { get; set; }
     }
 }

@@ -12,9 +12,9 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class assetStatu
+    public partial class UserType
     {
-        public long ID { get; set; }
-        public string Status { get; set; }
+        public int ID { get; set; }
+        public string TypeName { get; set; }
     }
 }

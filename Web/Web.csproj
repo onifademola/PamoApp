@@ -218,8 +218,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BackEndRepairController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LabController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
@@ -1607,6 +1609,7 @@
     <Content Include="layout_assets\less\index.html" />
     <Content Include="layout_assets\less\other-less\index.html" />
     <Content Include="layout_assets\less\xenon-less\index.html" />
+    <Content Include="ReadMe.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -1910,6 +1913,7 @@
     <Content Include="Content\toastr.less" />
     <Content Include="Content\toastr.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\custom\backEndRepair.js" />
     <Content Include="Scripts\custom\notificationJs.js" />
     <Content Include="Scripts\custom\notificationReg.js" />
     <Content Include="Scripts\custom\notificationStyle.css" />
@@ -2161,10 +2165,14 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-TW.min.js" />
     <Content Include="Scripts\kendo\pako_deflate.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\text.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\util.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2352,6 +2360,9 @@
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Lab\Index.cshtml" />
+    <Content Include="Views\Home\Spa.cshtml" />
+    <Content Include="Views\Main\Home.cshtml" />
+    <Content Include="Views\BackEndRepair\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

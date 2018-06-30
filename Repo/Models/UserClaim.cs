@@ -12,9 +12,13 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class cms_access_levels
+    public partial class UserClaim
     {
-        public int access_lvl { get; set; }
-        public string access_name { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

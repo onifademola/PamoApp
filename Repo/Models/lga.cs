@@ -14,8 +14,9 @@ namespace Repo.Models
     
     public partial class lga
     {
+        public int ID { get; set; }
+        public Nullable<int> StateID { get; set; }
         public string State { get; set; }
         public string LGA1 { get; set; }
-        public int LGAID { get; set; }
     }
 }

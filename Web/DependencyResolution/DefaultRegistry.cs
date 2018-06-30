@@ -32,7 +32,8 @@ namespace Web.DependencyResolution {
                 });
             //For<IExample>().Use<Example>();
             For<IRepo_Patient>().Use<Repo_Patient>();
-            For<IRepo_Labs>().Use<Repo_Labs>();
+            For<IRepoBER>().Use<RepoBER>();
+            //For<IRepo_Labs>().Use<Repo_Labs>();
         }
 
         #endregion

@@ -14,9 +14,9 @@ namespace Repo.Models
     
     public partial class company
     {
-        public long ID { get; set; }
+        public int ID { get; set; }
         public string Company1 { get; set; }
-        public string Company_Code { get; set; }
+        public string CompanyCode { get; set; }
         public Nullable<decimal> Margin { get; set; }
         public Nullable<decimal> LMargin { get; set; }
         public Nullable<decimal> DMargin { get; set; }

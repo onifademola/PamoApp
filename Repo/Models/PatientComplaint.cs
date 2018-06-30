@@ -12,11 +12,18 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ward_type
+    public partial class PatientComplaint
     {
-        public long ID { get; set; }
-        public string Ward { get; set; }
-        public Nullable<int> Beds { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string CardNumber { get; set; }
+        public Nullable<System.DateTime> C_Date { get; set; }
+        public string Category { get; set; }
+        public string Complaint { get; set; }
+        public string Descriptor { get; set; }
         public string Remark { get; set; }
+        public string TakenBy { get; set; }
+        public Nullable<int> TakenByID { get; set; }
+        public Nullable<int> AttID { get; set; }
     }
 }

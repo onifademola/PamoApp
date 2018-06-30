@@ -14,14 +14,19 @@ namespace Repo.Models
     
     public partial class surgery
     {
-        public long ID { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string Card_Number { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public Nullable<System.DateTime> SurgeryDate { get; set; }
+        public string CardNumber { get; set; }
         public string Operation { get; set; }
         public string Findings { get; set; }
         public string Anesthesia { get; set; }
         public string Anesthesist { get; set; }
         public string Assistant { get; set; }
         public string Surgeon { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public Nullable<int> UpdatedBy { get; set; }
+        public Nullable<System.DateTime> UpdatedOn { get; set; }
     }
 }

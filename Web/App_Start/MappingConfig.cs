@@ -22,7 +22,7 @@ namespace Web.App_Start
                 //.ForMember(dest => dest.WhatToPay, opt => opt.MapFrom(src => src.Balance));
 
                 //Patient to eregister mapping
-                config.CreateMap<eregister, dto_Patients>();
+                config.CreateMap<patient, dto_Patients>();
             });
         }
     }

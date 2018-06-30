@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "..\Web\Web.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repo", "..\Repo\Repo.csproj", "{D5C78442-CC37-452C-92CA-987414489E48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pamo.Front", "..\Pamo.Front\Pamo.Front.csproj", "{645F3F44-6A46-4C04-84FB-04618F1AFD3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D5C78442-CC37-452C-92CA-987414489E48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5C78442-CC37-452C-92CA-987414489E48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5C78442-CC37-452C-92CA-987414489E48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{645F3F44-6A46-4C04-84FB-04618F1AFD3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{645F3F44-6A46-4C04-84FB-04618F1AFD3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{645F3F44-6A46-4C04-84FB-04618F1AFD3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{645F3F44-6A46-4C04-84FB-04618F1AFD3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

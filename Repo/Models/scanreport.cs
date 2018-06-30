@@ -15,7 +15,8 @@ namespace Repo.Models
     public partial class scanreport
     {
         public int ID { get; set; }
-        public string Card { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string CardNumber { get; set; }
         public string Report { get; set; }
         public System.DateTime Date { get; set; }
         public string Remarks { get; set; }

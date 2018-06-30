@@ -14,24 +14,27 @@ namespace Repo.Models
     
     public partial class bill
     {
-        public long ID { get; set; }
-        public string Card_Number { get; set; }
-        public string Patient_Name { get; set; }
-        public string NHIS_Number { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string CardNumber { get; set; }
+        public string PatientName { get; set; }
+        public string NHISNumber { get; set; }
         public string Shift { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public string Company_Name { get; set; }
+        public string CompanyName { get; set; }
         public string Category { get; set; }
         public string Cashier { get; set; }
-        public string Bill_Type { get; set; }
+        public Nullable<int> BillTypeID { get; set; }
+        public string BillType { get; set; }
         public Nullable<decimal> Amount { get; set; }
-        public Nullable<decimal> Amount_Paid { get; set; }
-        public string Transaction_Type { get; set; }
+        public Nullable<decimal> AmountPaid { get; set; }
+        public string TransactionType { get; set; }
         public string Details { get; set; }
         public string Month { get; set; }
         public Nullable<int> Year { get; set; }
         public Nullable<short> Paid { get; set; }
         public Nullable<int> Quantity { get; set; }
         public string Doctor { get; set; }
+        public Nullable<int> DoctorID { get; set; }
     }
 }

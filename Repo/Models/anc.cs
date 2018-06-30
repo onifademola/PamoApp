@@ -14,9 +14,9 @@ namespace Repo.Models
     
     public partial class anc
     {
-        public long ID { get; set; }
+        public int ID { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public string Card_Number { get; set; }
+        public string CardNumber { get; set; }
         public string Visit { get; set; }
         public string Parity { get; set; }
         public string BP { get; set; }
@@ -27,7 +27,7 @@ namespace Repo.Models
         public string EDD { get; set; }
         public string HB_Reg { get; set; }
         public string HB_36wk { get; set; }
-        public string Blood_Group { get; set; }
+        public string BloodGroup { get; set; }
         public string Sickling { get; set; }
         public string VDLL { get; set; }
         public Nullable<short> PMTCT { get; set; }
@@ -37,16 +37,16 @@ namespace Repo.Models
         public string ITW { get; set; }
         public string Diagnosis { get; set; }
         public string Remark { get; set; }
-        public string Referred_To { get; set; }
-        public string Risk_Factor { get; set; }
+        public string ReferredTo { get; set; }
+        public string RiskFactor { get; set; }
         public string Physician { get; set; }
         public string Cycle { get; set; }
         public string LMP { get; set; }
-        public string Gestation_Age { get; set; }
+        public string GestationAge { get; set; }
         public string Temp { get; set; }
         public string SFH { get; set; }
         public string HIV { get; set; }
-        public string Hep_B { get; set; }
+        public string HepB { get; set; }
         public string PH { get; set; }
         public string Urine { get; set; }
         public string Presentation { get; set; }

@@ -14,13 +14,15 @@ namespace Repo.Models
     
     public partial class appointment
     {
-        public long ID { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<System.DateTime> Appt_Date { get; set; }
+        public int AppointmentID { get; set; }
+        public Nullable<System.DateTime> C_Date { get; set; }
+        public Nullable<System.DateTime> AppointmentDate { get; set; }
+        public Nullable<int> DoctorID { get; set; }
         public string Doctor { get; set; }
-        public string Card_Number { get; set; }
-        public Nullable<long> AttID { get; set; }
-        public string Appt_Type { get; set; }
-        public string Time { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string CardNumber { get; set; }
+        public Nullable<int> AttID { get; set; }
+        public string ApptType { get; set; }
+        public string C_Time { get; set; }
     }
 }

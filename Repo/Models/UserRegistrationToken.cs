@@ -12,12 +12,10 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class budget
+    public partial class UserRegistrationToken
     {
-        public long ID { get; set; }
-        public string Type { get; set; }
-        public Nullable<System.DateTime> Month { get; set; }
-        public string Class { get; set; }
-        public Nullable<decimal> Budget1 { get; set; }
+        public long Id { get; set; }
+        public Nullable<long> UserId { get; set; }
+        public string Token { get; set; }
     }
 }

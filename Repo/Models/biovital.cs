@@ -14,16 +14,17 @@ namespace Repo.Models
     
     public partial class biovital
     {
-        public long ID { get; set; }
-        public string Card_Number { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string CardNumber { get; set; }
+        public Nullable<System.DateTime> C_Date { get; set; }
         public Nullable<decimal> Weight { get; set; }
         public Nullable<decimal> Height { get; set; }
         public string BP { get; set; }
         public string Fasting { get; set; }
         public string Mass { get; set; }
-        public Nullable<long> AttID { get; set; }
-        public string Taken_By { get; set; }
+        public Nullable<int> RecordedById { get; set; }
+        public string RecordedBy { get; set; }
         public string Pulse { get; set; }
         public string Temp { get; set; }
         public string RBS { get; set; }

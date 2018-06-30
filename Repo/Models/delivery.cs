@@ -14,28 +14,29 @@ namespace Repo.Models
     
     public partial class delivery
     {
-        public long ID { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string Card_Number { get; set; }
+        public int ID { get; set; }
+        public Nullable<System.DateTime> C_Date { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string CardNumber { get; set; }
         public string Parity { get; set; }
         public string Presentation { get; set; }
-        public string Birth_Weight { get; set; }
+        public string BirthWeight { get; set; }
         public string Sex { get; set; }
-        public string Delivery_Type { get; set; }
+        public string DeliveryType { get; set; }
         public string Condition { get; set; }
-        public string APGAR_Score { get; set; }
-        public Nullable<short> Fully_Dilate { get; set; }
-        public string Delivered_By { get; set; }
-        public Nullable<short> Vit_A1 { get; set; }
-        public Nullable<short> Vit_A2 { get; set; }
+        public string APGARScore { get; set; }
+        public Nullable<short> FullyDilate { get; set; }
+        public string DeliveredBy { get; set; }
+        public Nullable<short> VitA1 { get; set; }
+        public Nullable<short> VitA2 { get; set; }
         public Nullable<short> AVR { get; set; }
         public string Complication { get; set; }
-        public string IPT_Doses { get; set; }
+        public string IPTDoses { get; set; }
         public Nullable<short> PMTC { get; set; }
         public string Remark { get; set; }
-        public string Refered_To { get; set; }
-        public string Refered_From { get; set; }
-        public Nullable<short> Still_Birth { get; set; }
+        public string ReferedTo { get; set; }
+        public string ReferedFrom { get; set; }
+        public Nullable<short> StillBirth { get; set; }
         public string Multiple { get; set; }
     }
 }

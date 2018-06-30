@@ -14,12 +14,13 @@ namespace Repo.Models
     
     public partial class ward
     {
-        public long ID { get; set; }
-        public string Ward_Name { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string Activity_Type { get; set; }
-        public string Card_Number { get; set; }
-        public string Patient_Name { get; set; }
+        public int ID { get; set; }
+        public string WardName { get; set; }
+        public Nullable<System.DateTime> C_Date { get; set; }
+        public string ActivityType { get; set; }
+        public string CardNumber { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string PatientName { get; set; }
         public string Age { get; set; }
         public string Sex { get; set; }
         public string Official { get; set; }
@@ -27,6 +28,7 @@ namespace Repo.Models
         public string Dept { get; set; }
         public string Hall { get; set; }
         public string Remark { get; set; }
-        public string Posted_By { get; set; }
+        public string PostedBy { get; set; }
+        public Nullable<int> PostedByID { get; set; }
     }
 }

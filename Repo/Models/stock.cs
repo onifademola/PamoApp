@@ -14,23 +14,23 @@ namespace Repo.Models
     
     public partial class stock
     {
-        public long ID { get; set; }
-        public string Stock_Code { get; set; }
+        public int ID { get; set; }
+        public string StockCode { get; set; }
         public string Category { get; set; }
-        public string Brand_Name { get; set; }
-        public string Stock_Name { get; set; }
+        public string BrandName { get; set; }
+        public string StockName { get; set; }
         public string Description { get; set; }
         public string Manufacturer { get; set; }
         public string Supplier { get; set; }
-        public Nullable<decimal> Unit_Cost { get; set; }
-        public System.DateTime Manufactured_Date { get; set; }
-        public Nullable<System.DateTime> Expiry_Date { get; set; }
-        public Nullable<long> Reorder_Level { get; set; }
-        public Nullable<long> Units_in_Stock { get; set; }
+        public Nullable<decimal> UnitCost { get; set; }
+        public System.DateTime ManufacturedDate { get; set; }
+        public Nullable<System.DateTime> ExpiryDate { get; set; }
+        public Nullable<int> ReorderLevel { get; set; }
+        public Nullable<int> UnitsInStock { get; set; }
         public string Location { get; set; }
-        public Nullable<decimal> Selling_Price { get; set; }
+        public Nullable<decimal> SellingPrice { get; set; }
         public string Type { get; set; }
-        public Nullable<decimal> NHIS_Price { get; set; }
+        public Nullable<decimal> NHISPrice { get; set; }
         public string Unit { get; set; }
     }
 }

@@ -12,9 +12,12 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class assetCategory
+    public partial class UserLogin
     {
-        public byte[] ID { get; set; }
-        public string Category { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

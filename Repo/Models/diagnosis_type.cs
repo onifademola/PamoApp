@@ -14,11 +14,11 @@ namespace Repo.Models
     
     public partial class diagnosis_type
     {
-        public long ID { get; set; }
+        public int ID { get; set; }
         public string Type { get; set; }
         public string Classification { get; set; }
         public string G_DRG { get; set; }
         public Nullable<decimal> Tarrif { get; set; }
-        public Nullable<decimal> Tarrif__Catering_ { get; set; }
+        public Nullable<decimal> TarrifCatering { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Repo.Models
     
     public partial class consultingRoom
     {
-        public long ID { get; set; }
+        public int ID { get; set; }
         public string Room { get; set; }
     }
 }

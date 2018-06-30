@@ -14,11 +14,11 @@ namespace Repo.Models
     
     public partial class procedure
     {
-        public long ID { get; set; }
+        public int ID { get; set; }
         public string Procedures { get; set; }
-        public string NHIA_No { get; set; }
+        public string NHIANo { get; set; }
         public string G_DRG { get; set; }
-        public Nullable<decimal> Tarrif__catering_ { get; set; }
+        public Nullable<decimal> Tarrif_Catering { get; set; }
         public Nullable<decimal> Tarrif { get; set; }
     }
 }

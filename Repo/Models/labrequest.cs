@@ -14,11 +14,13 @@ namespace Repo.Models
     
     public partial class labrequest
     {
-        public long ID { get; set; }
-        public string Card_Number { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string CardNumber { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Test { get; set; }
         public string Remark { get; set; }
+        public Nullable<int> DoctorID { get; set; }
         public string Doctor { get; set; }
         public Nullable<long> AttID { get; set; }
         public string Status { get; set; }

@@ -12,16 +12,12 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class complaint
+    public partial class sysdiagram
     {
-        public long ID { get; set; }
-        public string Card_Number { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string Category { get; set; }
-        public string Complaint1 { get; set; }
-        public string Descriptor { get; set; }
-        public string Remark { get; set; }
-        public string Taken_By { get; set; }
-        public Nullable<long> AttID { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

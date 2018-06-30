@@ -12,14 +12,15 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class login
+    public partial class NurseNote
     {
-        public long user_id { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
-        public string username { get; set; }
-        public int access_lvl { get; set; }
-        public string Location { get; set; }
-        public string fullname { get; set; }
+        public int ID { get; set; }
+        public Nullable<System.DateTime> C_Date { get; set; }
+        public Nullable<int> PatientID { get; set; }
+        public string CardNumber { get; set; }
+        public string Hour { get; set; }
+        public Nullable<int> NurseID { get; set; }
+        public string Nurse { get; set; }
+        public string Note { get; set; }
     }
 }

@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Pamo App" />
+    <meta name="description" content="SIM Panel" />
     <meta name="author" content="" />
-    <title>Pamo App</title>
+    <title>SIM - App</title>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic">
     <link rel="stylesheet" href="~/layout_assets/css/fonts/linecons/css/linecons.css">
     <link rel="stylesheet" href="~/layout_assets/css/fonts/fontawesome/css/font-awesome.min.css">
@@ -24,9 +24,9 @@
 
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/kendo/kendo.common.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/kendo/kendo.uniform.mobile.min.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/kendo/kendo.uniform.min.css")" rel="stylesheet" type="text/css" />
-    @*<link href="@Url.Content("~/Content/kendo/kendo.common-bootstrap.min.css")" rel="stylesheet" type="text/css" />*@
+    <link href="@Url.Content("~/Content/kendo/kendo.nova.mobile.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/kendo.nova.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo/kendo.common-bootstrap.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/kendo/kendo.dataviz.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/kendo/kendo.dataviz.default.min.css")" rel="stylesheet" type="text/css" />
     <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
@@ -54,19 +54,19 @@
     <script>
         $(function () {
 
-            $.ajax({
-                url: "/Home/GetShlName",
-                success: function (data) {
-                    $("#schldtl").html(data != null ? data : 'N/A');
-                }
-            })
+        $.ajax({
+            url: "/Home/GetShlName",
+            success: function (data) {
+                $("#schldtl").html(data != null ? data : 'N/A');
+            }
+        })
 
-            $.ajax({
-                url: "/Home/GetShlLogo",
-                success: function (data) {
-                    $('#myCanvas').attr("src", "data:image/gif;base64," + data);
-                }
-            })
+        $.ajax({
+            url: "/Home/GetShlLogo",
+            success: function (data) {
+                $('#myCanvas').attr("src", "data:image/gif;base64," + data);
+            }
+        })
         });
 
     </script>
@@ -77,7 +77,7 @@
         }*/
     </style>
 </head>
-<body class="page-body skin-watermelon horizontal-menu-skin-watermelon">
+<body class="page-body">
 
 
 
@@ -199,21 +199,22 @@
 
         </div>
         <div class="main-content">
-            <nav class="navbar horizontal-menu navbar-fixed-top navbar-minimal">
+            <nav class="navbar horizontal-menu navbar-fixed-top navbar-minimal horizontal-menu-skin-watermelon">
                 <!-- set fixed position by adding class "navbar-fixed-top" -->
 
                 <div class="navbar-inner">
 
                     <!-- Navbar Brand -->
                     <div class="navbar-brand">
-                        <a href="/Home/Index" class="logo">
+                        <a href="/main/home" class="logo">
                             <img id="myCanvas" src="" alt="" class="hidden-xs img-responsive img-circle" width="45" />
                             <img id="myCanvas" src="" alt="" class="visible-xs img-responsive img-circle" width="45" />
                         </a>
-                        <a href="/Home/Index" class="logo">
-                            <h4 style="color:white; font-family:'Arial Rounded MT'">Pamo App</h4>
-                            <text style="color:white; font-family:'Arial Rounded MT'; font-weight:100; font-size:small" id="clockboxTime2"></text>
+                        <a href="/main/home" class="logo">
+                            <h4 style="font-family:'Arial Rounded MT'">Pamo App</h4>
+                            <text style=" font-weight:100; font-size:smaller" id="clockboxTime2"></text>
                         </a>
+                        
                         @*<a href="#" data-toggle="settings-pane" data-animate="true">
                                 <i class="linecons-cog"></i>
                             </a>*@
@@ -245,11 +246,13 @@
 
                     <div class="navbar-mobile-clear"></div>
 
+
+
                     <!-- main menu -->
 
                     <ul class="navbar-nav">
 
-                        @if (null == null)//User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
                         {
                 <!-- #region Authorization -->
                             <li>
@@ -849,7 +852,19 @@
 
                     <!-- notifications and other links -->
                     <ul class="nav nav-userinfo navbar-right">
-                                                
+
+                        <li class="search-form">
+                            <!-- You can add "always-visible" to show make the search input visible -->
+
+                            <form name="userinfo_search_form" method="get" action="extra-search.html">
+                                <input type="text" name="s" class="form-control search-field" placeholder="Type to search..." />
+
+                                <button type="submit" class="btn btn-link">
+                                    <i class="linecons-search"></i>
+                                </button>
+                            </form>
+
+                        </li>
                         <li><a href="/Home/Index"><i class="el-home-circled"></i>Home</a></li>
                         @using Microsoft.AspNet.Identity
                         @if (User.Identity.IsAuthenticated)
@@ -904,6 +919,11 @@ new { id = "logoutForm" }))
                 </div>
 
             </nav>
+
+            <div class="content">
+                <br />
+            </div>
+            <br />
             @Html.Partial("_PartialPageHeader")
             <div class="row">
                 @RenderBody()
@@ -919,7 +939,7 @@ new { id = "logoutForm" }))
 
             <!-- Add your copyright text here -->
             <div class="footer-text">
-                <p>&copy; @DateTime.Now.Year - Pamo Clinic App, a product of  <a href="http://www.eaglesbyte.org" target="_blank">Eaglesbyte Innovations</a></p>
+                <p>&copy; @DateTime.Now.Year - SIM (School Information Manager), a product of  <a href="http://www.eaglesbyte.org" target="_blank">Eaglesbyte Innovations</a></p>
             </div>
 
 
@@ -963,8 +983,7 @@ new { id = "logoutForm" }))
 
     @RenderSection("scripts", required: false)
     <!-- Bottom Scripts -->
-   
-
+    
     @*Page loading animation*@
     <div class="page-loading-overlay">
             <div class="loader-2"></div>

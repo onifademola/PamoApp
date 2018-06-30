@@ -14,7 +14,16 @@ namespace Repo.Models
     
     public partial class tbl_complaint_category
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbl_complaint_category()
+        {
+            this.tbl_complaint = new HashSet<tbl_complaint>();
+        }
+    
         public int id_category { get; set; }
         public string category_title { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_complaint> tbl_complaint { get; set; }
     }
 }

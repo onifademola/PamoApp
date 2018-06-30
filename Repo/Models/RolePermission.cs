@@ -12,13 +12,9 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class nurse
+    public partial class RolePermission
     {
-        public long ID { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string Card_Number { get; set; }
-        public string Hour { get; set; }
-        public string Nurse1 { get; set; }
-        public string Note { get; set; }
+        public string RoleName { get; set; }
+        public string PermissionId { get; set; }
     }
 }

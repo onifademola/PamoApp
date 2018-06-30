@@ -14,7 +14,7 @@ namespace Repo.Models
     
     public partial class stockCategory
     {
-        public long ID { get; set; }
+        public int ID { get; set; }
         public string Category { get; set; }
     }
 }
