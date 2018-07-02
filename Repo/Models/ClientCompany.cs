@@ -12,13 +12,24 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class company
+    public partial class ClientCompany
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ClientCompany()
+        {
+            this.patients = new HashSet<patient>();
+        }
+    
         public int ID { get; set; }
-        public string Company1 { get; set; }
+        public Nullable<int> ClientGroupID { get; set; }
+        public string Company { get; set; }
         public string CompanyCode { get; set; }
         public Nullable<decimal> Margin { get; set; }
         public Nullable<decimal> LMargin { get; set; }
         public Nullable<decimal> DMargin { get; set; }
+    
+        public virtual ClientGroup ClientGroup { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<patient> patients { get; set; }
     }
 }

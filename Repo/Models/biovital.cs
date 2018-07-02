@@ -28,5 +28,7 @@ namespace Repo.Models
         public string Pulse { get; set; }
         public string Temp { get; set; }
         public string RBS { get; set; }
+    
+        public virtual patient patient { get; set; }
     }
 }

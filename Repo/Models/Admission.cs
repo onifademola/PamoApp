@@ -12,9 +12,17 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ward
+    public partial class Admission
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Admission()
+        {
+            this.WardRounds = new HashSet<WardRound>();
+        }
+    
         public int ID { get; set; }
+        public Nullable<int> AttID { get; set; }
+        public Nullable<int> ClinicWardID { get; set; }
         public string WardName { get; set; }
         public Nullable<System.DateTime> C_Date { get; set; }
         public string ActivityType { get; set; }
@@ -30,5 +38,11 @@ namespace Repo.Models
         public string Remark { get; set; }
         public string PostedBy { get; set; }
         public Nullable<int> PostedByID { get; set; }
+        public Nullable<int> StatusID { get; set; }
+    
+        public virtual attendance attendance { get; set; }
+        public virtual ClinicWard ClinicWard { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WardRound> WardRounds { get; set; }
     }
 }

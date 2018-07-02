@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Repo.Repos
 {
-    public class Repo_Util : RepositoryBase<PamoDbEntities, company>, IRepo_Util
+    public class Repo_Util : RepositoryBase<PamoDbEntities, ClientCompany>, IRepo_Util
     {
         public List<KeyValuePair<int, string>> ProcessStatuses()
-        {            
+        {
             var data = new List<KeyValuePair<int, string>>()
             {
                 new KeyValuePair<int, string>(1, "At OPD"),
@@ -48,7 +48,7 @@ namespace Repo.Repos
                 new KeyValuePair<int, string>(3, "Purple"),
                 new KeyValuePair<int, string>(4, "Red"),
                 new KeyValuePair<int, string>(5, "Pink"),
-                new KeyValuePair<int, string>(6, "Yellow"),                
+                new KeyValuePair<int, string>(6, "Yellow"),
                 new KeyValuePair<int, string>(7, "Green")
             };
             return data;
@@ -82,6 +82,37 @@ namespace Repo.Repos
             DateTime resultingTime = DateTime.SpecifyKind(timeToConvert, DateTimeKind.Unspecified);
             var utcDate = TimeZoneInfo.ConvertTimeToUtc(resultingTime, tz);
             return utcDate;
+        }
+
+        public List<string> UserRoleList()
+        {
+            string[] roleList = {
+            "Administrator",
+            "Ward",
+            "Pharmacist",
+            "Doctor",
+            "Lab",
+            "Accounts",
+            "Store",
+            "Personnel",
+            "Cashier",
+            "Other"
+            };
+            return roleList.ToList();
+        }
+
+        public void AddToRolesTable()
+        {            
+            var roleList = this.UserRoleList();
+            foreach (var item in roleList)
+            {
+                Guid nGuid = Guid.NewGuid();
+                Role role = new Role();
+                role.Id = nGuid.ToString();
+                role.Name = item;
+                _entities.Roles.Add(role);
+            }
+            _entities.SaveChanges();
         }
 
         //public string GenerateNewNextString(string param1, string param2, string param3)

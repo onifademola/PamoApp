@@ -10,9 +10,9 @@ namespace Repo.Repos
         bool FixDoctorProcedurTB();
         bool FixPatientProcedurTB();
         bool FixPatientPhyExamTB();
-        bool FixPatientRoundsTB();
+        //bool FixPatientRoundsTB();
         bool FixDoctorPhyExamTB();
-        bool FixDoctorRoundsTB();
+        //bool FixDoctorRoundsTB();
         bool FixPatientPComplainTB();
         bool FixPatientBiovitalsTB();
         bool FixPatientDeliveryTB();

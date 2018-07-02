@@ -16,10 +16,14 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Web.DependencyResolution {
+    using System.Web;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.Owin.Security;
     using Repo.Repos;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
-	
+    using Web.Models;
+
     public class DefaultRegistry : Registry {
         #region Constructors and Destructors
 
@@ -30,9 +34,11 @@ namespace Web.DependencyResolution {
                     scan.WithDefaultConventions();
 					scan.With(new ControllerConvention());
                 });
-            //For<IExample>().Use<Example>();
+            For<IAuthenticationManager>().Use(() => HttpContext.Current.GetOwinContext().Authentication);
+            
             For<IRepo_Patient>().Use<Repo_Patient>();
             For<IRepoBER>().Use<RepoBER>();
+            For<IUserRepository>().Use<UserRepository>();
             //For<IRepo_Labs>().Use<Repo_Labs>();
         }
 

@@ -22,7 +22,7 @@ consultingRoom
 
 
 -- Process Flow --
-1. out patient walks in. Meets the front desk
+1. Out patient walks in. Meets the front desk
 2. Front desk gets patient's data and queues patient for OPD (vitals)
 3. Patient moves to OPD, latest biovitals data are generated. Patient
    is queued by OPD at a selected consulting room
@@ -62,5 +62,12 @@ Reason: These tables have the wrong data relationship.
 The involved tables are:
 1. Surgery
 2. ScanReport
-3. Rounds
-4. Ward
+3. Rounds (now WardRound)
+4. Ward (now Admission)
+
+########## REFACTORING TABLES ##########
+1. Ward is renamed to Admission
+2. Rounds is renamed to WardRound
+
+REFACTORING NOTES:
+-- WardRound is done on Admission, hence WardRound should be mapped to Admission Table, not Patient

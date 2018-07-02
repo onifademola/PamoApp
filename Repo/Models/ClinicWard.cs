@@ -12,18 +12,20 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class procedur
+    public partial class ClinicWard
     {
-        public int ID { get; set; }
-        public Nullable<int> PatientID { get; set; }
-        public string CardNumber { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public string C_Procedure { get; set; }
-        public string Remark { get; set; }
-        public Nullable<int> DoctorID { get; set; }
-        public string Doctor { get; set; }
-        public Nullable<int> AttID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ClinicWard()
+        {
+            this.Admissions = new HashSet<Admission>();
+        }
     
-        public virtual attendance attendance { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> Beds { get; set; }
+        public string Remark { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Admission> Admissions { get; set; }
     }
 }

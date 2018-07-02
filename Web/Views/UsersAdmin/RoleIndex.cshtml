@@ -1,0 +1,67 @@
+﻿<script>
+    $(function () {
+        $('[name=SelectedRoles]').click(function () {
+            var subjId = $(this).val();
+            //$.trim(subjId);
+            //subjId.replace(/"/g, "");
+            //console.log(subjId);
+            if (subjId && subjId != '' && subjId != 'SELECT A CLASS') {
+                //$("#scoreList").fadeIn();
+                $.ajax({
+                    url: '@Url.Action("RoleGridViewPartial")',
+                    type: "GET",
+                    cache: false,
+                    data: { adname: subjId }
+                }).done(function (result) {
+                    $("#roleList").html(result);
+                   // $("#scoreList").fadeIn(0);
+                    // $("#Button_CD").fadeIn(0);
+                });
+            } else {
+                // $("#scoreList").fadeOut();
+                //$("#containerstudents").fadeOut();
+            }
+        });
+    });
+
+</script>
+
+
+@Html.Partial("_PartialPageWarning")
+<script type="text/javascript">
+        $(document).ready(
+            function () {
+                $("#txt1").html("Users Account by Role ");
+                $("#txt2").html("(list of users account according to their role)");
+                //$("#txtWarning").html("System failure imminent, carefully change COMPUTE TYPE & CLASS HIERARCHY under strict change request, and only when agreed and advised by the SCHOOL ADMINISTRATORS!");
+        });
+</script>
+
+<div class="row">
+    <div class="form-group">
+        <label class="col-md-2 control-label" style="font-size: 18px;font-weight: 700;">
+            <b>Click to View</b>        
+        </label>
+        <hr />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        @foreach (var item in (SelectList)ViewBag.RoleId)
+        {
+            @*<div name="roleDiv" class="btn btn-info" style="display: block;margin-bottom: 5px;font-weight:600;font-size:12px;">*@
+                @*@Html.DisplayFor(modelItem => item.Value)*@
+                @*  @Html.DisplayFor(modelItem => item.UserName)*@
+                <input type="text"  name="SelectedRoles" value="@item.Value" class="form-control" readonly="readonly" style="margin-bottom:5px;font-weight:600;font-size:12px;" />
+            @*</div>*@
+        }
+    </div>
+
+    <div id="roleList">
+        <div class="col-md-9">
+            @Html.Action("RoleGridViewPartial")
+        </div>
+    </div>
+</div>
+

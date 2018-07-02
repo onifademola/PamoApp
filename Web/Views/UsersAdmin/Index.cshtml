@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Web.Models.MyUser>
+
+@{
+    ViewBag.Title = "All Users";
+}
+
+
+@Html.Partial("_PartialPageWarning")
+<script type="text/javascript">
+        $(document).ready(
+            function () {
+                $("#txt1").html("List of all user credentials ");
+                $("#txt2").html("(user authentication details)");
+                $("#txtWarning").html("Users should only be created here under strict conditions, this implies manual steps to achieve a complete setup for the user type as the case may be - Teacher, Parent or Student !");
+        });
+</script>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">@Html.ActionLink("Create here to create a new user", "Create")</h3>
+                
+                <div class="panel-options">
+                    <a href="#" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+                    <a href="#" data-toggle="reload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                @*<script type="text/javascript">
+					jQuery(document).ready(function($)
+					{
+						$("#rtable").dataTable({
+							aLengthMenu: [
+								[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]
+							]
+						});
+					});
+                </script>*@
+                <div class="table-responsive" data-pattern="priority-columns" data-focus-btn-icon="fa-asterisk" data-sticky-table-header="true" data-add-display-all-btn="true" data-add-focus-btn="true">
+
+                    <table id="rtable" cellspacing="0" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                                        @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Details", "Details", new { id = item.Id })
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            @*<tr>
+                                <th>GOOG <span class="co-name">Google Inc.</span></th>
+                                <td>597.74</td>
+                                <td>12:12PM</td>
+                                <td>14.81 (2.54%)</td>
+                                <td>582.93</td>
+                                <td>597.95</td>
+                                <td>597.73 x 100</td>
+                            </tr>*@
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

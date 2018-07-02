@@ -1,26 +1,49 @@
 ﻿
-<span class="title" id="txt1" style="color:darkblue; font-weight:300; font-size:medium"></span>
+@*<span class="title" id="txt1" style="color:darkblue; font-weight:300; font-size:medium"></span>
 <span class="description" id="txt2" style="color:dodgerblue"></span><br />
 <span>
-    @*<text style=" font-weight:200" id="clockboxTime2"></text>*@
-    @*<marquee behavior="scroll" direction="left" id="schldtl" style="color:white; font-weight:600">Pamo Clinic App</marquee>*@
-</span>
+    <text style=" font-weight:200" id="clockboxTime2"></text>
+    <marquee behavior="scroll" direction="left" id="schldtl" style="color:white; font-weight:600">Pamo Clinic App</marquee>
+</span>*@
+
+<div class="page-title">
+
+    <div class="title-env">
+        <h1 class="title" id="txt1"></h1>
+        <p class="description" id="txt2"></p>
+    </div>
+
+    <div class="breadcrumb-env">
+
+        <ol class="breadcrumb bc-1">
+            <li>
+                <marquee behavior="scroll" direction="left" id="schldtl" >Pamo Clinic App</marquee>
+            </li>
+            <li>
+                <text style=" font-weight:200" id="clockboxTime2"></text>
+            </li>
+            
+        </ol>
+
+    </div>
+
+</div>
 
 
 <script>
-    function gPeriod() {
+    //function gPeriod() {
 
-        $.ajax({
-            url: "/Home/GetCurrentPeriod",
-            success: function (data) {
-                $("#csess").html(data != null ? data : 'N/A');
-            }
-        })
-    };
+    //    $.ajax({
+    //        url: "/Home/GetCurrentPeriod",
+    //        success: function (data) {
+    //            $("#csess").html(data != null ? data : 'N/A');
+    //        }
+    //    })
+    //};
 
-    $(function () {
-        gPeriod();
-    });
+    //$(function () {
+    //    gPeriod();
+    //});
 
     $(function () {
         function GetClocker() {

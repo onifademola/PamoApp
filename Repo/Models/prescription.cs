@@ -14,9 +14,10 @@ namespace Repo.Models
     
     public partial class prescription
     {
-        public long ID { get; set; }
+        public int ID { get; set; }
+        public Nullable<int> AttID { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public string Card_Number { get; set; }
+        public string CardNumber { get; set; }
         public string Prescription1 { get; set; }
         public Nullable<long> Qty { get; set; }
         public string Dose { get; set; }
@@ -24,11 +25,12 @@ namespace Repo.Models
         public string Treated { get; set; }
         public Nullable<short> Referred { get; set; }
         public string Remarks { get; set; }
-        public Nullable<long> AttID { get; set; }
         public string Status { get; set; }
         public string Mgt { get; set; }
         public string SCode { get; set; }
         public Nullable<short> Paid { get; set; }
         public string Staff { get; set; }
+    
+        public virtual attendance attendance { get; set; }
     }
 }

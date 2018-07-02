@@ -38,5 +38,7 @@ namespace Repo.Models
         public string ReferedFrom { get; set; }
         public Nullable<short> StillBirth { get; set; }
         public string Multiple { get; set; }
+    
+        public virtual patient patient { get; set; }
     }
 }

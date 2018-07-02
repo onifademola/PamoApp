@@ -14,6 +14,18 @@ namespace Repo.Models
     
     public partial class attendance
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public attendance()
+        {
+            this.Admissions = new HashSet<Admission>();
+            this.diagnosis1 = new HashSet<diagnosi>();
+            this.PatientComplaints = new HashSet<PatientComplaint>();
+            this.phyexams = new HashSet<phyexam>();
+            this.prescriptions = new HashSet<prescription>();
+            this.procedurs = new HashSet<procedur>();
+            this.ProcessFlows = new HashSet<ProcessFlow>();
+        }
+    
         public int ID { get; set; }
         public Nullable<int> PatientID { get; set; }
         public string CardNumber { get; set; }
@@ -36,5 +48,21 @@ namespace Repo.Models
         public string Description { get; set; }
         public string Package { get; set; }
         public string Position { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Admission> Admissions { get; set; }
+        public virtual patient patient { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<diagnosi> diagnosis1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientComplaint> PatientComplaints { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<phyexam> phyexams { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<prescription> prescriptions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<procedur> procedurs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProcessFlow> ProcessFlows { get; set; }
     }
 }

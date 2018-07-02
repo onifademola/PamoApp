@@ -25,6 +25,7 @@ namespace Repo.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Admission> Admissions { get; set; }
         public virtual DbSet<anc> ancs { get; set; }
         public virtual DbSet<appointment> appointments { get; set; }
         public virtual DbSet<attendance> attendances { get; set; }
@@ -34,7 +35,9 @@ namespace Repo.Models
         public virtual DbSet<billupdate> billupdates { get; set; }
         public virtual DbSet<biovital> biovitals { get; set; }
         public virtual DbSet<cash> cashes { get; set; }
-        public virtual DbSet<company> companies { get; set; }
+        public virtual DbSet<ClientCompany> ClientCompanies { get; set; }
+        public virtual DbSet<ClientGroup> ClientGroups { get; set; }
+        public virtual DbSet<ClinicWard> ClinicWards { get; set; }
         public virtual DbSet<consultingRoom> consultingRooms { get; set; }
         public virtual DbSet<contract> contracts { get; set; }
         public virtual DbSet<delivery> deliveries { get; set; }
@@ -46,6 +49,7 @@ namespace Repo.Models
         public virtual DbSet<drug> drugs { get; set; }
         public virtual DbSet<@event> events { get; set; }
         public virtual DbSet<event1> events1 { get; set; }
+        public virtual DbSet<FlowQueue> FlowQueues { get; set; }
         public virtual DbSet<grouping> groupings { get; set; }
         public virtual DbSet<haematology> haematologies { get; set; }
         public virtual DbSet<head> heads { get; set; }
@@ -63,10 +67,11 @@ namespace Repo.Models
         public virtual DbSet<patient> patients { get; set; }
         public virtual DbSet<PatientComplaint> PatientComplaints { get; set; }
         public virtual DbSet<phyexam> phyexams { get; set; }
+        public virtual DbSet<prescription> prescriptions { get; set; }
         public virtual DbSet<procedur> procedurs { get; set; }
+        public virtual DbSet<ProcessFlow> ProcessFlows { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<RolePermission> RolePermissions { get; set; }
-        public virtual DbSet<round> rounds { get; set; }
         public virtual DbSet<scanreport> scanreports { get; set; }
         public virtual DbSet<stock> stocks { get; set; }
         public virtual DbSet<stockCategory> stockCategories { get; set; }
@@ -81,8 +86,7 @@ namespace Repo.Models
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<UserRegistrationToken> UserRegistrationTokens { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
-        public virtual DbSet<ward> wards { get; set; }
-        public virtual DbSet<WardType> WardTypes { get; set; }
+        public virtual DbSet<WardRound> WardRounds { get; set; }
         public virtual DbSet<grade_level> grade_levels { get; set; }
         public virtual DbSet<location> locations { get; set; }
         public virtual DbSet<monitor> monitors { get; set; }
@@ -91,7 +95,6 @@ namespace Repo.Models
         public virtual DbSet<nhis_stock> nhis_stocks { get; set; }
         public virtual DbSet<office> offices { get; set; }
         public virtual DbSet<pnc> pncs { get; set; }
-        public virtual DbSet<prescription> prescriptions { get; set; }
         public virtual DbSet<procedure> procedures { get; set; }
         public virtual DbSet<profession> professions { get; set; }
         public virtual DbSet<requisition> requisitions { get; set; }
@@ -103,5 +106,6 @@ namespace Repo.Models
         public virtual DbSet<state> states { get; set; }
         public virtual DbSet<status> status { get; set; }
         public virtual DbSet<unit> units { get; set; }
+        public virtual DbSet<UserView> UserViews { get; set; }
     }
 }

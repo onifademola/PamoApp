@@ -12,15 +12,13 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class round
+    public partial class UserView
     {
-        public int ID { get; set; }
-        public Nullable<int> PatientID { get; set; }
-        public string CardNumber { get; set; }
-        public Nullable<System.DateTime> C_Date { get; set; }
-        public string Hour { get; set; }
-        public string Note { get; set; }
-        public string Doctor { get; set; }
-        public Nullable<int> DoctorID { get; set; }
+        public string Id { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string RoleId { get; set; }
+        public string UserId { get; set; }
+        public string Name { get; set; }
     }
 }

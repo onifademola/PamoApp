@@ -5,6 +5,30 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="PamoDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttID" Type="int" />
+          <Property Name="ClinicWardID" Type="int" />
+          <Property Name="WardName" Type="varchar" MaxLength="50" />
+          <Property Name="_Date" Type="date" />
+          <Property Name="ActivityType" Type="varchar" MaxLength="50" />
+          <Property Name="CardNumber" Type="varchar" MaxLength="50" />
+          <Property Name="PatientID" Type="int" />
+          <Property Name="PatientName" Type="varchar" MaxLength="50" />
+          <Property Name="Age" Type="varchar" MaxLength="50" />
+          <Property Name="Sex" Type="varchar" MaxLength="10" />
+          <Property Name="Official" Type="varchar" MaxLength="50" />
+          <Property Name="Designation" Type="varchar" MaxLength="50" />
+          <Property Name="Dept" Type="varchar" MaxLength="50" />
+          <Property Name="Hall" Type="varchar" MaxLength="50" />
+          <Property Name="Remark" Type="varchar(max)" />
+          <Property Name="PostedBy" Type="varchar" MaxLength="50" />
+          <Property Name="PostedByID" Type="int" />
+          <Property Name="StatusID" Type="int" />
+        </EntityType>
         <EntityType Name="anc">
           <Key>
             <PropertyRef Name="ID" />
@@ -195,16 +219,34 @@ warning 6013: The table/view 'PamoDb.dbo.booln2' does not have a primary key def
           <Property Name="Bank" Type="varchar" MaxLength="50" />
           <Property Name="Account" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="company">
+        <EntityType Name="ClientCompany">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientGroupID" Type="int" />
           <Property Name="Company" Type="varchar" MaxLength="50" />
           <Property Name="CompanyCode" Type="varchar" MaxLength="25" />
           <Property Name="Margin" Type="decimal" Precision="11" Scale="2" />
           <Property Name="LMargin" Type="decimal" Precision="11" Scale="2" />
           <Property Name="DMargin" Type="decimal" Precision="11" Scale="2" />
+        </EntityType>
+        <EntityType Name="ClientGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientGroupTypeID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ClinicWard">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Beds" Type="int" />
+          <Property Name="Remark" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="consultingRoom">
           <Key>
@@ -349,6 +391,13 @@ warning 6013: The table/view 'PamoDb.dbo.booln2' does not have a primary key def
           <Property Name="Content" Type="varchar(max)" />
           <Property Name="Date" Type="date" Nullable="false" />
           <Property Name="Author" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FlowQueue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PamoDb.dbo.grade level' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -792,6 +841,7 @@ warning 6013: The table/view 'PamoDb.dbo.OwnerDetail' does not have a primary ke
           <Property Name="SubDistrict" Type="varchar" MaxLength="50" />
           <Property Name="AgeGroup" Type="varchar" MaxLength="50" />
           <Property Name="NHIS" Type="varchar" MaxLength="50" />
+          <Property Name="ClientCompanyID" Type="int" />
         </EntityType>
         <EntityType Name="PatientComplaint">
           <Key>
@@ -843,16 +893,14 @@ warning 6002: The table/view 'PamoDb.dbo.pnc' does not have a primary key define
           <Property Name="Date" Type="date" />
           <Property Name="Physician" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.prescription' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="prescription">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="Staff" />
           </Key>
-          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttID" Type="int" />
           <Property Name="Date" Type="date" />
-          <Property Name="Card Number" Type="varchar" MaxLength="50" />
+          <Property Name="CardNumber" Type="varchar" MaxLength="50" />
           <Property Name="Prescription" Type="varchar" MaxLength="50" />
           <Property Name="Qty" Type="bigint" />
           <Property Name="Dose" Type="varchar" MaxLength="50" />
@@ -860,7 +908,6 @@ warning 6002: The table/view 'PamoDb.dbo.prescription' does not have a primary k
           <Property Name="Treated" Type="varchar" MaxLength="50" />
           <Property Name="Referred" Type="smallint" />
           <Property Name="Remarks" Type="varchar" MaxLength="100" />
-          <Property Name="AttID" Type="bigint" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="Mgt" Type="varchar" MaxLength="50" />
           <Property Name="SCode" Type="varchar" MaxLength="50" />
@@ -893,6 +940,17 @@ warning 6002: The table/view 'PamoDb.dbo.procedures' does not have a primary key
           <Property Name="G_DRG" Type="varchar" MaxLength="30" />
           <Property Name="Tarrif_Catering" Type="decimal" Precision="11" Scale="2" />
           <Property Name="Tarrif" Type="decimal" Precision="11" Scale="2" />
+        </EntityType>
+        <EntityType Name="ProcessFlow">
+          <Key>
+            <PropertyRef Name="ProcessID" />
+          </Key>
+          <Property Name="ProcessID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttID" Type="int" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="StartTime" Type="datetime" />
+          <Property Name="EndTime" Type="datetime" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PamoDb.dbo.profession' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -964,19 +1022,6 @@ warning 6002: The table/view 'PamoDb.dbo.restock' does not have a primary key de
           </Key>
           <Property Name="RoleName" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="PermissionId" Type="nvarchar" MaxLength="322" Nullable="false" />
-        </EntityType>
-        <EntityType Name="rounds">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PatientID" Type="int" />
-          <Property Name="CardNumber" Type="varchar" MaxLength="50" />
-          <Property Name="_Date" Type="date" />
-          <Property Name="Hour" Type="varchar" MaxLength="15" />
-          <Property Name="Note" Type="varchar(max)" />
-          <Property Name="Doctor" Type="varchar" MaxLength="50" />
-          <Property Name="DoctorID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PamoDb.dbo.sales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1309,36 +1354,192 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TypeName" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="ward">
+        <EntityType Name="WardRound">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="WardName" Type="varchar" MaxLength="50" />
-          <Property Name="_Date" Type="date" />
-          <Property Name="ActivityType" Type="varchar" MaxLength="50" />
-          <Property Name="CardNumber" Type="varchar" MaxLength="50" />
+          <Property Name="AdmissionID" Type="int" />
           <Property Name="PatientID" Type="int" />
-          <Property Name="PatientName" Type="varchar" MaxLength="50" />
-          <Property Name="Age" Type="varchar" MaxLength="50" />
-          <Property Name="Sex" Type="varchar" MaxLength="10" />
-          <Property Name="Official" Type="varchar" MaxLength="50" />
-          <Property Name="Designation" Type="varchar" MaxLength="50" />
-          <Property Name="Dept" Type="varchar" MaxLength="50" />
-          <Property Name="Hall" Type="varchar" MaxLength="50" />
-          <Property Name="Remark" Type="varchar(max)" />
-          <Property Name="PostedBy" Type="varchar" MaxLength="50" />
-          <Property Name="PostedByID" Type="int" />
+          <Property Name="CardNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Hour" Type="varchar" MaxLength="15" />
+          <Property Name="Note" Type="varchar(max)" />
+          <Property Name="Doctor" Type="varchar" MaxLength="50" />
+          <Property Name="DoctorID" Type="int" />
         </EntityType>
-        <EntityType Name="WardType">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserView">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Name" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Ward" Type="varchar" MaxLength="50" />
-          <Property Name="Beds" Type="int" />
-          <Property Name="Remark" Type="varchar(max)" />
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Admission_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="Admission" Type="Self.Admission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Admission">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Admission_ClinicWard">
+          <End Role="ClinicWard" Type="Self.ClinicWard" Multiplicity="0..1" />
+          <End Role="Admission" Type="Self.Admission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClinicWard">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Admission">
+              <PropertyRef Name="ClinicWardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_attendance_patient">
+          <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_biovital_patient">
+          <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+          <End Role="biovital" Type="Self.biovital" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="biovital">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCompany_ClientGroup">
+          <End Role="ClientGroup" Type="Self.ClientGroup" Multiplicity="0..1" />
+          <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClientCompany">
+              <PropertyRef Name="ClientGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_delivery_patient">
+          <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+          <End Role="delivery" Type="Self.delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="delivery">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_diagnosis_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="diagnosis" Type="Self.diagnosis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="diagnosis">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_patient_ClientCompany">
+          <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="0..1" />
+          <End Role="patient" Type="Self.patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="patient">
+              <PropertyRef Name="ClientCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientComplaint_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="PatientComplaint" Type="Self.PatientComplaint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PatientComplaint">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_phyexam_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="phyexam" Type="Self.phyexam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="phyexam">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_prescription_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="prescription" Type="Self.prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="prescription">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_procedur_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="procedur" Type="Self.procedur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="procedur">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProcessFlow_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="ProcessFlow" Type="Self.ProcessFlow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProcessFlow">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_complaint_tbl_complaint_category">
           <End Role="tbl_complaint_category" Type="Self.tbl_complaint_category" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -1401,7 +1602,20 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WardRound_Admission">
+          <End Role="Admission" Type="Self.Admission" Multiplicity="0..1" />
+          <End Role="WardRound" Type="Self.WardRound" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admission">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WardRound">
+              <PropertyRef Name="AdmissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PamoDbModelStoreContainer">
+          <EntitySet Name="Admission" EntityType="Self.Admission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="anc" EntityType="Self.anc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="appointment" EntityType="Self.appointment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="attendance" EntityType="Self.attendance" Schema="dbo" store:Type="Tables" />
@@ -1411,7 +1625,9 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <EntitySet Name="billupdate" EntityType="Self.billupdate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="biovital" EntityType="Self.biovital" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cash" EntityType="Self.cash" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="company" EntityType="Self.company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientCompany" EntityType="Self.ClientCompany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientGroup" EntityType="Self.ClientGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClinicWard" EntityType="Self.ClinicWard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="consultingRoom" EntityType="Self.consultingRoom" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="contract" EntityType="Self.contract" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="delivery" EntityType="Self.delivery" Schema="dbo" store:Type="Tables" />
@@ -1423,6 +1639,7 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <EntitySet Name="drug" EntityType="Self.drug" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="event" EntityType="Self.event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="events" EntityType="Self.events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FlowQueue" EntityType="Self.FlowQueue" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="grouping" EntityType="Self.grouping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="haematology" EntityType="Self.haematology" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="heads" EntityType="Self.heads" Schema="dbo" store:Type="Tables" />
@@ -1440,10 +1657,11 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <EntitySet Name="patient" EntityType="Self.patient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PatientComplaint" EntityType="Self.PatientComplaint" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="phyexam" EntityType="Self.phyexam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="prescription" EntityType="Self.prescription" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="procedur" EntityType="Self.procedur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProcessFlow" EntityType="Self.ProcessFlow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RolePermissions" EntityType="Self.RolePermissions" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="rounds" EntityType="Self.rounds" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="scanreport" EntityType="Self.scanreport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="stock" EntityType="Self.stock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="stockCategory" EntityType="Self.stockCategory" Schema="dbo" store:Type="Tables" />
@@ -1459,8 +1677,7 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <EntitySet Name="UserRegistrationToken" EntityType="Self.UserRegistrationToken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ward" EntityType="Self.ward" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WardType" EntityType="Self.WardType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WardRound" EntityType="Self.WardRound" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="grade level" EntityType="Self.grade level" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [grade level].[GL] AS [GL], 
@@ -1572,26 +1789,6 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
     [pnc].[Date] AS [Date], 
     [pnc].[Physician] AS [Physician]
     FROM [dbo].[pnc] AS [pnc]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="prescription" EntityType="Self.prescription" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [prescription].[ID] AS [ID], 
-    [prescription].[Date] AS [Date], 
-    [prescription].[Card Number] AS [Card Number], 
-    [prescription].[Prescription] AS [Prescription], 
-    [prescription].[Qty] AS [Qty], 
-    [prescription].[Dose] AS [Dose], 
-    [prescription].[Duration] AS [Duration], 
-    [prescription].[Treated] AS [Treated], 
-    [prescription].[Referred] AS [Referred], 
-    [prescription].[Remarks] AS [Remarks], 
-    [prescription].[AttID] AS [AttID], 
-    [prescription].[Status] AS [Status], 
-    [prescription].[Mgt] AS [Mgt], 
-    [prescription].[SCode] AS [SCode], 
-    [prescription].[Paid] AS [Paid], 
-    [prescription].[Staff] AS [Staff]
-    FROM [dbo].[prescription] AS [prescription]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="procedures" EntityType="Self.procedures" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1771,6 +1968,68 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
     [unit].[Unit] AS [Unit]
     FROM [dbo].[unit] AS [unit]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="UserView" EntityType="Self.UserView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserView].[Id] AS [Id], 
+    [UserView].[UserName] AS [UserName], 
+    [UserView].[Email] AS [Email], 
+    [UserView].[RoleId] AS [RoleId], 
+    [UserView].[UserId] AS [UserId], 
+    [UserView].[Name] AS [Name]
+    FROM [dbo].[UserView] AS [UserView]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Admission_attendance" Association="Self.FK_Admission_attendance">
+            <End Role="attendance" EntitySet="attendance" />
+            <End Role="Admission" EntitySet="Admission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Admission_ClinicWard" Association="Self.FK_Admission_ClinicWard">
+            <End Role="ClinicWard" EntitySet="ClinicWard" />
+            <End Role="Admission" EntitySet="Admission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_attendance_patient" Association="Self.FK_attendance_patient">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_biovital_patient" Association="Self.FK_biovital_patient">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="biovital" EntitySet="biovital" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCompany_ClientGroup" Association="Self.FK_ClientCompany_ClientGroup">
+            <End Role="ClientGroup" EntitySet="ClientGroup" />
+            <End Role="ClientCompany" EntitySet="ClientCompany" />
+          </AssociationSet>
+          <AssociationSet Name="FK_delivery_patient" Association="Self.FK_delivery_patient">
+            <End Role="patient" EntitySet="patient" />
+            <End Role="delivery" EntitySet="delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_diagnosis_attendance" Association="Self.FK_diagnosis_attendance">
+            <End Role="attendance" EntitySet="attendance" />
+            <End Role="diagnosis" EntitySet="diagnosis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_patient_ClientCompany" Association="Self.FK_patient_ClientCompany">
+            <End Role="ClientCompany" EntitySet="ClientCompany" />
+            <End Role="patient" EntitySet="patient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientComplaint_attendance" Association="Self.FK_PatientComplaint_attendance">
+            <End Role="attendance" EntitySet="attendance" />
+            <End Role="PatientComplaint" EntitySet="PatientComplaint" />
+          </AssociationSet>
+          <AssociationSet Name="FK_phyexam_attendance" Association="Self.FK_phyexam_attendance">
+            <End Role="attendance" EntitySet="attendance" />
+            <End Role="phyexam" EntitySet="phyexam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_prescription_attendance" Association="Self.FK_prescription_attendance">
+            <End Role="attendance" EntitySet="attendance" />
+            <End Role="prescription" EntitySet="prescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_procedur_attendance" Association="Self.FK_procedur_attendance">
+            <End Role="attendance" EntitySet="attendance" />
+            <End Role="procedur" EntitySet="procedur" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProcessFlow_attendance" Association="Self.FK_ProcessFlow_attendance">
+            <End Role="attendance" EntitySet="attendance" />
+            <End Role="ProcessFlow" EntitySet="ProcessFlow" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_complaint_tbl_complaint_category" Association="Self.FK_tbl_complaint_tbl_complaint_category">
             <End Role="tbl_complaint_category" EntitySet="tbl_complaint_category" />
             <End Role="tbl_complaint" EntitySet="tbl_complaint" />
@@ -1791,12 +2050,43 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
             <End Role="User" EntitySet="User" />
             <End Role="UserRole" EntitySet="UserRole" />
           </AssociationSet>
+          <AssociationSet Name="FK_WardRound_Admission" Association="Self.FK_WardRound_Admission">
+            <End Role="Admission" EntitySet="Admission" />
+            <End Role="WardRound" EntitySet="WardRound" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PamoDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttID" Type="Int32" />
+          <Property Name="ClinicWardID" Type="Int32" />
+          <Property Name="WardName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="C_Date" Type="DateTime" Precision="0" />
+          <Property Name="ActivityType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PatientID" Type="Int32" />
+          <Property Name="PatientName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Official" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Dept" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Hall" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PostedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PostedByID" Type="Int32" />
+          <Property Name="StatusID" Type="Int32" />
+          <NavigationProperty Name="attendance" Relationship="Self.FK_Admission_attendance" FromRole="Admission" ToRole="attendance" />
+          <NavigationProperty Name="ClinicWard" Relationship="Self.FK_Admission_ClinicWard" FromRole="Admission" ToRole="ClinicWard" />
+          <NavigationProperty Name="WardRounds" Relationship="Self.FK_WardRound_Admission" FromRole="Admission" ToRole="WardRound" />
+        </EntityType>
         <EntityType Name="anc">
           <Key>
             <PropertyRef Name="ID" />
@@ -1881,6 +2171,14 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Package" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Position" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Admissions" Relationship="Self.FK_Admission_attendance" FromRole="attendance" ToRole="Admission" />
+          <NavigationProperty Name="patient" Relationship="Self.FK_attendance_patient" FromRole="attendance" ToRole="patient" />
+          <NavigationProperty Name="diagnosis1" Relationship="Self.FK_diagnosis_attendance" FromRole="attendance" ToRole="diagnosis" />
+          <NavigationProperty Name="PatientComplaints" Relationship="Self.FK_PatientComplaint_attendance" FromRole="attendance" ToRole="PatientComplaint" />
+          <NavigationProperty Name="phyexams" Relationship="Self.FK_phyexam_attendance" FromRole="attendance" ToRole="phyexam" />
+          <NavigationProperty Name="prescriptions" Relationship="Self.FK_prescription_attendance" FromRole="attendance" ToRole="prescription" />
+          <NavigationProperty Name="procedurs" Relationship="Self.FK_procedur_attendance" FromRole="attendance" ToRole="procedur" />
+          <NavigationProperty Name="ProcessFlows" Relationship="Self.FK_ProcessFlow_attendance" FromRole="attendance" ToRole="ProcessFlow" />
         </EntityType>
         <EntityType Name="bank">
           <Key>
@@ -1956,6 +2254,7 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="Pulse" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Temp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RBS" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="patient" Relationship="Self.FK_biovital_patient" FromRole="biovital" ToRole="patient" />
         </EntityType>
         <EntityType Name="cash">
           <Key>
@@ -1974,16 +2273,38 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="Bank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="company">
+        <EntityType Name="ClientCompany">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Company1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClientGroupID" Type="Int32" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CompanyCode" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Margin" Type="Decimal" Precision="11" Scale="2" />
           <Property Name="LMargin" Type="Decimal" Precision="11" Scale="2" />
           <Property Name="DMargin" Type="Decimal" Precision="11" Scale="2" />
+          <NavigationProperty Name="ClientGroup" Relationship="Self.FK_ClientCompany_ClientGroup" FromRole="ClientCompany" ToRole="ClientGroup" />
+          <NavigationProperty Name="patients" Relationship="Self.FK_patient_ClientCompany" FromRole="ClientCompany" ToRole="patient" />
+        </EntityType>
+        <EntityType Name="ClientGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientGroupTypeID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ClientCompanies" Relationship="Self.FK_ClientCompany_ClientGroup" FromRole="ClientGroup" ToRole="ClientCompany" />
+        </EntityType>
+        <EntityType Name="ClinicWard">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Beds" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Admissions" Relationship="Self.FK_Admission_ClinicWard" FromRole="ClinicWard" ToRole="Admission" />
         </EntityType>
         <EntityType Name="consultingRoom">
           <Key>
@@ -2038,6 +2359,7 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="ReferedFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StillBirth" Type="Int16" />
           <Property Name="Multiple" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="patient" Relationship="Self.FK_delivery_patient" FromRole="delivery" ToRole="patient" />
         </EntityType>
         <EntityType Name="department">
           <Key>
@@ -2061,6 +2383,7 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="DiagnosedByID" Type="Int32" />
           <Property Name="DiagnosedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AttID" Type="Int32" />
+          <NavigationProperty Name="attendance" Relationship="Self.FK_diagnosis_attendance" FromRole="diagnosis" ToRole="attendance" />
         </EntityType>
         <EntityType Name="diagnosis_type">
           <Key>
@@ -2128,6 +2451,13 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Author" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FlowQueue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttID" Type="Int32" />
         </EntityType>
         <EntityType Name="grouping">
           <Key>
@@ -2434,6 +2764,11 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="SubDistrict" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AgeGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NHIS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCompanyID" Type="Int32" />
+          <NavigationProperty Name="attendances" Relationship="Self.FK_attendance_patient" FromRole="patient" ToRole="attendance" />
+          <NavigationProperty Name="biovitals" Relationship="Self.FK_biovital_patient" FromRole="patient" ToRole="biovital" />
+          <NavigationProperty Name="ClientCompany" Relationship="Self.FK_patient_ClientCompany" FromRole="patient" ToRole="ClientCompany" />
+          <NavigationProperty Name="deliveries" Relationship="Self.FK_delivery_patient" FromRole="patient" ToRole="delivery" />
         </EntityType>
         <EntityType Name="PatientComplaint">
           <Key>
@@ -2450,6 +2785,7 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="TakenBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TakenByID" Type="Int32" />
           <Property Name="AttID" Type="Int32" />
+          <NavigationProperty Name="attendance" Relationship="Self.FK_PatientComplaint_attendance" FromRole="PatientComplaint" ToRole="attendance" />
         </EntityType>
         <EntityType Name="phyexam">
           <Key>
@@ -2464,6 +2800,29 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="Doctor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AttID" Type="Int32" />
           <Property Name="Temp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="attendance" Relationship="Self.FK_phyexam_attendance" FromRole="phyexam" ToRole="attendance" />
+        </EntityType>
+        <EntityType Name="prescription">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prescription1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Qty" Type="Int64" />
+          <Property Name="Dose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Duration" Type="Int64" />
+          <Property Name="Treated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Referred" Type="Int16" />
+          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mgt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Paid" Type="Int16" />
+          <Property Name="Staff" Type="String" MaxLength="48" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="attendance" Relationship="Self.FK_prescription_attendance" FromRole="prescription" ToRole="attendance" />
         </EntityType>
         <EntityType Name="procedur">
           <Key>
@@ -2478,6 +2837,19 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="DoctorID" Type="Int32" />
           <Property Name="Doctor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AttID" Type="Int32" />
+          <NavigationProperty Name="attendance" Relationship="Self.FK_procedur_attendance" FromRole="procedur" ToRole="attendance" />
+        </EntityType>
+        <EntityType Name="ProcessFlow">
+          <Key>
+            <PropertyRef Name="ProcessID" />
+          </Key>
+          <Property Name="ProcessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttID" Type="Int32" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="attendance" Relationship="Self.FK_ProcessFlow_attendance" FromRole="ProcessFlow" ToRole="attendance" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -2494,19 +2866,6 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           </Key>
           <Property Name="RoleName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PermissionId" Type="String" MaxLength="322" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="round">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PatientID" Type="Int32" />
-          <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="C_Date" Type="DateTime" Precision="0" />
-          <Property Name="Hour" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Doctor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DoctorID" Type="Int32" />
         </EntityType>
         <EntityType Name="scanreport">
           <Key>
@@ -2687,35 +3046,20 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="ward">
+        <EntityType Name="WardRound">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WardName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="C_Date" Type="DateTime" Precision="0" />
-          <Property Name="ActivityType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AdmissionID" Type="Int32" />
           <Property Name="PatientID" Type="Int32" />
-          <Property Name="PatientName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Official" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Dept" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Hall" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="PostedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PostedByID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="WardType">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Ward" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Beds" Type="Int32" />
-          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Hour" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Doctor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DoctorID" Type="Int32" />
+          <NavigationProperty Name="Admission" Relationship="Self.FK_WardRound_Admission" FromRole="WardRound" ToRole="Admission" />
         </EntityType>
         <EntityType Name="grade_level">
           <Key>
@@ -2840,28 +3184,6 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Physician" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="prescription">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="Staff" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="Card_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Prescription1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Qty" Type="Int64" />
-          <Property Name="Dose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Duration" Type="Int64" />
-          <Property Name="Treated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Referred" Type="Int16" />
-          <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="AttID" Type="Int64" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Mgt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Paid" Type="Int16" />
-          <Property Name="Staff" Type="String" MaxLength="48" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="procedure">
           <Key>
@@ -3052,6 +3374,188 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="ID" Type="Int64" Nullable="false" />
           <Property Name="Unit1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="UserView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Admission_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="Admission" Type="Self.Admission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Admission">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Admission_ClinicWard">
+          <End Role="ClinicWard" Type="Self.ClinicWard" Multiplicity="0..1" />
+          <End Role="Admission" Type="Self.Admission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClinicWard">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Admission">
+              <PropertyRef Name="ClinicWardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WardRound_Admission">
+          <End Role="Admission" Type="Self.Admission" Multiplicity="0..1" />
+          <End Role="WardRound" Type="Self.WardRound" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admission">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WardRound">
+              <PropertyRef Name="AdmissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_attendance_patient">
+          <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_diagnosis_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="diagnosis" Type="Self.diagnosi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="diagnosis">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PatientComplaint_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="PatientComplaint" Type="Self.PatientComplaint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PatientComplaint">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_phyexam_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="phyexam" Type="Self.phyexam" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="phyexam">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_prescription_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="prescription" Type="Self.prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="prescription">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_procedur_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="procedur" Type="Self.procedur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="procedur">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProcessFlow_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="ProcessFlow" Type="Self.ProcessFlow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProcessFlow">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_biovital_patient">
+          <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+          <End Role="biovital" Type="Self.biovital" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="biovital">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClientCompany_ClientGroup">
+          <End Role="ClientGroup" Type="Self.ClientGroup" Multiplicity="0..1" />
+          <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClientCompany">
+              <PropertyRef Name="ClientGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_patient_ClientCompany">
+          <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="0..1" />
+          <End Role="patient" Type="Self.patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientCompany">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="patient">
+              <PropertyRef Name="ClientCompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_delivery_patient">
+          <End Role="patient" Type="Self.patient" Multiplicity="0..1" />
+          <End Role="delivery" Type="Self.delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="delivery">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_complaint_tbl_complaint_category">
           <End Role="tbl_complaint_category" Type="Self.tbl_complaint_category" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -3095,6 +3599,7 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <End Role="User" Type="Self.User" Multiplicity="*" />
         </Association>
         <EntityContainer Name="PamoDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admissions" EntityType="Self.Admission" />
           <EntitySet Name="ancs" EntityType="Self.anc" />
           <EntitySet Name="appointments" EntityType="Self.appointment" />
           <EntitySet Name="attendances" EntityType="Self.attendance" />
@@ -3104,7 +3609,9 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <EntitySet Name="billupdates" EntityType="Self.billupdate" />
           <EntitySet Name="biovitals" EntityType="Self.biovital" />
           <EntitySet Name="cashes" EntityType="Self.cash" />
-          <EntitySet Name="companies" EntityType="Self.company" />
+          <EntitySet Name="ClientCompanies" EntityType="Self.ClientCompany" />
+          <EntitySet Name="ClientGroups" EntityType="Self.ClientGroup" />
+          <EntitySet Name="ClinicWards" EntityType="Self.ClinicWard" />
           <EntitySet Name="consultingRooms" EntityType="Self.consultingRoom" />
           <EntitySet Name="contracts" EntityType="Self.contract" />
           <EntitySet Name="deliveries" EntityType="Self.delivery" />
@@ -3116,6 +3623,7 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <EntitySet Name="drugs" EntityType="Self.drug" />
           <EntitySet Name="events" EntityType="Self.event" />
           <EntitySet Name="events1" EntityType="Self.event1" />
+          <EntitySet Name="FlowQueues" EntityType="Self.FlowQueue" />
           <EntitySet Name="groupings" EntityType="Self.grouping" />
           <EntitySet Name="haematologies" EntityType="Self.haematology" />
           <EntitySet Name="heads" EntityType="Self.head" />
@@ -3133,10 +3641,11 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <EntitySet Name="patients" EntityType="Self.patient" />
           <EntitySet Name="PatientComplaints" EntityType="Self.PatientComplaint" />
           <EntitySet Name="phyexams" EntityType="Self.phyexam" />
+          <EntitySet Name="prescriptions" EntityType="Self.prescription" />
           <EntitySet Name="procedurs" EntityType="Self.procedur" />
+          <EntitySet Name="ProcessFlows" EntityType="Self.ProcessFlow" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="RolePermissions" EntityType="Self.RolePermission" />
-          <EntitySet Name="rounds" EntityType="Self.round" />
           <EntitySet Name="scanreports" EntityType="Self.scanreport" />
           <EntitySet Name="stocks" EntityType="Self.stock" />
           <EntitySet Name="stockCategories" EntityType="Self.stockCategory" />
@@ -3151,8 +3660,7 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
           <EntitySet Name="UserRegistrationTokens" EntityType="Self.UserRegistrationToken" />
           <EntitySet Name="UserTypes" EntityType="Self.UserType" />
-          <EntitySet Name="wards" EntityType="Self.ward" />
-          <EntitySet Name="WardTypes" EntityType="Self.WardType" />
+          <EntitySet Name="WardRounds" EntityType="Self.WardRound" />
           <EntitySet Name="grade_levels" EntityType="Self.grade_level" />
           <EntitySet Name="locations" EntityType="Self.location" />
           <EntitySet Name="monitors" EntityType="Self.monitor" />
@@ -3161,7 +3669,6 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <EntitySet Name="nhis_stocks" EntityType="Self.nhis_stock" />
           <EntitySet Name="offices" EntityType="Self.office" />
           <EntitySet Name="pncs" EntityType="Self.pnc" />
-          <EntitySet Name="prescriptions" EntityType="Self.prescription" />
           <EntitySet Name="procedures" EntityType="Self.procedure" />
           <EntitySet Name="professions" EntityType="Self.profession" />
           <EntitySet Name="requisitions" EntityType="Self.requisition" />
@@ -3173,6 +3680,63 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <EntitySet Name="states" EntityType="Self.state" />
           <EntitySet Name="status" EntityType="Self.status" />
           <EntitySet Name="units" EntityType="Self.unit" />
+          <EntitySet Name="UserViews" EntityType="Self.UserView" />
+          <AssociationSet Name="FK_Admission_attendance" Association="Self.FK_Admission_attendance">
+            <End Role="attendance" EntitySet="attendances" />
+            <End Role="Admission" EntitySet="Admissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Admission_ClinicWard" Association="Self.FK_Admission_ClinicWard">
+            <End Role="ClinicWard" EntitySet="ClinicWards" />
+            <End Role="Admission" EntitySet="Admissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WardRound_Admission" Association="Self.FK_WardRound_Admission">
+            <End Role="Admission" EntitySet="Admissions" />
+            <End Role="WardRound" EntitySet="WardRounds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_attendance_patient" Association="Self.FK_attendance_patient">
+            <End Role="patient" EntitySet="patients" />
+            <End Role="attendance" EntitySet="attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_diagnosis_attendance" Association="Self.FK_diagnosis_attendance">
+            <End Role="attendance" EntitySet="attendances" />
+            <End Role="diagnosis" EntitySet="diagnosis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PatientComplaint_attendance" Association="Self.FK_PatientComplaint_attendance">
+            <End Role="attendance" EntitySet="attendances" />
+            <End Role="PatientComplaint" EntitySet="PatientComplaints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_phyexam_attendance" Association="Self.FK_phyexam_attendance">
+            <End Role="attendance" EntitySet="attendances" />
+            <End Role="phyexam" EntitySet="phyexams" />
+          </AssociationSet>
+          <AssociationSet Name="FK_prescription_attendance" Association="Self.FK_prescription_attendance">
+            <End Role="attendance" EntitySet="attendances" />
+            <End Role="prescription" EntitySet="prescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_procedur_attendance" Association="Self.FK_procedur_attendance">
+            <End Role="attendance" EntitySet="attendances" />
+            <End Role="procedur" EntitySet="procedurs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProcessFlow_attendance" Association="Self.FK_ProcessFlow_attendance">
+            <End Role="attendance" EntitySet="attendances" />
+            <End Role="ProcessFlow" EntitySet="ProcessFlows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_biovital_patient" Association="Self.FK_biovital_patient">
+            <End Role="patient" EntitySet="patients" />
+            <End Role="biovital" EntitySet="biovitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClientCompany_ClientGroup" Association="Self.FK_ClientCompany_ClientGroup">
+            <End Role="ClientGroup" EntitySet="ClientGroups" />
+            <End Role="ClientCompany" EntitySet="ClientCompanies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_patient_ClientCompany" Association="Self.FK_patient_ClientCompany">
+            <End Role="ClientCompany" EntitySet="ClientCompanies" />
+            <End Role="patient" EntitySet="patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_delivery_patient" Association="Self.FK_delivery_patient">
+            <End Role="patient" EntitySet="patients" />
+            <End Role="delivery" EntitySet="deliveries" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_complaint_tbl_complaint_category" Association="Self.FK_tbl_complaint_tbl_complaint_category">
             <End Role="tbl_complaint_category" EntitySet="tbl_complaint_category" />
             <End Role="tbl_complaint" EntitySet="tbl_complaint" />
@@ -3196,6 +3760,31 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PamoDbModelStoreContainer" CdmEntityContainer="PamoDbEntities">
+          <EntitySetMapping Name="Admissions">
+            <EntityTypeMapping TypeName="PamoDbModel.Admission">
+              <MappingFragment StoreEntitySet="Admission">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AttID" ColumnName="AttID" />
+                <ScalarProperty Name="ClinicWardID" ColumnName="ClinicWardID" />
+                <ScalarProperty Name="WardName" ColumnName="WardName" />
+                <ScalarProperty Name="C_Date" ColumnName="_Date" />
+                <ScalarProperty Name="ActivityType" ColumnName="ActivityType" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="PatientName" ColumnName="PatientName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Official" ColumnName="Official" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="Dept" ColumnName="Dept" />
+                <ScalarProperty Name="Hall" ColumnName="Hall" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="PostedBy" ColumnName="PostedBy" />
+                <ScalarProperty Name="PostedByID" ColumnName="PostedByID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ancs">
             <EntityTypeMapping TypeName="PamoDbModel.anc">
               <MappingFragment StoreEntitySet="anc">
@@ -3382,15 +3971,35 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="companies">
-            <EntityTypeMapping TypeName="PamoDbModel.company">
-              <MappingFragment StoreEntitySet="company">
+          <EntitySetMapping Name="ClientCompanies">
+            <EntityTypeMapping TypeName="PamoDbModel.ClientCompany">
+              <MappingFragment StoreEntitySet="ClientCompany">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Company1" ColumnName="Company" />
+                <ScalarProperty Name="ClientGroupID" ColumnName="ClientGroupID" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
                 <ScalarProperty Name="CompanyCode" ColumnName="CompanyCode" />
                 <ScalarProperty Name="Margin" ColumnName="Margin" />
                 <ScalarProperty Name="LMargin" ColumnName="LMargin" />
                 <ScalarProperty Name="DMargin" ColumnName="DMargin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientGroups">
+            <EntityTypeMapping TypeName="PamoDbModel.ClientGroup">
+              <MappingFragment StoreEntitySet="ClientGroup">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClientGroupTypeID" ColumnName="ClientGroupTypeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClinicWards">
+            <EntityTypeMapping TypeName="PamoDbModel.ClinicWard">
+              <MappingFragment StoreEntitySet="ClinicWard">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Beds" ColumnName="Beds" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3546,6 +4155,14 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Author" ColumnName="Author" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FlowQueues">
+            <EntityTypeMapping TypeName="PamoDbModel.FlowQueue">
+              <MappingFragment StoreEntitySet="FlowQueue">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AttID" ColumnName="AttID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3867,6 +4484,7 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
                 <ScalarProperty Name="SubDistrict" ColumnName="SubDistrict" />
                 <ScalarProperty Name="AgeGroup" ColumnName="AgeGroup" />
                 <ScalarProperty Name="NHIS" ColumnName="NHIS" />
+                <ScalarProperty Name="ClientCompanyID" ColumnName="ClientCompanyID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3902,6 +4520,28 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="prescriptions">
+            <EntityTypeMapping TypeName="PamoDbModel.prescription">
+              <MappingFragment StoreEntitySet="prescription">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AttID" ColumnName="AttID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="Prescription1" ColumnName="Prescription" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="Dose" ColumnName="Dose" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Treated" ColumnName="Treated" />
+                <ScalarProperty Name="Referred" ColumnName="Referred" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Mgt" ColumnName="Mgt" />
+                <ScalarProperty Name="SCode" ColumnName="SCode" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="Staff" ColumnName="Staff" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="procedurs">
             <EntityTypeMapping TypeName="PamoDbModel.procedur">
               <MappingFragment StoreEntitySet="procedur">
@@ -3914,6 +4554,18 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
                 <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
                 <ScalarProperty Name="Doctor" ColumnName="Doctor" />
                 <ScalarProperty Name="AttID" ColumnName="AttID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProcessFlows">
+            <EntityTypeMapping TypeName="PamoDbModel.ProcessFlow">
+              <MappingFragment StoreEntitySet="ProcessFlow">
+                <ScalarProperty Name="ProcessID" ColumnName="ProcessID" />
+                <ScalarProperty Name="AttID" ColumnName="AttID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3930,20 +4582,6 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
               <MappingFragment StoreEntitySet="RolePermissions">
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="rounds">
-            <EntityTypeMapping TypeName="PamoDbModel.round">
-              <MappingFragment StoreEntitySet="rounds">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
-                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
-                <ScalarProperty Name="C_Date" ColumnName="_Date" />
-                <ScalarProperty Name="Hour" ColumnName="Hour" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Doctor" ColumnName="Doctor" />
-                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4131,35 +4769,18 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="wards">
-            <EntityTypeMapping TypeName="PamoDbModel.ward">
-              <MappingFragment StoreEntitySet="ward">
+          <EntitySetMapping Name="WardRounds">
+            <EntityTypeMapping TypeName="PamoDbModel.WardRound">
+              <MappingFragment StoreEntitySet="WardRound">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="WardName" ColumnName="WardName" />
-                <ScalarProperty Name="C_Date" ColumnName="_Date" />
-                <ScalarProperty Name="ActivityType" ColumnName="ActivityType" />
-                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="AdmissionID" ColumnName="AdmissionID" />
                 <ScalarProperty Name="PatientID" ColumnName="PatientID" />
-                <ScalarProperty Name="PatientName" ColumnName="PatientName" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="Official" ColumnName="Official" />
-                <ScalarProperty Name="Designation" ColumnName="Designation" />
-                <ScalarProperty Name="Dept" ColumnName="Dept" />
-                <ScalarProperty Name="Hall" ColumnName="Hall" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="PostedBy" ColumnName="PostedBy" />
-                <ScalarProperty Name="PostedByID" ColumnName="PostedByID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WardTypes">
-            <EntityTypeMapping TypeName="PamoDbModel.WardType">
-              <MappingFragment StoreEntitySet="WardType">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Ward" ColumnName="Ward" />
-                <ScalarProperty Name="Beds" ColumnName="Beds" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Hour" ColumnName="Hour" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Doctor" ColumnName="Doctor" />
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4288,28 +4909,6 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Physician" ColumnName="Physician" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="prescriptions">
-            <EntityTypeMapping TypeName="PamoDbModel.prescription">
-              <MappingFragment StoreEntitySet="prescription">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Card_Number" ColumnName="Card Number" />
-                <ScalarProperty Name="Prescription1" ColumnName="Prescription" />
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
-                <ScalarProperty Name="Dose" ColumnName="Dose" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="Treated" ColumnName="Treated" />
-                <ScalarProperty Name="Referred" ColumnName="Referred" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="AttID" ColumnName="AttID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Mgt" ColumnName="Mgt" />
-                <ScalarProperty Name="SCode" ColumnName="SCode" />
-                <ScalarProperty Name="Paid" ColumnName="Paid" />
-                <ScalarProperty Name="Staff" ColumnName="Staff" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4510,6 +5109,18 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
               <MappingFragment StoreEntitySet="unit">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Unit1" ColumnName="Unit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserViews">
+            <EntityTypeMapping TypeName="PamoDbModel.UserView">
+              <MappingFragment StoreEntitySet="UserView">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

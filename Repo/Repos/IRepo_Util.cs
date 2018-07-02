@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Repo.Repos
 {
-    public interface IRepo_Util : IRepositoryBase<company>
+    public interface IRepo_Util : IRepositoryBase<ClientCompany>
     {
         List<KeyValuePair<int, string>> ProcessStatuses();
         List<KeyValuePair<int, string>> QueueTypes();
@@ -15,5 +15,6 @@ namespace Repo.Repos
         List<KeyValuePair<int, string>> ClientGroupType();
         List<KeyValuePair<int, string>> AdmissionStatus();
         DateTime GetNijaTime(DateTime timeToConvert);
+        void AddToRolesTable();
     }
 }

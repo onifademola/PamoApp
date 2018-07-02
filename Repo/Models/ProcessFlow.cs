@@ -12,11 +12,15 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class WardType
+    public partial class ProcessFlow
     {
-        public int ID { get; set; }
-        public string Ward { get; set; }
-        public Nullable<int> Beds { get; set; }
-        public string Remark { get; set; }
+        public int ProcessID { get; set; }
+        public Nullable<int> AttID { get; set; }
+        public Nullable<int> StatusID { get; set; }
+        public Nullable<System.DateTime> StartTime { get; set; }
+        public Nullable<System.DateTime> EndTime { get; set; }
+        public string Comment { get; set; }
+    
+        public virtual attendance attendance { get; set; }
     }
 }

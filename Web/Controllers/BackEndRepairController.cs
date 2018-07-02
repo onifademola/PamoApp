@@ -52,11 +52,11 @@ namespace Web.Controllers
             return fix;
         }
 
-        public bool FixPatientRoundsTB()
-        {
-            bool fix = _ber.FixPatientRoundsTB();
-            return fix;
-        }
+        //public bool FixPatientRoundsTB()
+        //{
+        //    bool fix = _ber.FixPatientRoundsTB();
+        //    return fix;
+        //}
 
         public bool FixDoctorPhyExamTB()
         {
@@ -64,11 +64,11 @@ namespace Web.Controllers
             return fix;
         }
 
-        public bool FixDoctorRoundsTB()
-        {
-            bool fix = _ber.FixDoctorRoundsTB();
-            return fix;
-        }
+        //public bool FixDoctorRoundsTB()
+        //{
+        //    bool fix = _ber.FixDoctorRoundsTB();
+        //    return fix;
+        //}
 
         public bool FixPatientPComplainTB()
         {

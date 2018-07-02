@@ -13,9 +13,7 @@
 </script>
 
 <div class="row">
-    <div class="col-md-4">
-    </div>
-
+   
     <div class="col-md-12" id="pageGrid">
         @(Html.Kendo().Grid<Repo.DTOs.dto_Patients>()
         .Name("Grid")
@@ -29,9 +27,9 @@
             .HeaderTemplate("<input type='checkbox' id='masterCheckBox'/>").Width(60).Lockable(true).Locked();
             
 
-            columns.Bound(c => c.Card_Number).Width(120).Locked().Lockable(true);
-            columns.Bound(c => c.Name).Width(120).Locked().Lockable(true);
-            columns.Bound(c => c.Family_Name).Width(120);
+            columns.Bound(c => c.CardNumber).Width(120).Locked().Lockable(true);
+            columns.Bound(c => c.FirstName).Width(120).Locked().Lockable(true);
+            columns.Bound(c => c.LastName).Width(120);
             columns.Bound(c => c.Sex).Width(60);
             //columns.ForeignKey(p => p.LastSessionID, (System.Collections.IEnumerable)ViewData["sessns"], "SessionId", "SessionName")
             //.Title("Last Session").Width(80);
@@ -44,8 +42,8 @@
             columns.Bound(c => c.HMO).Width(100);
             columns.Bound(c => c.SchemeID).Width(100);
             columns.Bound(c => c.Position).Width(100);
-            columns.Bound(c => c.Marital_Status).Width(100);
-            columns.Bound(c => c.Reg_Date).Width(100).Format("{0:dd/MM/yyyy}");
+            columns.Bound(c => c.MaritalStatus).Width(100);
+            columns.Bound(c => c.RegDate).Width(100).Format("{0:dd/MM/yyyy}");
             columns.Bound(c => c.Phone).Width(100);
             //columns.Bound(p => p.StudentId).Width(120).Title("Change Photo").Lockable(true).Sortable(false).Filterable(false)
             //            .ClientTemplate("<a href='" + Url.Action("Edit", "Student") + "/#=StudentId#'>Photo Edit</a>");

@@ -14,6 +14,14 @@ namespace Repo.Models
     
     public partial class patient
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public patient()
+        {
+            this.attendances = new HashSet<attendance>();
+            this.biovitals = new HashSet<biovital>();
+            this.deliveries = new HashSet<delivery>();
+        }
+    
         public int ID { get; set; }
         public string CardNumber { get; set; }
         public string HMO { get; set; }
@@ -55,5 +63,14 @@ namespace Repo.Models
         public string SubDistrict { get; set; }
         public string AgeGroup { get; set; }
         public string NHIS { get; set; }
+        public Nullable<int> ClientCompanyID { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<attendance> attendances { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<biovital> biovitals { get; set; }
+        public virtual ClientCompany ClientCompany { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<delivery> deliveries { get; set; }
     }
 }

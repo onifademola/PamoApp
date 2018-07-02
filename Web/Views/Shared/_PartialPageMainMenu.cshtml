@@ -1,0 +1,598 @@
+﻿<ul class="navbar-nav">
+
+    @if (User.Identity.IsAuthenticated && !User.IsInRole("SuperAdmin"))
+    {
+                <!-- #region Authorization -->
+        <li>
+            <a href="">
+                <i class="el-lock-circled"></i>
+                <span style="text-transform: uppercase">Authorization</span>
+            </a>
+            <ul>
+                <li>
+                    <a href="/UsersAdmin/Create">
+                        <i class="el-user"></i>
+                        <span>Add User</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/UsersAdmin/Index">
+                        <i class="el-group"></i>
+                        <span>Manage Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/UsersAdmin/RoleIndex">
+                        <i class="el-lock-open"></i>
+                        <span>Manage User-Roles</span>
+                    </a>
+                </li>
+                @*<li>
+                        <a href="/Score/ThreshRecompute">
+                            <i class="entypo-mouse"></i>
+                            <span>Recompute Scores</span>
+                        </a>
+                    </li>*@
+            </ul>
+        </li>
+                    <!-- #endregion Targets -->
+    }
+
+    @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+    {
+        <li>
+            <a href="">
+                <i class="el-wrench-circled"></i>
+                <span style="text-transform: uppercase">Settings</span>
+            </a>
+            <ul>
+                <!-- #region Academic Settings -->
+                <li>
+                    <a href="">
+                        <i class="el-calendar"></i>
+                        <span>Academic</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/Session/Index">
+                                <i class="el-leaf"></i>
+                                <span>Session / Term Registration</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/Academic/Index">
+                                <i class="el-book"></i>
+                                <span>Class / Term Registration</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/Academic/StudentClassTerm">
+                                <i class="el-person"></i>
+                                <span>Student / Term Registration</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/Academic/OptionalSubjectReg">
+                                <i class="el-indent-right"></i>
+                                <span>Register Optional Subjects</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/Academic/Overview">
+                                <i class="el-glasses"></i>
+                                <span>Registration Overview</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/Academic/Promotion">
+                                <i class="el-up"></i>
+                                <span>Manage Promotions</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/Academic/UnRegisterStudents">
+                                <i class="el-indent-left"></i>
+                                <span>Unregister Student(s)</span>
+                            </a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+                        {
+                            <li>
+                                <a href="/Academic/OptionalSubjectUnReg">
+                                    <i class="el-eject"></i>
+                                    <span>Unregister Optional Subjects</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+                <!-- #endregion -->
+                <!-- #region Administration -->
+                <li>
+                    <a href="">
+                        <i class="el-website-circled"></i>
+                        <span>Administration</span>
+                    </a>
+                    <ul>
+                        @*<li>
+                                <a href="/Configuration/Index">
+                                    <i class="entypo-doc-text"></i>
+                                    <span>System Registry</span>
+                                </a>
+                            </li>*@
+                        <li>
+                            <a href="/Session/CurrentIndex">
+                                <i class="el-flag"></i>
+                                <span>Current Academic Period</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Class/Index">
+                                <i class="el-location"></i>
+                                <span>Class Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Subject/Manage">
+                                <i class="el-adjust"></i>
+                                <span>Manage Subjects</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Class/Subject">
+                                <i class="el-delicious"></i>
+                                <span>Class / Subjects Map</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Remark/GradingSystem">
+                                <i class="el-ok"></i>
+                                <span>Manage Score Grading</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Remark/PsychomotorGrading">
+                                <i class="el-ok"></i>
+                                <span>Manage Psychomotor Grading</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Remark/Psychomotors">
+                                <i class="el-bookmark"></i>
+                                <span>Manage Psychomotor / Traits</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Remark/RemarksList">
+                                <i class="el-compass"></i>
+                                <span>Manage Remarks</span>
+                            </a>
+                        </li>
+                        @*<li>
+                                <a href="/Remark/AnalysisTitleList">
+                                    <i class="entypo-gauge"></i>
+                                    <span>Manage Subject Analysis Title</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Remark/OtherGradingSystemList">
+                                    <i class="entypo-gplus"></i>
+                                    <span>Manage Other Grading Systems</span>
+                                </a>
+                            </li>*@
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("SuperAdmin"))
+                        {
+                            <li>
+                                <a href="/Configuration/Clients">
+                                    <i class="el-cog"></i>
+                                    <span>Manage Config</span>
+                                </a>
+                            </li>
+                                                <li>
+                                                    <a href="/Configuration/ErrorLogs">
+                                                        <i class="el-cancel-circled"></i>
+                                                        <span>View App Errors</span>
+                                                    </a>
+                                                </li>
+                        }
+                    </ul>
+                </li>
+                <!-- #endregion -->
+                <!-- #region Messaging -->
+                <li>
+                    <a href="">
+                        <i class="el-mail-circled"></i>
+                        <span>Messaging</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/Message/Sms">
+                                <i class="el-phone"></i>
+                                <span>Send SMS</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Message/SmsLog">
+                                <i class="el-flag"></i>
+                                <span>SMS Log</span>
+                            </a>
+                        </li>
+                        @*<li>
+                                <a href="/Message/Email">
+                                    <i class="el-mail"></i>
+                                    <span>Send Email</span>
+                                </a>
+                            </li>*@
+                        <li>
+                            <a href="">
+                                <i class="el-cog"></i>
+                                <span>Configure</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="/Configuration/Smssetting">
+                                        <i class="el-wrench-circled"></i>
+                                        <span>SMS Settings</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Configuration/Emailsetting">
+                                        <i class="el-wrench-circled"></i>
+                                        <span>Email Settings</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <!-- #endregion -->
+            </ul>
+        </li>
+    }
+
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Account"))
+    {
+                    <!-- #region Account Unit -->
+        <li>
+            <a href="#">
+                <i class="el-credit-card"></i>
+                <span style="text-transform: uppercase">Accounts</span>
+            </a>
+
+            <ul>
+                <li>
+                    <a href="/Dashboard/Index">
+                        <i class="el-gauge"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="el-clipboard"></i>
+                        <span>Invoicing</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/Payment/InvoiceIndex">
+                                <i class="el-indent-left"></i>
+                                <span>Invoice Student(s)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Payment/InvoiceOverviewIndex">
+                                <i class="el-indent-right"></i>
+                                <span>Invoice Overview / Undo</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Payment/CreditorsAndDebtors">
+                                <i class="el-braille"></i>
+                                <span>Current Invoices</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="/Payment/Pay">
+                        <i class="el-basket"></i>
+                        <span>Pay Fees</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="el-gift"></i>
+                        <span>Receipts</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/Report/Receipt">
+                                <i class="el-print"></i>
+                                <span>Print Multiple Receipts</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Report/Rcpt">
+                                <i class="el-print"></i>
+                                <span>Print Single Receipt</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Report/Rcpt">
+                                <i class="el-filter"></i>
+                                <span>Find Receipt</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="el-picture"></i>
+                        <span>History</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/Payment/Creditors">
+                                <i class="el-thumbs-up"></i>
+                                <span>Creditors</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Payment/Debtors">
+                                <i class="el-thumbs-down"></i>
+                                <span>Debtors</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="">
+                        <i class="el-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/payment/glaccounts">
+                                <i class="el-attach"></i>
+                                <span>General Ledger</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/payment/serviceitems">
+                                <i class="el-blind"></i>
+                                <span>Service Items</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/payment/feeschedule">
+                                <i class="el-edit-alt"></i>
+                                <span>Fee Schedule</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="">
+                        <i class="el-delicious"></i>
+                        <span>Scholarship</span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="/Payment/Scholarship">
+                                <i class="el-record"></i>
+                                <span>Scholarship Schedule</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Payment/ApplyScholarship">
+                                <i class="el-play-circled"></i>
+                                <span>Apply Scholarship</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Payment/RemoveScholarship">
+                                <i class="el-stop-circled"></i>
+                                <span>Revoke Scholarship</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+                    <!-- #endregion -->
+    }
+
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.IsInRole("Teacher"))
+    {
+        <li>
+
+            <a href="/">
+                <i class="el-group-circled"></i>
+                <span style="text-transform: uppercase">Users</span>
+            </a>
+            <ul>
+                <!-- #region Teachers Unit -->
+                <li>
+                    <a href="/Student/Index">
+                        <i class="el-torso"></i>
+                        <span>Teachers</span>
+                    </a>
+                    <ul>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                            <li>
+                                <a href="/Teacher/ImportProfile">
+                                    <i class="el-upload"></i>
+                                    <span>Import Teachers</span>
+                                </a>
+                            </li>
+                                                <li>
+                                                    <a href="/Teacher/Index">
+                                                        <i class="el-resize-small"></i>
+                                                        <span>Manage Teachers / Map Subjects</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Teacher/SubjectTeachersList">
+                                                        <i class="el-network"></i>
+                                                        <span>Subject &amp; Teachers</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Teacher/FormTeachersIndex">
+                                                        <i class="el-globe"></i>
+                                                        <span>Classes / Teachers Map</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Teacher/FormTeachersList">
+                                                        <i class="el-accessibility"></i>
+                                                        <span>Classes &amp; Teachers</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Teacher/ManageLogin">
+                                                        <i class="el-key"></i>
+                                                        <span>Manage Login</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Teacher/ManageNoLogin">
+                                                        <i class="el-universal-access"></i>
+                                                        <span>Create Login</span>
+                                                    </a>
+                                                </li>
+                        }
+
+                    </ul>
+                </li>
+                <!-- #endregion -->
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                            <!-- #region Students Unit -->
+                    <li>
+                        <a href="/Student/Index">
+                            <i class="el-child"></i>
+                            <span>Students</span>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/Student/ImportProfile">
+                                    <i class="el-upload"></i>
+                                    <span>Import Students</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Student/Index">
+                                    <i class="el-smiley"></i>
+                                    <span>Manage Students</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Student/MatchParent">
+                                    <i class="el-tag"></i>
+                                    <span>Map Parents</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Student/InactiveIndex">
+                                    <i class="el-block"></i>
+                                    <span>Inactive Students</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Student/Duplicate">
+                                    <i class="el-folder"></i>
+                                    <span>Duplicated Students</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Student/ManageLogin">
+                                    <i class="el-key"></i>
+                                    <span>Manage Login</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Student/ManageNoLogin">
+                                    <i class="el-universal-access"></i>
+                                    <span>Create Login</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                            <!-- #endregion -->
+                            <!-- #region Parents Unit -->
+                                        <li>
+                                            <a href="/Student/Index">
+                                                <i class="el-adult"></i>
+                                                <span>Parents</span>
+                                            </a>
+                                            <ul>
+                                                <li>
+                                                    <a href="/Parent/ImportProfile">
+                                                        <i class="el-upload"></i>
+                                                        <span>Import Parents</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Parent/Index">
+                                                        <i class="el-target"></i>
+                                                        <span>Manage Parents</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Parent/ManageLogin">
+                                                        <i class="el-key"></i>
+                                                        <span>Manage Login</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/Parent/ManageNoLogin">
+                                                        <i class="el-universal-access"></i>
+                                                        <span>Create Login</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+
+                            <!-- #endregion -->
+                }
+            </ul>
+        </li>
+    }
+
+    <!--#region PARENT MENU-->
+    @if (User.IsInRole("Parent") && !User.IsInRole("Teacher"))
+    {
+        <li>
+            <a href="/Parent/ParentHome">
+                <i class="el-record"></i>
+                <span style="text-transform: uppercase">Academic Reports</span>
+            </a>
+        </li>
+                            <li>
+                                <a href="#">
+                                    <i class="el-info-circled"></i>
+                                    <span style="text-transform: uppercase">Invoices</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="el-credit-card"></i>
+                                    <span style="text-transform: uppercase">Payment Receipts</span>
+                                </a>
+                            </li>
+    }
+    <!--#endregion PARENT MENU-->
+    <!--#region SCORE NAV should be under here-->
+    <!--#endregion SCORE NAV should be under here-->
+</ul>

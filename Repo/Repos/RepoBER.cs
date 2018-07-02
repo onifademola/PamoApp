@@ -206,38 +206,38 @@ namespace Repo.Repos
             }
         }
 
-        public bool FixPatientRoundsTB()
-        {
-            try
-            {
-                int result = 0;
-                var getAllRounds = _entities.rounds.Where(n => n.PatientID == null).ToList();
-                int DataCount = getAllRounds.Count;
-                int BatchSize = _batchSize;
-                int numberOfPages = (DataCount / BatchSize) + (DataCount % BatchSize == 0 ? 0 : 1);
-                for (int pageIndex = 0; pageIndex < numberOfPages; pageIndex++)
-                {
-                    var nGetAllRounds = getAllRounds.Skip(pageIndex * BatchSize).Take(BatchSize);
-                    foreach (var item in nGetAllRounds)
-                    {
-                        var getPat = _entities.patients.FirstOrDefault(n => n.CardNumber == item.CardNumber);
-                        if (getPat != null)
-                        item.PatientID = getPat.ID;
-                    }
-                    int saveResult = _entities.SaveChanges();
-                    result = result + saveResult;
-                }
-                if (result > 0)
-                    return true;
-                else
-                    return false;                
-            }
-            catch (Exception ex)
-            {
-                var msg = ex;
-                return false;
-            }
-        }
+        //public bool FixPatientRoundsTB()
+        //{
+        //    try
+        //    {
+        //        int result = 0;
+        //        var getAllRounds = _entities.rounds.Where(n => n.PatientID == null).ToList();
+        //        int DataCount = getAllRounds.Count;
+        //        int BatchSize = _batchSize;
+        //        int numberOfPages = (DataCount / BatchSize) + (DataCount % BatchSize == 0 ? 0 : 1);
+        //        for (int pageIndex = 0; pageIndex < numberOfPages; pageIndex++)
+        //        {
+        //            var nGetAllRounds = getAllRounds.Skip(pageIndex * BatchSize).Take(BatchSize);
+        //            foreach (var item in nGetAllRounds)
+        //            {
+        //                var getPat = _entities.patients.FirstOrDefault(n => n.CardNumber == item.CardNumber);
+        //                if (getPat != null)
+        //                item.PatientID = getPat.ID;
+        //            }
+        //            int saveResult = _entities.SaveChanges();
+        //            result = result + saveResult;
+        //        }
+        //        if (result > 0)
+        //            return true;
+        //        else
+        //            return false;                
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        var msg = ex;
+        //        return false;
+        //    }
+        //}
 
         public bool FixDoctorPhyExamTB()
         {
@@ -272,38 +272,38 @@ namespace Repo.Repos
             }
         }
 
-        public bool FixDoctorRoundsTB()
-        {
-            try
-            {
-                int result = 0;
-                var getAllRounds = _entities.rounds.Where(n => n.DoctorID == null).ToList();
-                int DataCount = getAllRounds.Count;
-                int BatchSize = _batchSize;
-                int numberOfPages = (DataCount / BatchSize) + (DataCount % BatchSize == 0 ? 0 : 1);
-                for (int pageIndex = 0; pageIndex < numberOfPages; pageIndex++)
-                {
-                    var nGetAllRounds = getAllRounds.Skip(pageIndex * BatchSize).Take(BatchSize);
-                    foreach (var item in nGetAllRounds)
-                    {
-                        var getDoc = _entities.Users.FirstOrDefault(n => n.username == item.Doctor);
-                        if (getDoc != null)
-                            item.DoctorID = getDoc.user_id;
-                    }
-                    int saveResult = _entities.SaveChanges();
-                    result = result + saveResult;
-                }
-                if (result > 0)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception ex)
-            {
-                var msg = ex;
-                return false;
-            }
-        }
+        //public bool FixDoctorRoundsTB()
+        //{
+        //    try
+        //    {
+        //        int result = 0;
+        //        var getAllRounds = _entities.rounds.Where(n => n.DoctorID == null).ToList();
+        //        int DataCount = getAllRounds.Count;
+        //        int BatchSize = _batchSize;
+        //        int numberOfPages = (DataCount / BatchSize) + (DataCount % BatchSize == 0 ? 0 : 1);
+        //        for (int pageIndex = 0; pageIndex < numberOfPages; pageIndex++)
+        //        {
+        //            var nGetAllRounds = getAllRounds.Skip(pageIndex * BatchSize).Take(BatchSize);
+        //            foreach (var item in nGetAllRounds)
+        //            {
+        //                var getDoc = _entities.Users.FirstOrDefault(n => n.username == item.Doctor);
+        //                if (getDoc != null)
+        //                    item.DoctorID = getDoc.user_id;
+        //            }
+        //            int saveResult = _entities.SaveChanges();
+        //            result = result + saveResult;
+        //        }
+        //        if (result > 0)
+        //            return true;
+        //        else
+        //            return false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        var msg = ex;
+        //        return false;
+        //    }
+        //}
 
         public bool FixPatientPComplainTB()
         {
@@ -607,7 +607,7 @@ namespace Repo.Repos
             try
             {
                 int result = 0;
-                var getAllWards = _entities.wards.Where(n => n.PatientID == null).ToList();
+                var getAllWards = _entities.Admissions.Where(n => n.PatientID == null).ToList();
                 int DataCount = getAllWards.Count;
                 int BatchSize = _batchSize;
                 int numberOfPages = (DataCount / BatchSize) + (DataCount % BatchSize == 0 ? 0 : 1);

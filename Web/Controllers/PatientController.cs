@@ -13,6 +13,7 @@ using System.Web.Script.Serialization;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class PatientController : Controller
     {
         public IRepo_Patient _patientRepo;
