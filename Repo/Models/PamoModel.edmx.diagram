@@ -4,92 +4,99 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="11082271eb0c41c294e6b65fb28b7023" Name="Diagram1" ZoomLevel="54">
+      <Diagram DiagramId="2b867af3d23d4c2aa869a9500bf91194" Name="Diagram1" ZoomLevel="64">
         <EntityTypeShape EntityType="PamoDbModel.Admission" Width="1.5" PointX="12.75" PointY="14.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.anc" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.appointment" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.anc" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.appointment" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.AspNetUser" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.attendance" Width="1.5" PointX="7.5" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.bank" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.bill" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.billType" Width="1.5" PointX="6.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.bank" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.bill" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.billType" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.billupdate" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.biovital" Width="1.5" PointX="7.5" PointY="29.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.cash" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.cash" Width="1.5" PointX="4.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.ClientCompany" Width="1.5" PointX="3" PointY="21.375" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.ClientGroup" Width="1.5" PointX="0.75" PointY="21.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.ClinicWard" Width="1.5" PointX="10.5" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.consultingRoom" Width="1.5" PointX="11.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.contract" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.consultingRoom" Width="1.5" PointX="6.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.contract" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.delivery" Width="1.5" PointX="7.5" PointY="33.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.department" Width="1.5" PointX="13.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.department" Width="1.5" PointX="11.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.diagnosi" Width="1.5" PointX="9.75" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.diagnosis_type" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.doctor" Width="1.5" PointX="2.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.drround" Width="1.5" PointX="4.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.drug" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.event" Width="1.5" PointX="14.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.event1" Width="1.5" PointX="15.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.diagnosis_type" Width="1.5" PointX="12.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.doctor" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.drround" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.drug" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.event" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.event1" Width="1.5" PointX="14.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.FlowQueue" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.grouping" Width="1.5" PointX="16.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.haematology" Width="1.5" PointX="16.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.head" Width="1.5" PointX="16.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.history" Width="1.5" PointX="17.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.grouping" Width="1.5" PointX="16.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.haematology" Width="1.5" PointX="16.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.head" Width="1.5" PointX="16.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.history" Width="1.5" PointX="17.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.hmo" Width="1.5" PointX="17.75" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.investigation" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.investigatn" Width="1.5" PointX="18.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.investigatn" Width="1.5" PointX="18.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.lab" Width="1.5" PointX="17.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.labh" Width="1.5" PointX="19.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.labh" Width="1.5" PointX="19.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.labp" Width="1.5" PointX="14.75" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.labrequest" Width="1.5" PointX="19.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.labw" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.lga" Width="1.5" PointX="0.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.NurseNote" Width="1.5" PointX="20.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.labrequest" Width="1.5" PointX="19.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.labw" Width="1.5" PointX="19.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.lga" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.NurseNote" Width="1.5" PointX="20.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.patient" Width="1.5" PointX="5.25" PointY="17.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.PatientComplaint" Width="1.5" PointX="9.75" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.phyexam" Width="1.5" PointX="9.75" PointY="19.625" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.prescription" Width="1.5" PointX="9.75" PointY="23.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.procedur" Width="1.5" PointX="9.75" PointY="28.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.ProcessFlow" Width="1.5" PointX="9.75" PointY="32" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.Role" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.Role" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.RolePermission" Width="1.5" PointX="11.75" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.scanreport" Width="1.5" PointX="21.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.stock" Width="1.5" PointX="21.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.stockCategory" Width="1.5" PointX="21.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.surgery" Width="1.5" PointX="21.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.scanreport" Width="1.5" PointX="21.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.stock" Width="1.5" PointX="21.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.stockCategory" Width="1.5" PointX="21.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.surgery" Width="1.5" PointX="21.75" PointY="19.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.sysdiagram" Width="1.5" PointX="22.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.tarrif" Width="1.5" PointX="22.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.tbl_complaint" Width="1.5" PointX="10" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.tbl_complaint_category" Width="1.5" PointX="7.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.tbl_rec" Width="1.5" PointX="22.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.User" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.UserClaim" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.UserLogin" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.UserRegistrationToken" Width="1.5" PointX="23.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.UserType" Width="1.5" PointX="11.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.tbl_rec" Width="1.5" PointX="23.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.UserClaim" Width="1.5" PointX="23.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.UserLogin" Width="1.5" PointX="11.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.UserRegistrationToken" Width="1.5" PointX="23.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.UserRole" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.User" Width="1.5" PointX="23.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.UserType" Width="1.5" PointX="23.75" PointY="22.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PamoDbModel.WardRound" Width="1.5" PointX="15" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.grade_level" Width="1.5" PointX="23.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.location" Width="1.5" PointX="23.75" PointY="15.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.monitor" Width="1.5" PointX="23.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.mstock" Width="1.5" PointX="23.75" PointY="22.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.nhis_mstock" Width="1.5" PointX="24.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.nhis_stock" Width="1.5" PointX="0.75" PointY="25.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.office" Width="1.5" PointX="24.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.pnc" Width="1.5" PointX="25.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.procedure" Width="1.5" PointX="25.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.profession" Width="1.5" PointX="25.75" PointY="17.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.requisition" Width="1.5" PointX="25.75" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.restock" Width="1.5" PointX="25.75" PointY="25.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.sale" Width="1.5" PointX="26.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.scan" Width="1.5" PointX="11.75" PointY="26.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.service" Width="1.5" PointX="19.75" PointY="26.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.staff" Width="1.5" PointX="27.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.state" Width="1.5" PointX="27.75" PointY="21.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.status" Width="1.5" PointX="27.75" PointY="24.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.unit" Width="1.5" PointX="27.75" PointY="27.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PamoDbModel.UserView" Width="1.5" PointX="28.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.grade_level" Width="1.5" PointX="24.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.location" Width="1.5" PointX="24.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.monitor" Width="1.5" PointX="19.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.mstock" Width="1.5" PointX="0.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.nhis_mstock" Width="1.5" PointX="25.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.nhis_stock" Width="1.5" PointX="25.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.office" Width="1.5" PointX="25.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.pnc" Width="1.5" PointX="25.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.procedure" Width="1.5" PointX="21.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.profession" Width="1.5" PointX="26.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.requisition" Width="1.5" PointX="11.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.restock" Width="1.5" PointX="23.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.sale" Width="1.5" PointX="25.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.scan" Width="1.5" PointX="26.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.service" Width="1.5" PointX="27.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.staff" Width="1.5" PointX="27.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.state" Width="1.5" PointX="27.75" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.status" Width="1.5" PointX="27.75" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.unit" Width="1.5" PointX="28.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PamoDbModel.UserView" Width="1.5" PointX="2.75" PointY="28.75" IsExpanded="true" />
         <AssociationConnector Association="PamoDbModel.FK_Admission_attendance" ManuallyRouted="false" />
         <AssociationConnector Association="PamoDbModel.FK_Admission_ClinicWard" ManuallyRouted="false" />
         <AssociationConnector Association="PamoDbModel.FK_WardRound_Admission" ManuallyRouted="false" />
+        <AssociationConnector Association="PamoDbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="PamoDbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="PamoDbModel.FK_attendance_patient" ManuallyRouted="false" />
         <AssociationConnector Association="PamoDbModel.FK_diagnosis_attendance" ManuallyRouted="false" />
         <AssociationConnector Association="PamoDbModel.FK_PatientComplaint_attendance" ManuallyRouted="false" />
@@ -101,10 +108,9 @@
         <AssociationConnector Association="PamoDbModel.FK_ClientCompany_ClientGroup" ManuallyRouted="false" />
         <AssociationConnector Association="PamoDbModel.FK_patient_ClientCompany" ManuallyRouted="false" />
         <AssociationConnector Association="PamoDbModel.FK_delivery_patient" ManuallyRouted="false" />
+        <AssociationConnector Association="PamoDbModel.FK_UserRole_Role" ManuallyRouted="false" />
         <AssociationConnector Association="PamoDbModel.FK_tbl_complaint_tbl_complaint_category" ManuallyRouted="false" />
-        <AssociationConnector Association="PamoDbModel.FK_UserClaim_User" ManuallyRouted="false" />
-        <AssociationConnector Association="PamoDbModel.FK_UserLogin_User" ManuallyRouted="false" />
-        <AssociationConnector Association="PamoDbModel.UserRole" ManuallyRouted="false" />
+        <AssociationConnector Association="PamoDbModel.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

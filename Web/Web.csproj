@@ -2371,6 +2371,7 @@
     <Content Include="Views\UsersAdmin\RoleIndex.cshtml" />
     <Content Include="Views\Shared\_PartialPageChat.cshtml" />
     <Content Include="Views\Shared\_PartialPageFooterChat.cshtml" />
+    <Content Include="Views\UsersAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

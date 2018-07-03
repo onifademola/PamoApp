@@ -14,19 +14,11 @@ namespace Repo.Models
     
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.UserClaims = new HashSet<UserClaim>();
-            this.UserLogins = new HashSet<UserLogin>();
-            this.Roles = new HashSet<Role>();
-        }
-    
         public string Id { get; set; }
         public int user_id { get; set; }
         public string PhoneNo { get; set; }
         public string password { get; set; }
-        public string username { get; set; }
+        public string UserName { get; set; }
         public Nullable<int> access_lvl { get; set; }
         public string Location { get; set; }
         public string fullname { get; set; }
@@ -48,12 +40,5 @@ namespace Repo.Models
         public string ActivationToken { get; set; }
         public string Comment { get; set; }
         public string Email { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserClaim> UserClaims { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserLogin> UserLogins { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Role> Roles { get; set; }
     }
 }

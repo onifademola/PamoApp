@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Data.Entity;
 using Repo.Models;
+using System.Collections.Generic;
 
 namespace Repo.Repos
 {
@@ -29,6 +30,18 @@ namespace Repo.Repos
         {
             var list = _entities.Users.ToList();
             return list;
+        }
+
+        public IQueryable AppRoles()
+        {
+            var roles = _entities.AspNetRoles.Where(x => x.Name != "SuperAdmin");
+            return roles;
+        }
+
+        public IEnumerable<AspNetRole> AppERoles()
+        {
+            var roles = _entities.AspNetRoles.Where(x => x.Name != "SuperAdmin");
+            return roles;
         }
     }
 }

@@ -28,6 +28,10 @@ namespace Repo.Models
         public virtual DbSet<Admission> Admissions { get; set; }
         public virtual DbSet<anc> ancs { get; set; }
         public virtual DbSet<appointment> appointments { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<attendance> attendances { get; set; }
         public virtual DbSet<bank> banks { get; set; }
         public virtual DbSet<bill> bills { get; set; }
@@ -81,10 +85,11 @@ namespace Repo.Models
         public virtual DbSet<tbl_complaint> tbl_complaint { get; set; }
         public virtual DbSet<tbl_complaint_category> tbl_complaint_category { get; set; }
         public virtual DbSet<tbl_rec> tbl_rec { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserClaim> UserClaims { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<UserRegistrationToken> UserRegistrationTokens { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
         public virtual DbSet<WardRound> WardRounds { get; set; }
         public virtual DbSet<grade_level> grade_levels { get; set; }

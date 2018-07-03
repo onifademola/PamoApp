@@ -29,5 +29,6 @@ namespace Repo.Repos
         bool FixComplainUserTB();
         bool FixAttendanceConsultingRoomTB();
         bool FixDiagnosisDiagnosedBy();
+        bool UpdateUserAcc();
     }
 }

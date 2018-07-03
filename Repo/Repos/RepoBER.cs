@@ -14,7 +14,7 @@ namespace Repo.Repos
         {
             try
             {
-                var appUsers = _entities.Users.Where(n => n.Id == null);
+                var appUsers = _entities.AspNetUsers.Where(n => n.Id == null);
                 foreach (var item in appUsers)
                 {
                     Guid nguid = Guid.NewGuid();
@@ -88,7 +88,7 @@ namespace Repo.Repos
                     var nGetAllAttd = getAllAttd.Skip(pageIndex * BatchSize).Take(BatchSize);
                     foreach (var item in nGetAllAttd)
                     {
-                        var getDoc = _entities.Users.FirstOrDefault(n => n.username == item.Consultant);
+                        var getDoc = _entities.AspNetUsers.FirstOrDefault(n => n.UserName == item.Consultant);
                         if (getDoc != null)
                             item.DoctorID = getDoc.user_id;
                     }
@@ -121,7 +121,7 @@ namespace Repo.Repos
                     var nGetAllProced = getAllProced.Skip(pageIndex * BatchSize).Take(BatchSize);
                     foreach (var item in nGetAllProced)
                     {
-                        var getDoc = _entities.Users.FirstOrDefault(n => n.username == item.Doctor);
+                        var getDoc = _entities.AspNetUsers.FirstOrDefault(n => n.UserName == item.Doctor);
                         if (getDoc != null)
                         item.DoctorID = getDoc.user_id;
                     }
@@ -253,7 +253,7 @@ namespace Repo.Repos
                     var nGetAllPhyExams = getAllPhyExams.Skip(pageIndex * BatchSize).Take(BatchSize);
                     foreach (var item in nGetAllPhyExams)
                     {
-                        var getDoc = _entities.Users.FirstOrDefault(n => n.username == item.Doctor);
+                        var getDoc = _entities.AspNetUsers.FirstOrDefault(n => n.UserName == item.Doctor);
                         if (getDoc != null)
                             item.DoctorId = getDoc.user_id;
                     }
@@ -286,7 +286,7 @@ namespace Repo.Repos
         //            var nGetAllRounds = getAllRounds.Skip(pageIndex * BatchSize).Take(BatchSize);
         //            foreach (var item in nGetAllRounds)
         //            {
-        //                var getDoc = _entities.Users.FirstOrDefault(n => n.username == item.Doctor);
+        //                var getDoc = _entities.AspNetUsers.FirstOrDefault(n => n.UserName == item.Doctor);
         //                if (getDoc != null)
         //                    item.DoctorID = getDoc.user_id;
         //            }
@@ -682,7 +682,7 @@ namespace Repo.Repos
                     var nGetAllAppointments = getAllAppointments.Skip(pageIndex * BatchSize).Take(BatchSize);
                     foreach (var item in nGetAllAppointments)
                     {
-                        var getDoc = _entities.Users.FirstOrDefault(n => n.username == item.Doctor);
+                        var getDoc = _entities.AspNetUsers.FirstOrDefault(n => n.UserName == item.Doctor);
                         if (getDoc != null)
                             item.DoctorID = getDoc.user_id;
                     }
@@ -715,7 +715,7 @@ namespace Repo.Repos
                     var nGetAllNursenotes = getAllNursenotes.Skip(pageIndex * BatchSize).Take(BatchSize);
                     foreach (var item in nGetAllNursenotes)
                     {
-                        var getDoc = _entities.Users.FirstOrDefault(n => n.username == item.Nurse);
+                        var getDoc = _entities.AspNetUsers.FirstOrDefault(n => n.UserName == item.Nurse);
                         if (getDoc != null)
                             item.NurseID = getDoc.user_id;
                     }
@@ -748,7 +748,7 @@ namespace Repo.Repos
                     var nGetAllPatientComps = getAllPatientComps.Skip(pageIndex * BatchSize).Take(BatchSize);
                     foreach (var item in nGetAllPatientComps)
                     {
-                        var getDoc = _entities.Users.FirstOrDefault(n => n.username == item.TakenBy);
+                        var getDoc = _entities.AspNetUsers.FirstOrDefault(n => n.UserName == item.TakenBy);
                         if (getDoc != null)
                             item.TakenByID = getDoc.user_id;
                     }
@@ -814,7 +814,7 @@ namespace Repo.Repos
                     var nGetAllDiagnosis = getAllDiagnosis.Skip(pageIndex * BatchSize).Take(BatchSize);
                     foreach (var item in nGetAllDiagnosis)
                     {
-                        var getDoc = _entities.Users.FirstOrDefault(n => n.username == item.DiagnosedBy);
+                        var getDoc = _entities.AspNetUsers.FirstOrDefault(n => n.UserName == item.DiagnosedBy);
                         if (getDoc != null)
                             item.DiagnosedByID = getDoc.user_id;
                     }
@@ -829,6 +829,33 @@ namespace Repo.Repos
             catch (Exception ex)
             {
                 var msg = ex;
+                return false;
+            }
+        }
+
+        public bool UpdateUserAcc()
+        {
+            try
+            {
+                int result = 0;
+                var appUsers = _entities.AspNetUsers.ToList();
+                foreach (var item in appUsers)
+                {
+                    item.EmailConfirmed = false;
+                    item.LockoutEnabled = true;
+                    item.PhoneNumberConfirmed = false;
+                    item.TwoFactorEnabled = false;
+                    int saveResult = _entities.SaveChanges();
+                    result = result + saveResult;
+                }
+                
+                if (result > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception)
+            {
                 return false;
             }
         }

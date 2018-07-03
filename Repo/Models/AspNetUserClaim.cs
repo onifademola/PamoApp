@@ -12,10 +12,13 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserLogin
+    public partial class AspNetUserClaim
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
+        public int Id { get; set; }
         public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

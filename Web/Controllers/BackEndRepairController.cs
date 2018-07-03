@@ -168,7 +168,7 @@ namespace Web.Controllers
 
         public bool FixDoctorAttendanceTB()
         {
-            bool fix = _ber.FixDoctorAttendanceTB();
+            bool fix = _ber.UpdateUserAcc();//_ber.FixDoctorAttendanceTB();
             return fix;
         }
     }

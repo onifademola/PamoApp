@@ -83,6 +83,18 @@
     <Compile Include="Models\appointment.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\attendance.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
@@ -324,6 +336,9 @@
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserRegistrationToken.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRole.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserType.cs">
