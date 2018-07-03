@@ -112,12 +112,15 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles)
         {
+            //generate random password and apply to register view model
+            string pwd = _irepo.GeneratePassword(2, 2, 2, 2);
+            userViewModel.Password = pwd;
+            userViewModel.ConfirmPassword = pwd;
             if (ModelState.IsValid)
             {
                 Guid userId = Guid.NewGuid();
                 var user = new ApplicationUser() { UserName = userViewModel.Email, Email = userViewModel.Email, Id = Convert.ToString(userId) };
-                //  IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-                //var user = new MyUser { UserName = userViewModel.Email, Email = userViewModel.Email };
+                
                 var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
 
                 //Add User to the selected Roles 

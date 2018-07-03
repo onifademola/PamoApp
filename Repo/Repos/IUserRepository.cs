@@ -13,5 +13,6 @@ namespace Repo.Repos
         IList GetUsers();
         IQueryable AppRoles();
         IEnumerable<AspNetRole> AppERoles();
+        string GeneratePassword(int lower, int upper, int num, int symbol);
     }
 }

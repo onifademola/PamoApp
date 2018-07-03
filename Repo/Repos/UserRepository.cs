@@ -3,6 +3,7 @@ using System.Linq;
 using System.Data.Entity;
 using Repo.Models;
 using System.Collections.Generic;
+using Repo.Services;
 
 namespace Repo.Repos
 {
@@ -43,5 +44,19 @@ namespace Repo.Repos
             var roles = _entities.AspNetRoles.Where(x => x.Name != "SuperAdmin");
             return roles;
         }
+
+        #region RANDOM PWD GENERATOR
+        public string GeneratePassword(int lower, int upper, int num, int symbol)
+        {
+            string pass = PasswordService.GenerateRandomPassword(lower, upper, num, symbol);
+            return pass;
+        }
+
+        //public string GeneratePassword(int numOfPass, int lower, int upper, int num, int symbol)
+        //{
+        //    string pass = PasswordService.GenerateRandomPassword(lower, upper, num, symbol);
+        //    return pass;
+        //}
+        #endregion 
     }
 }
