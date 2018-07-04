@@ -1,0 +1,21 @@
+@model Repo.DTOs.dto_Patients
+
+<h3>Customized Person edit template</h3>
+<br />
+@Html.HiddenFor(model => model.ID)
+
+<div>
+    @Html.LabelFor(model => model.FirstName)
+</div>
+<div>
+    @Html.EditorFor(model => model.FirstName)
+    @Html.ValidationMessageFor(model => model.FirstName)
+</div>
+
+<div>
+    @Html.LabelFor(model => model.CardNumber)
+</div>
+<div>
+    @Html.Kendo().EditorFor(model => model.CardNumber)
+    @Html.ValidationMessageFor(model => model.CardNumber)
+</div>

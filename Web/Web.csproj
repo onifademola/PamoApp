@@ -2377,6 +2377,7 @@
     <Content Include="Views\Message\Success.cshtml" />
     <Content Include="Views\Message\_ErrorPage.cshtml" />
     <Content Include="Views\Message\_SuccessPage.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EditorPatient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

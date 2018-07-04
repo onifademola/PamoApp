@@ -24,11 +24,11 @@
                 .ClientTemplate("<input name=\"selectedTchLogIds\" type=\"checkbox\" id=\"chbox\" value=\"#=ID#\" />")
             //.HeaderTemplate("<input type=\"checkbox\" class=\"selectAll\" />")
             //.HeaderTemplate("<input class=\"selectAll\" type=\"checkbox\" id=\"allBox\" onclick=\"toggleSelection()\" />").Width(20)
-            .HeaderTemplate("<input type='checkbox' id='masterCheckBox'/>").Width(60).Lockable(true).Locked();
-            
+            .HeaderTemplate("<input type='checkbox' id='masterCheckBox'/>").Width(60);//.Lockable(true).Locked();
 
-            columns.Bound(c => c.CardNumber).Width(120).Locked().Lockable(true);
-            columns.Bound(c => c.FirstName).Width(120).Locked().Lockable(true);
+
+            columns.Bound(c => c.CardNumber).Width(120);//.Locked().Lockable(true);
+            columns.Bound(c => c.FirstName).Width(120);//.Locked().Lockable(true);
             columns.Bound(c => c.LastName).Width(120);
             columns.Bound(c => c.Sex).Width(60);
             //columns.ForeignKey(p => p.LastSessionID, (System.Collections.IEnumerable)ViewData["sessns"], "SessionId", "SessionName")
@@ -45,6 +45,7 @@
             columns.Bound(c => c.MaritalStatus).Width(100);
             columns.Bound(c => c.RegDate).Width(100).Format("{0:dd/MM/yyyy}");
             columns.Bound(c => c.Phone).Width(100);
+            columns.Command(command => { command.Edit(); command.Destroy(); }).Width(250);
             //columns.Bound(p => p.StudentId).Width(120).Title("Change Photo").Lockable(true).Sortable(false).Filterable(false)
             //            .ClientTemplate("<a href='" + Url.Action("Edit", "Student") + "/#=StudentId#'>Photo Edit</a>");
             //columns.Command(c => { c.Edit(); c.Destroy(); }).Width(172);
@@ -52,13 +53,12 @@
         .ToolBar(toolbar =>
         {
             toolbar.Create();
-            toolbar.Save();
             toolbar.Excel();
         })
                 .ColumnMenu()
                 .HtmlAttributes(new { style = "height:580px;" })
-                .Editable(editable => editable.Mode(GridEditMode.InCell))
-                .Filterable()
+                .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("EditorPatient"))
+                .Filterable(f => f.Mode(GridFilterMode.Row))
                 .Scrollable()
                 .Groupable()
                 .Sortable()
@@ -75,12 +75,12 @@
                 .Pageable(pageable => pageable
                     .Refresh(true)
                     .PageSizes(new[] { 5, 10, 25, 50, 100, 250, 500 }))
-                    
+
                             //.ButtonCount(5))
                             //.Pageable(p => p.PageSizes(new[] { 10, 25, 50, 100 }))
                             .DataSource(dataSource => dataSource
                             .Ajax()
-                            .Batch(true)
+                            .Batch(false)
                             .ServerOperation(false)
                             .Events(e =>
                             {
