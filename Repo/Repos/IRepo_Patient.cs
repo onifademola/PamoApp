@@ -13,7 +13,7 @@ namespace Repo.Repos
         bool CardNumberExist(string cardNo);
         dto_Patients GetPatientById(long patientId);
         dto_Patients GetPatientByCardNumber(string cardNumber);
-        IQueryable<dto_Patients> GetAllPateints();
+        IQueryable<dto_Patients> GetAllPatients();
         RepositoryActionResult<dto_Patients> AddPatient(dto_Patients pat);
         RepositoryActionResult<dto_Patients> EditPatient(dto_Patients pat);
         RepositoryActionResult<dto_Patients> DeletePatient(long patId);

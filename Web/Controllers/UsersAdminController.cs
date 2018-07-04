@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Repo.Models;
@@ -62,10 +64,21 @@ namespace Web.Controllers
         
         //
         // GET: /Users/
-        public async Task<ActionResult> Index()
+        //public async Task<ActionResult> Index()
+        //{
+        //    var model = await UserManager.Users.ToListAsync();
+        //    return View(model);
+        //}
+
+        public ActionResult Index()
         {
-            var model = await UserManager.Users.ToListAsync();
-            return View(model);
+            return View();
+        }
+
+        public JsonResult Users_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            var model = _irepo.GetDtoUsers();
+            return Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
         //
@@ -283,7 +296,7 @@ namespace Web.Controllers
                 _irepo.Save();
 
                 //return RedirectToAction("Index");
-                string _Message = "User password was successfully updated.";
+                string _Message = "User password has been successfully updated. New password can be retrieved from User's email inbox/junk/spam folders.";
                 TempData["success"] = _Message;
                 return RedirectToAction("PwdSuccess", "Message", new { message = _Message });
             }

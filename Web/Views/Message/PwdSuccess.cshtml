@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Success";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*@Html.Partial("_errorHandler")*@
+
+
+<div class="page-container">
+    <div class="alert alert-success">
+        @*<button type="button" class="close" data-dismiss="alert">
+            <span aria-hidden="true">×</span>
+        </button>*@
+        <div class="text-center text-bold" >
+            @{
+            if (TempData["success"] != null)
+            {
+                @Html.Raw(Html.Encode(TempData["success"].ToString()));
+            }
+        }
+    </div>
+</div>
+
+    @*<div class="well">        
+        <h1 class="grey lighter smaller">
+            <span class="blue bigger-125">
+                <i class="icon-random"></i>
+                @{
+                    if (TempData["success"] != null)
+                    {
+                        @Html.Raw(Html.Encode(TempData["success"].ToString()));
+                    }
+                }
+
+            </span>
+
+        </h1>        
+    </div>*@
+</div>
+

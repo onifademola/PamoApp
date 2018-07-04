@@ -1,0 +1,44 @@
+﻿<div class="page-content">
+					<div class="row-fluid">
+						<div class="span12">
+							<!--PAGE CONTENT BEGINS-->
+							<div class="error-container">
+								<div class="well">
+									<h1 class="grey lighter smaller">
+										<span class="blue bigger-125">
+											
+											<div style ="color:red;">Error!</div>
+										</span>
+									
+									</h1>
+
+									<hr>
+									<h3 class="lighter smaller">
+										@ViewBag.Message
+								
+									</h3>
+
+									<div class="space"></div>
+
+									
+
+									<hr>
+									<div class="space"></div>
+
+									<div class="row-fluid">
+										<div class="center">
+                                            <div>@Html.ActionLink("Go Back", null, null, null, new { href = Request.UrlReferrer })</div>
+											
+											<a href="/Home/" class="btn btn-primary">
+												<i class="icon-dashboard"></i>
+												Home
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!--PAGE CONTENT ENDS-->
+						</div><!--/.span-->
+					</div><!--/.row-fluid-->
+				</div>

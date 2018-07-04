@@ -4,6 +4,8 @@ using System.Data.Entity;
 using Repo.Models;
 using System.Collections.Generic;
 using Repo.Services;
+using Repo.DTOs;
+using AutoMapper.QueryableExtensions;
 
 namespace Repo.Repos
 {
@@ -15,21 +17,33 @@ namespace Repo.Repos
             return rList;
         }
 
-        public User FindUser(string id)
+        public AspNetUser FindUser(string id)
         {
-            User user = _entities.Users.FirstOrDefault(i => i.Id == id);
+            AspNetUser user = _entities.AspNetUsers.FirstOrDefault(i => i.Id == id);
             return user;
             //_entities.Entry(user).State = EntityState.Modified;
             //_entities.SaveChanges();
         }
-        public void UpdateUser(User user)
+        public void UpdateUser(AspNetUser user)
         {
             _entities.Entry(user).State = EntityState.Modified;
         }
 
         public IList GetUsers()
         {
-            var list = _entities.Users.ToList();
+            var list = _entities.AspNetUsers.ToList();
+            return list;
+        }
+
+        public IQueryable<dto_AspNetUser> GetDtoUsers()
+        {
+            var allUsers = _entities.AspNetUsers.ProjectTo<dto_AspNetUser>();
+            return allUsers;
+        }
+
+        public IQueryable GetAppUsers()
+        {
+            var list = _entities.AspNetUsers;
             return list;
         }
 

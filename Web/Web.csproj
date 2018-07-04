@@ -223,6 +223,7 @@
     <Compile Include="Controllers\LabController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\UsersAdminController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
@@ -2360,7 +2361,6 @@
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
     <Content Include="Views\Lab\Index.cshtml" />
-    <Content Include="Views\Home\Spa.cshtml" />
     <Content Include="Views\Main\Home.cshtml" />
     <Content Include="Views\BackEndRepair\Index.cshtml" />
     <Content Include="Views\Shared\_PartialPageMainMenu.cshtml" />
@@ -2372,6 +2372,11 @@
     <Content Include="Views\Shared\_PartialPageChat.cshtml" />
     <Content Include="Views\Shared\_PartialPageFooterChat.cshtml" />
     <Content Include="Views\UsersAdmin\Index.cshtml" />
+    <Content Include="Views\Message\Error.cshtml" />
+    <Content Include="Views\Message\PwdSuccess.cshtml" />
+    <Content Include="Views\Message\Success.cshtml" />
+    <Content Include="Views\Message\_ErrorPage.cshtml" />
+    <Content Include="Views\Message\_SuccessPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

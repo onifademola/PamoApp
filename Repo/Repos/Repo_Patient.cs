@@ -36,7 +36,7 @@ namespace Repo.Repos
             return result;
         }
 
-        public IQueryable<dto_Patients> GetAllPateints()
+        public IQueryable<dto_Patients> GetAllPatients()
         {
             var allPatients = _entities.patients.ProjectTo<dto_Patients>();
             return allPatients;

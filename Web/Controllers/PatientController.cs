@@ -31,7 +31,7 @@ namespace Web.Controllers
 
         public JsonResult PatientsJson_Read()
         {
-            var model = _patientRepo.GetAllPateints();
+            var model = _patientRepo.GetAllPatients();
             var jsonResult = Json(model, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
@@ -40,7 +40,7 @@ namespace Web.Controllers
 
         public JsonResult Patients_Read([DataSourceRequest] DataSourceRequest request)
         {
-            var model = _patientRepo.GetAllPateints();
+            var model = _patientRepo.GetAllPatients();
             JsonResult result = Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
             result.MaxJsonLength = int.MaxValue;
             return result;

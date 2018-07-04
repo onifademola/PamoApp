@@ -23,6 +23,8 @@ namespace Web.App_Start
 
                 //Patient to eregister mapping
                 config.CreateMap<patient, dto_Patients>();
+
+                config.CreateMap<AspNetUser, dto_AspNetUser>();
             });
         }
     }

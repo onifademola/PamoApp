@@ -76,6 +76,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\dto_AspNetUser.cs" />
     <Compile Include="DTOs\dto_Patients.cs" />
     <Compile Include="Models\Admission.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
