@@ -12,10 +12,11 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserRegistrationToken
+    public partial class C__MigrationHistory
     {
-        public long Id { get; set; }
-        public Nullable<long> UserId { get; set; }
-        public string Token { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

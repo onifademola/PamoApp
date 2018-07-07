@@ -20,6 +20,8 @@ namespace Repo.Models
         public Nullable<System.DateTime> StartTime { get; set; }
         public Nullable<System.DateTime> EndTime { get; set; }
         public string Comment { get; set; }
+        public Nullable<long> TimeTaken { get; set; }
+        public Nullable<int> UserID { get; set; }
     
         public virtual attendance attendance { get; set; }
     }

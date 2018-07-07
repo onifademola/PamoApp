@@ -25,6 +25,7 @@ namespace Repo.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Admission> Admissions { get; set; }
         public virtual DbSet<anc> ancs { get; set; }
         public virtual DbSet<appointment> appointments { get; set; }
@@ -74,8 +75,6 @@ namespace Repo.Models
         public virtual DbSet<prescription> prescriptions { get; set; }
         public virtual DbSet<procedur> procedurs { get; set; }
         public virtual DbSet<ProcessFlow> ProcessFlows { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<RolePermission> RolePermissions { get; set; }
         public virtual DbSet<scanreport> scanreports { get; set; }
         public virtual DbSet<stock> stocks { get; set; }
         public virtual DbSet<stockCategory> stockCategories { get; set; }
@@ -85,11 +84,6 @@ namespace Repo.Models
         public virtual DbSet<tbl_complaint> tbl_complaint { get; set; }
         public virtual DbSet<tbl_complaint_category> tbl_complaint_category { get; set; }
         public virtual DbSet<tbl_rec> tbl_rec { get; set; }
-        public virtual DbSet<UserClaim> UserClaims { get; set; }
-        public virtual DbSet<UserLogin> UserLogins { get; set; }
-        public virtual DbSet<UserRegistrationToken> UserRegistrationTokens { get; set; }
-        public virtual DbSet<UserRole> UserRoles { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
         public virtual DbSet<WardRound> WardRounds { get; set; }
         public virtual DbSet<grade_level> grade_levels { get; set; }

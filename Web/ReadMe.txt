@@ -41,7 +41,21 @@ Process ends
 4. On Admission
 5. At Pharmacy
 6. With Accounts
-7. Done
+7. Visit Ends
+
+--PROCESS CODE ANALYSIS--
+1. When frontdesk queues patient for OPD, queue data for that visit is generated
+   and logged in the FlowQueue table with timestamp. Also, this info is used to 
+   add data to the ProcessFlow table for this attendance(visit) with the current status ID
+   in FlowQueue table
+2. This kind of event update continues as each department updates data. A single FlowQueue
+   generated for the visit is updated, while the ProcessFlow table gets added data
+   for the current process/status in the FlowQueue table
+
+   NB: FlowQueue data is shortlived, stays only for the period of the processes to go through
+       As soon as a patient visit process ends, FlowQueue data is deleted
+
+
 
 ****NEW TABLES ADDED TO APP****
 ProcessFlow - to keep each stage of a visit(attendance)
@@ -51,6 +65,16 @@ QueueResult - to store current Visits(attendances) waiting to for Lab/Scan/Test 
 QueueAdmission - to store current Visits(attendances) on admission
 QueuePharmacy - to store current Visits(attendances) waiting at Pharmacy
 QueueAccounts - to store current Visits(attendances) making payment for services
+
+PROCESS FLOW ORDER
+Order 1 - QueueOPD
+Order 2 - QueueConsulting
+Order 3 - QueueResult
+Order 4 - QueueConsulting
+Order 5 - QueueAdmission
+Order 6 - QueuePharmacy
+Order 7 - QueueAccounts
+
 
 
 ----TABLES WHOSE OLD DATA WILL BE LOST IN THE NEW APP----

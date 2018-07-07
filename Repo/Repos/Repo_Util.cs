@@ -107,10 +107,10 @@ namespace Repo.Repos
             foreach (var item in roleList)
             {
                 Guid nGuid = Guid.NewGuid();
-                Role role = new Role();
+                AspNetRole role = new AspNetRole();
                 role.Id = nGuid.ToString();
                 role.Name = item;
-                _entities.Roles.Add(role);
+                _entities.AspNetRoles.Add(role);
             }
             _entities.SaveChanges();
         }

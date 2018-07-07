@@ -9,7 +9,7 @@ using AutoMapper.QueryableExtensions;
 
 namespace Repo.Repos
 {
-    public class UserRepository : RepositoryBase<PamoDbEntities, Role>, IUserRepository
+    public class UserRepository : RepositoryBase<PamoDbEntities, AspNetUser>, IUserRepository
     {
         public IEnumerable GetList(string name)
         {

@@ -2,7 +2,7 @@
 
 namespace Repo.Repos
 {
-    public interface IRepoBER : IRepositoryBase<User>
+    public interface IRepoBER : IRepositoryBase<AspNetUser>
     {
         bool GenerateUserUniqueID();
         bool FixPatientAttendanceTB();

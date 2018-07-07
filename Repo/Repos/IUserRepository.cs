@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Repo.Repos
 {
-    public interface IUserRepository : IRepositoryBase<Role>
+    public interface IUserRepository : IRepositoryBase<AspNetUser>
     {
         IEnumerable GetList(string name);
         AspNetUser FindUser(string id);

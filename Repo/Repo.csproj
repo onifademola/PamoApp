@@ -45,8 +45,14 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\PamoApp.Web\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\PamoApp.Web\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PasswordUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\PamoApp.Web\packages\PasswordUtility.1.0.0\lib\PasswordUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid, Version=9.8.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\PamoApp.Web\packages\Sendgrid.9.9.0\lib\net452\SendGrid.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\PamoApp.Web\packages\structuremap.3.1.1.134\lib\net40\StructureMap.dll</HintPath>
@@ -133,6 +139,9 @@
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\contract.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\delivery.cs">
@@ -276,12 +285,6 @@
     <Compile Include="Models\restock.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Role.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RolePermission.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\sale.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
@@ -330,21 +333,6 @@
     <Compile Include="Models\unit.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserClaim.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserLogin.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserRegistrationToken.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserRole.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\UserType.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
@@ -359,6 +347,7 @@
     <Compile Include="Repos\IRepositoryBase.cs" />
     <Compile Include="Repos\IRepo_Labs.cs" />
     <Compile Include="Repos\IRepo_Patient.cs" />
+    <Compile Include="Repos\IRepo_PFlow.cs" />
     <Compile Include="Repos\IRepo_Util.cs" />
     <Compile Include="Repos\IUserRepository.cs" />
     <Compile Include="Repos\RepoBER.cs" />
@@ -367,6 +356,7 @@
     <Compile Include="Repos\RepositoryBase.cs" />
     <Compile Include="Repos\Repo_Labs.cs" />
     <Compile Include="Repos\Repo_Patient.cs" />
+    <Compile Include="Repos\Repo_PFlow.cs" />
     <Compile Include="Repos\Repo_Util.cs" />
     <Compile Include="Repos\UserRepository.cs" />
     <Compile Include="Services\PasswordService.cs" />

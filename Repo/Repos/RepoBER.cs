@@ -6,7 +6,7 @@ using System.Linq;
 namespace Repo.Repos
 {
     //BER - BACK END REPAIR controls
-    public class RepoBER : RepositoryBase<PamoDbEntities, User>, IRepoBER
+    public class RepoBER : RepositoryBase<PamoDbEntities, AspNetUser>, IRepoBER
     {
         public static readonly int _batchSize = 1000;
 

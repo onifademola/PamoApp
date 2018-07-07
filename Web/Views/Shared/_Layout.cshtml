@@ -9,7 +9,7 @@
     <meta name="description" content="Xenon Boostrap Admin Panel" />
     <meta name="author" content="" />
 
-    <title>Xenon - Collapsed Sidebar</title>
+    <title>PCIS</title>
 
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic">
     <link rel="stylesheet" href="~/layout_assets/css/fonts/linecons/css/linecons.css">
@@ -141,13 +141,7 @@
                                 </h4>
 
                                 <ul class="list-unstyled">
-                                    <li>
-                                        <a href="https://sim4eaglesbyte.freshdesk.com/support/home" target="_blank">
-                                            <i class="fa-info"></i>
-                                            Help
-                                        </a>
-                                    </li>
-
+                                    
                                     <li>
                                         <a href="#">
                                             <i class="fa-angle-right"></i>
@@ -184,12 +178,12 @@
 
                     <!-- Navbar Brand -->
                     <div class="navbar-brand">
-                        <a href="/Home/Index" class="logo">
+                        <a href="/main/home" class="logo">
                             <img id="myCanvas" src="" alt="" class="hidden-xs img-responsive img-circle" width="45" />
                             <img id="myCanvas" src="" alt="" class="visible-xs img-responsive img-circle" width="45" />
                         </a>
-                        <a href="/Home/Index" class="logo">
-                            <h4 style="font-family:'Arial Rounded MT'">SIM</h4>
+                        <a href="/main/home" class="logo">
+                            <h4 style="font-family:'Arial Rounded MT'">PCIS</h4>
                         </a>
                         @*<a href="#" data-toggle="settings-pane" data-animate="true">
                                 <i class="linecons-cog"></i>
@@ -244,7 +238,7 @@
                             </form>
 
                         </li>
-                        <li><a href="/Home/Index"><i class="el-home-circled"></i>Home</a></li>
+                        <li><a href="/main/home" style="color:ActiveCaption"><i class="el-home-circled"></i>Home</a></li>
                         @using Microsoft.AspNet.Identity
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -310,7 +304,7 @@
 
                     <!-- Add your copyright text here -->
                     <div class="footer-text">
-                        <p>&copy; @DateTime.Now.Year - SIM (School Information Manager), a product of  <a href="http://www.eaglesbyte.org" target="_blank">Eaglesbyte Innovations</a></p>
+                        <p>&copy; @DateTime.Now.Year - Pamo Clinic IS, a product of  <a href="http://www.eaglesbyte.org" target="_blank">Eaglesbyte Innovations</a></p>
                     </div>
 
 

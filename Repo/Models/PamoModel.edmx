@@ -4,7 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PamoDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PamoDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Admission">
           <Key>
             <PropertyRef Name="ID" />
@@ -127,18 +137,21 @@
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
-          <Property Name="EmailConfirmed" Type="bit" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
           <Property Name="SecurityStamp" Type="nvarchar(max)" />
           <Property Name="PhoneNumber" Type="nvarchar(max)" />
-          <Property Name="PhoneNumberConfirmed" Type="bit" />
-          <Property Name="TwoFactorEnabled" Type="bit" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
           <Property Name="LockoutEndDateUtc" Type="datetime" />
-          <Property Name="LockoutEnabled" Type="bit" />
-          <Property Name="AccessFailedCount" Type="int" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
           <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="256" />
+          <Property Name="AccountDisabled" Type="bit" />
+          <Property Name="AccountDisableReason" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsLoggedIn" Type="bit" />
         </EntityType>
         <EntityType Name="attendance">
           <Key>
@@ -242,19 +255,6 @@
           <Property Name="Temp" Type="varchar" MaxLength="50" />
           <Property Name="RBS" Type="varchar" MaxLength="30" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PamoDb.dbo.booln' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="booln">
-          <Property Name="val" Type="smallint" />
-          <Property Name="type" Type="varchar" MaxLength="5" />
-          <Property Name="dd" Type="date" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PamoDb.dbo.booln2' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="booln2">
-          <Property Name="val" Type="smallint" />
-          <Property Name="type" Type="varchar" MaxLength="5" />
-        </EntityType>-->
         <EntityType Name="cash">
           <Key>
             <PropertyRef Name="ID" />
@@ -451,6 +451,9 @@ warning 6013: The table/view 'PamoDb.dbo.booln2' does not have a primary key def
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AttID" Type="int" />
+          <Property Name="CurrentStatusID" Type="int" />
+          <Property Name="LastTimeStamp" Type="datetime" />
+          <Property Name="LastUpdatedBy" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PamoDb.dbo.grade level' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -761,12 +764,6 @@ warning 6002: The table/view 'PamoDb.dbo.mstock' does not have a primary key def
           <Property Name="Unit" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'PamoDb.dbo.nationality' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="nationality">
-          <Property Name="Nat_ID" Type="int" />
-          <Property Name="Nationality" Type="varchar" MaxLength="50" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'PamoDb.dbo.nhis mstock' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="nhis mstock">
           <Key>
@@ -838,17 +835,6 @@ warning 6002: The table/view 'PamoDb.dbo.office' does not have a primary key def
           <Property Name="Office" Type="varchar" MaxLength="50" />
           <Property Name="company" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PamoDb.dbo.OwnerDetail' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="OwnerDetail">
-          <Property Name="Company Name" Type="varchar" MaxLength="50" />
-          <Property Name="Address" Type="varchar" MaxLength="150" />
-          <Property Name="Email" Type="varchar" MaxLength="50" />
-          <Property Name="Phone" Type="varchar" MaxLength="50" />
-          <Property Name="City" Type="varchar" MaxLength="50" />
-          <Property Name="Country" Type="varchar" MaxLength="50" />
-          <Property Name="Facility No" Type="varchar" MaxLength="30" />
-        </EntityType>-->
         <EntityType Name="patient">
           <Key>
             <PropertyRef Name="ID" />
@@ -1003,7 +989,9 @@ warning 6002: The table/view 'PamoDb.dbo.procedures' does not have a primary key
           <Property Name="StatusID" Type="int" />
           <Property Name="StartTime" Type="datetime" />
           <Property Name="EndTime" Type="datetime" />
+          <Property Name="TimeTaken" Type="bigint" />
           <Property Name="Comment" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PamoDb.dbo.profession' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1014,15 +1002,6 @@ warning 6002: The table/view 'PamoDb.dbo.profession' does not have a primary key
           <Property Name="Profession" Type="varchar" MaxLength="50" />
           <Property Name="id" Type="bigint" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'PamoDb.dbo.rank' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="rank">
-          <Property Name="RankID" Type="varchar" MaxLength="15" />
-          <Property Name="Rank" Type="varchar" MaxLength="50" />
-          <Property Name="Rank Sort Order" Type="varchar" MaxLength="50" />
-          <Property Name="Cadre" Type="varchar" MaxLength="50" />
-          <Property Name="company" Type="varchar" MaxLength="50" />
-        </EntityType>-->
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PamoDb.dbo.requisition' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="requisition">
@@ -1060,21 +1039,6 @@ warning 6002: The table/view 'PamoDb.dbo.restock' does not have a primary key de
           <Property Name="Location" Type="varchar" MaxLength="50" />
           <Property Name="Category" Type="varchar" MaxLength="50" />
           <Property Name="Unit Cost" Type="decimal" Precision="13" Scale="2" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RolePermissions">
-          <Key>
-            <PropertyRef Name="RoleName" />
-            <PropertyRef Name="PermissionId" />
-          </Key>
-          <Property Name="RoleName" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="PermissionId" Type="nvarchar" MaxLength="322" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PamoDb.dbo.sales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1333,72 +1297,6 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" />
           <Property Name="Unit" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="UserClaim">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="ClaimType" Type="nvarchar(max)" />
-          <Property Name="ClaimValue" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="UserLogin">
-          <Key>
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserRegistrationToken">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="bigint" />
-          <Property Name="Token" Type="nchar" MaxLength="10" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserRole">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PhoneNo" Type="varchar" MaxLength="255" />
-          <Property Name="password" Type="varchar" MaxLength="50" />
-          <Property Name="UserName" Type="varchar" MaxLength="256" />
-          <Property Name="access_lvl" Type="int" />
-          <Property Name="Location" Type="varchar" MaxLength="50" />
-          <Property Name="fullname" Type="varchar" MaxLength="50" />
-          <Property Name="EmailConfirmed" Type="bit" />
-          <Property Name="PasswordHash" Type="nvarchar(max)" />
-          <Property Name="SecurityStamp" Type="nvarchar(max)" />
-          <Property Name="PhoneNumber" Type="nvarchar(max)" />
-          <Property Name="PhoneNumberConfirmed" Type="bit" />
-          <Property Name="TwoFactorEnabled" Type="bit" />
-          <Property Name="LockoutEndDateUtc" Type="datetime2" Precision="7" />
-          <Property Name="LockoutEnabled" Type="bit" />
-          <Property Name="AccessFailedCount" Type="int" />
-          <Property Name="CreationDate" Type="datetime" />
-          <Property Name="ApprovalDate" Type="datetime" />
-          <Property Name="LastLoginDate" Type="datetime" />
-          <Property Name="IsLocked" Type="bit" />
-          <Property Name="PasswordQuestion" Type="nvarchar(max)" />
-          <Property Name="PasswordAnswer" Type="nvarchar(max)" />
-          <Property Name="ActivationToken" Type="nvarchar" MaxLength="200" />
-          <Property Name="Comment" Type="nvarchar(max)" />
-          <Property Name="Email" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -1663,18 +1561,6 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserRole_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_WardRound_Admission">
           <End Role="Admission" Type="Self.Admission" Multiplicity="0..1" />
           <End Role="WardRound" Type="Self.WardRound" Multiplicity="*" />
@@ -1688,6 +1574,7 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PamoDbModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admission" EntityType="Self.Admission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="anc" EntityType="Self.anc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="appointment" EntityType="Self.appointment" Schema="dbo" store:Type="Tables" />
@@ -1738,8 +1625,6 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <EntitySet Name="prescription" EntityType="Self.prescription" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="procedur" EntityType="Self.procedur" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProcessFlow" EntityType="Self.ProcessFlow" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RolePermissions" EntityType="Self.RolePermissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="scanreport" EntityType="Self.scanreport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="stock" EntityType="Self.stock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="stockCategory" EntityType="Self.stockCategory" Schema="dbo" store:Type="Tables" />
@@ -1749,11 +1634,6 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <EntitySet Name="tbl_complaint" EntityType="Self.tbl_complaint" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_complaint_category" EntityType="Self.tbl_complaint_category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_rec" EntityType="Self.tbl_rec" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserClaim" EntityType="Self.UserClaim" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserRegistrationToken" EntityType="Self.UserRegistrationToken" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WardRound" EntityType="Self.WardRound" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="grade level" EntityType="Self.grade level" store:Type="Tables" store:Schema="dbo">
@@ -2128,20 +2008,25 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
             <End Role="tbl_complaint_category" EntitySet="tbl_complaint_category" />
             <End Role="tbl_complaint" EntitySet="tbl_complaint" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="UserRole" EntitySet="UserRole" />
-          </AssociationSet>
           <AssociationSet Name="FK_WardRound_Admission" Association="Self.FK_WardRound_Admission">
             <End Role="Admission" EntitySet="Admission" />
             <End Role="WardRound" EntitySet="WardRound" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PamoDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="Admission">
           <Key>
             <PropertyRef Name="ID" />
@@ -2262,18 +2147,21 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           </Key>
           <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="EmailConfirmed" Type="Boolean" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-          <Property Name="LockoutEnabled" Type="Boolean" />
-          <Property Name="AccessFailedCount" Type="Int32" />
-          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="AccountDisabled" Type="Boolean" />
+          <Property Name="AccountDisableReason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsLoggedIn" Type="Boolean" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
@@ -2591,6 +2479,9 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AttID" Type="Int32" />
+          <Property Name="LastTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="CurrentStatusID" Type="Int32" />
+          <Property Name="LastUpdatedBy" Type="Int32" />
         </EntityType>
         <EntityType Name="grouping">
           <Key>
@@ -2983,22 +2874,8 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <Property Name="EndTime" Type="DateTime" Precision="3" />
           <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="attendance" Relationship="Self.FK_ProcessFlow_attendance" FromRole="ProcessFlow" ToRole="attendance" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRole_Role" FromRole="Role" ToRole="UserRole" />
-        </EntityType>
-        <EntityType Name="RolePermission">
-          <Key>
-            <PropertyRef Name="RoleName" />
-            <PropertyRef Name="PermissionId" />
-          </Key>
-          <Property Name="RoleName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PermissionId" Type="String" MaxLength="322" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TimeTaken" Type="Int64" />
+          <Property Name="UserID" Type="Int32" />
         </EntityType>
         <EntityType Name="scanreport">
           <Key>
@@ -3108,73 +2985,6 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <Property Name="Card" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="transact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="C_Date" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
-        <EntityType Name="UserClaim">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="UserLogin">
-          <Key>
-            <PropertyRef Name="LoginProvider" />
-            <PropertyRef Name="ProviderKey" />
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserRegistrationToken">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int64" />
-          <Property Name="Token" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserRole">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
-          </Key>
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PhoneNo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <Property Name="access_lvl" Type="Int32" />
-          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmailConfirmed" Type="Boolean" />
-          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumberConfirmed" Type="Boolean" />
-          <Property Name="TwoFactorEnabled" Type="Boolean" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="7" />
-          <Property Name="LockoutEnabled" Type="Boolean" />
-          <Property Name="AccessFailedCount" Type="Int32" />
-          <Property Name="CreationDate" Type="DateTime" Precision="3" />
-          <Property Name="ApprovalDate" Type="DateTime" Precision="3" />
-          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
-          <Property Name="IsLocked" Type="Boolean" />
-          <Property Name="PasswordQuestion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordAnswer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ActivationToken" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -3721,18 +3531,6 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserRole_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserRole">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbl_complaint_tbl_complaint_category">
           <End Role="tbl_complaint_category" Type="Self.tbl_complaint_category" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -3752,6 +3550,7 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
         <EntityContainer Name="PamoDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="Admissions" EntityType="Self.Admission" />
           <EntitySet Name="ancs" EntityType="Self.anc" />
           <EntitySet Name="appointments" EntityType="Self.appointment" />
@@ -3801,8 +3600,6 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <EntitySet Name="prescriptions" EntityType="Self.prescription" />
           <EntitySet Name="procedurs" EntityType="Self.procedur" />
           <EntitySet Name="ProcessFlows" EntityType="Self.ProcessFlow" />
-          <EntitySet Name="Roles" EntityType="Self.Role" />
-          <EntitySet Name="RolePermissions" EntityType="Self.RolePermission" />
           <EntitySet Name="scanreports" EntityType="Self.scanreport" />
           <EntitySet Name="stocks" EntityType="Self.stock" />
           <EntitySet Name="stockCategories" EntityType="Self.stockCategory" />
@@ -3812,11 +3609,6 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <EntitySet Name="tbl_complaint" EntityType="Self.tbl_complaint" />
           <EntitySet Name="tbl_complaint_category" EntityType="Self.tbl_complaint_category" />
           <EntitySet Name="tbl_rec" EntityType="Self.tbl_rec" />
-          <EntitySet Name="UserClaims" EntityType="Self.UserClaim" />
-          <EntitySet Name="UserLogins" EntityType="Self.UserLogin" />
-          <EntitySet Name="UserRegistrationTokens" EntityType="Self.UserRegistrationToken" />
-          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
-          <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="UserTypes" EntityType="Self.UserType" />
           <EntitySet Name="WardRounds" EntityType="Self.WardRound" />
           <EntitySet Name="grade_levels" EntityType="Self.grade_level" />
@@ -3903,10 +3695,6 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
             <End Role="patient" EntitySet="patients" />
             <End Role="delivery" EntitySet="deliveries" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="UserRole" EntitySet="UserRoles" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbl_complaint_tbl_complaint_category" Association="Self.FK_tbl_complaint_tbl_complaint_category">
             <End Role="tbl_complaint_category" EntitySet="tbl_complaint_category" />
             <End Role="tbl_complaint" EntitySet="tbl_complaint" />
@@ -3922,6 +3710,16 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PamoDbModelStoreContainer" CdmEntityContainer="PamoDbEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="PamoDbModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Admissions">
             <EntityTypeMapping TypeName="PamoDbModel.Admission">
               <MappingFragment StoreEntitySet="Admission">
@@ -4051,6 +3849,9 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="AccountDisabled" ColumnName="AccountDisabled" />
+                <ScalarProperty Name="AccountDisableReason" ColumnName="AccountDisableReason" />
+                <ScalarProperty Name="IsLoggedIn" ColumnName="IsLoggedIn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4370,8 +4171,11 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <EntitySetMapping Name="FlowQueues">
             <EntityTypeMapping TypeName="PamoDbModel.FlowQueue">
               <MappingFragment StoreEntitySet="FlowQueue">
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="AttID" ColumnName="AttID" />
+                <ScalarProperty Name="LastTimeStamp" ColumnName="LastTimeStamp" />
+                <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4769,28 +4573,14 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <EntitySetMapping Name="ProcessFlows">
             <EntityTypeMapping TypeName="PamoDbModel.ProcessFlow">
               <MappingFragment StoreEntitySet="ProcessFlow">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TimeTaken" ColumnName="TimeTaken" />
                 <ScalarProperty Name="ProcessID" ColumnName="ProcessID" />
                 <ScalarProperty Name="AttID" ColumnName="AttID" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="PamoDbModel.Role">
-              <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RolePermissions">
-            <EntityTypeMapping TypeName="PamoDbModel.RolePermission">
-              <MappingFragment StoreEntitySet="RolePermissions">
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4907,74 +4697,6 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
                 <ScalarProperty Name="Card" ColumnName="Card" />
                 <ScalarProperty Name="transact" ColumnName="transact" />
                 <ScalarProperty Name="C_Date" ColumnName="_Date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserClaims">
-            <EntityTypeMapping TypeName="PamoDbModel.UserClaim">
-              <MappingFragment StoreEntitySet="UserClaim">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserLogins">
-            <EntityTypeMapping TypeName="PamoDbModel.UserLogin">
-              <MappingFragment StoreEntitySet="UserLogin">
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserRegistrationTokens">
-            <EntityTypeMapping TypeName="PamoDbModel.UserRegistrationToken">
-              <MappingFragment StoreEntitySet="UserRegistrationToken">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Token" ColumnName="Token" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserRoles">
-            <EntityTypeMapping TypeName="PamoDbModel.UserRole">
-              <MappingFragment StoreEntitySet="UserRole">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="PamoDbModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="access_lvl" ColumnName="access_lvl" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="fullname" ColumnName="fullname" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
-                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
-                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
-                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
-                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
-                <ScalarProperty Name="ActivationToken" ColumnName="ActivationToken" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
