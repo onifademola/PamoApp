@@ -105,6 +105,7 @@ namespace Repo.Models
         public virtual DbSet<state> states { get; set; }
         public virtual DbSet<status> status { get; set; }
         public virtual DbSet<unit> units { get; set; }
-        public virtual DbSet<UserView> UserViews { get; set; }
+        public virtual DbSet<vwFlowQueueAttendance> vwFlowQueueAttendances { get; set; }
+        public virtual DbSet<Sys_BatchControl> Sys_BatchControl { get; set; }
     }
 }

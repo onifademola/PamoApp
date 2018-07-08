@@ -35,7 +35,9 @@ namespace Web.DependencyResolution {
 					scan.With(new ControllerConvention());
                 });
             For<IAuthenticationManager>().Use(() => HttpContext.Current.GetOwinContext().Authentication);
-            
+
+            For<IRepo_PFlow>().Use<Repo_PFlow>();
+            For<IRepo_Util>().Use<Repo_Util>();
             For<IRepo_Patient>().Use<Repo_Patient>();
             For<IRepoBER>().Use<RepoBER>();
             For<IUserRepository>().Use<UserRepository>();

@@ -16,8 +16,8 @@ namespace Repo.Models
     {
         public int ID { get; set; }
         public Nullable<int> AttID { get; set; }
-        public Nullable<System.DateTime> LastTimeStamp { get; set; }
         public Nullable<int> CurrentStatusID { get; set; }
+        public Nullable<System.DateTime> LastTimeStamp { get; set; }
         public Nullable<int> LastUpdatedBy { get; set; }
     }
 }

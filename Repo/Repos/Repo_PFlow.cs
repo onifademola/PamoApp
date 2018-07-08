@@ -1,4 +1,6 @@
-﻿using Repo.Models;
+﻿using OfficeOnline.DataBlock;
+using Repo.DTOs;
+using Repo.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,12 @@ namespace Repo.Repos
     public class Repo_PFlow : RepositoryBase<PamoDbEntities, ProcessFlow>, IRepo_PFlow
     {
         Repo_Util _repoUtil = new Repo_Util();
+
+        public AspNetUser GetUserDoingTask(string userASPIdentityID)
+        {
+            var user = _entities.AspNetUsers.FirstOrDefault(n => n.Id == userASPIdentityID);
+            return user;
+        }
 
         public bool AddNewFlowQueue(FlowQueue fq)
         {
@@ -62,11 +70,13 @@ namespace Repo.Repos
                 return false;
         }
 
+        #region Queue Flows
+
         public bool QueuePatientAtOPD(int AttID, AspNetUser userDoingTask) //Process Status 1 - At OPD
         {
             int processStatus = 1;
             DateTime eventTime = _repoUtil.GetNijaTime(DateTime.Now);
-
+            
             //first generate a process flow
             ProcessFlow newPF = new ProcessFlow();
             newPF.AttID = AttID;
@@ -277,5 +287,97 @@ namespace Repo.Repos
             else
                 return false;
         }
+
+        #endregion
+
+
+        #region Department/Stage Tasks that operates the Queues
+
+        public bool StartPatientVisit(dto_Patients patient, AspNetUser userDoingTask)
+        {
+            if (patient == null)
+                return false;
+
+            //before we begin ensure that duplicated entry for a patient at OPD
+            //will not be possible
+            var isPatientInFlowQueueAtOPD = _entities.vwFlowQueueAttendances
+                .FirstOrDefault(n => n.AttdPatientID == patient.ID && n.FQCurrentSTatus == 1);
+            if (isPatientInFlowQueueAtOPD != null)
+                return false;
+
+            // a patient's attendance record is created
+            int batchno = 0;
+            TableSerialNo promoBatch = new TableSerialNo();
+            string thisBatch = promoBatch.GetNextNumberString("ATTENDANCE", "ATTENDANCE",
+                          "PRB", ref batchno);
+            DateTime eventDate = _repoUtil.GetNijaTime(DateTime.Now);
+            attendance att = new attendance();
+            att.InsertID = thisBatch;
+            att.PatientID = patient.ID;
+            att.CardNumber = patient.CardNumber;
+            att.C_Date = eventDate;
+            _entities.attendances.Add(att);
+            var saveResult = _entities.SaveChanges();
+
+            //get the attendance just created
+            attendance attd = _entities.attendances.FirstOrDefault(n => n.InsertID == thisBatch);
+            if (attd == null)
+                return false;
+            
+            //begin process by queuing patient at OPD
+            var result = QueuePatientAtOPD(attd.ID, userDoingTask);
+            
+            if (saveResult > 0 && result == true)
+                return true;
+            else
+                return false;
+        }
+
+        #endregion
+
+        #region QUEUE GET LISTS
+
+        public IQueryable<vwFlowQueueAttendance> AllFlowQueues()
+        {
+            var model = _entities.vwFlowQueueAttendances;
+            return model;
+        }
+
+        public IQueryable<vwFlowQueueAttendance> GetOPDQueues()
+        {
+            var model = _entities.vwFlowQueueAttendances.Where(n => n.FQCurrentSTatus == 1);
+            return model;
+        }
+
+        public IQueryable<vwFlowQueueAttendance> GetConsultingQueues()
+        {
+            var model = _entities.vwFlowQueueAttendances.Where(n => n.FQCurrentSTatus == 2);
+            return model;
+        }
+
+        public IQueryable<vwFlowQueueAttendance> GetLabQueues()
+        {
+            var model = _entities.vwFlowQueueAttendances.Where(n => n.FQCurrentSTatus == 3);
+            return model;
+        }
+
+        public IQueryable<vwFlowQueueAttendance> GetAdmissionQueues()
+        {
+            var model = _entities.vwFlowQueueAttendances.Where(n => n.FQCurrentSTatus == 4);
+            return model;
+        }
+
+        public IQueryable<vwFlowQueueAttendance> GetPharmacyQueues()
+        {
+            var model = _entities.vwFlowQueueAttendances.Where(n => n.FQCurrentSTatus == 5);
+            return model;
+        }
+
+        public IQueryable<vwFlowQueueAttendance> GetAccountsQueues()
+        {
+            var model = _entities.vwFlowQueueAttendances.Where(n => n.FQCurrentSTatus == 6);
+            return model;
+        }
+        #endregion
     }
 }

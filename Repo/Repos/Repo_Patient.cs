@@ -21,7 +21,7 @@ namespace Repo.Repos
                 return false;
         }
 
-        public dto_Patients GetPatientById(long patientId)
+        public dto_Patients GetPatientById(int patientId)
         {
             var result = _entities.patients.ProjectTo<dto_Patients>().FirstOrDefault(n => n.ID == patientId);
             return result;

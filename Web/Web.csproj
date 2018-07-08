@@ -225,6 +225,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
+    <Compile Include="Controllers\ProcessFlowController.cs" />
     <Compile Include="Controllers\UsersAdminController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
@@ -1924,6 +1925,7 @@
     <Content Include="Scripts\custom\notificationJs.js" />
     <Content Include="Scripts\custom\notificationReg.js" />
     <Content Include="Scripts\custom\notificationStyle.css" />
+    <Content Include="Scripts\custom\progressBar.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
@@ -2380,9 +2382,12 @@
     <Content Include="Views\Message\_ErrorPage.cshtml" />
     <Content Include="Views\Message\_SuccessPage.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EditorPatient.cshtml" />
+    <Content Include="Views\Main\FrontDesk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Default\" />
+    <Folder Include="Views\ProcessFlow\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

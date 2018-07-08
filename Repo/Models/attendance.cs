@@ -27,6 +27,7 @@ namespace Repo.Models
         }
     
         public int ID { get; set; }
+        public string InsertID { get; set; }
         public Nullable<int> PatientID { get; set; }
         public string CardNumber { get; set; }
         public Nullable<System.DateTime> C_Date { get; set; }

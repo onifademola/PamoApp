@@ -115,6 +115,15 @@ namespace Repo.Repos
             _entities.SaveChanges();
         }
 
+        //public IEnumerable<List<KeyValuePair<int, string>>> ProcessStatusForGrid()
+        //{
+        //    return ProcessStatuses().Select(x => new 
+        //    {
+        //        Value = x.Key,
+        //        Text = x.Value
+        //    });
+        //}
+
         //public string GenerateNewNextString(string param1, string param2, string param3)
         //{
         //    int batchno = 0;

@@ -158,9 +158,10 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InsertID" Type="nvarchar" MaxLength="50" />
           <Property Name="PatientID" Type="int" />
           <Property Name="CardNumber" Type="varchar" MaxLength="50" />
-          <Property Name="_Date" Type="date" />
+          <Property Name="_Date" Type="datetime" />
           <Property Name="Attended" Type="bit" />
           <Property Name="DoctorID" Type="int" />
           <Property Name="Consultant" Type="varchar" MaxLength="50" />
@@ -1242,6 +1243,19 @@ warning 6002: The table/view 'PamoDb.dbo.status' does not have a primary key def
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="UpdatedOn" Type="datetime" />
         </EntityType>
+        <EntityType Name="Sys_BatchControl">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+            <PropertyRef Name="DivisionID" />
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CompanyID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="DivisionID" Type="nvarchar" MaxLength="36" Nullable="false" />
+          <Property Name="CategoryID" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="NextNumber" Type="int" />
+          <Property Name="LastEditDate" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -1320,20 +1334,26 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="DoctorID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="UserView">
+warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwFlowQueueAttendance">
           <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="RoleId" />
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="Name" />
+            <PropertyRef Name="FQID" />
           </Key>
-          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UserName" Type="varchar" MaxLength="100" />
-          <Property Name="Email" Type="nvarchar" MaxLength="256" />
-          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FQID" Type="int" Nullable="false" />
+          <Property Name="FQAttID" Type="int" />
+          <Property Name="FQCurrentSTatus" Type="int" />
+          <Property Name="FQTimeStamp" Type="datetime" />
+          <Property Name="FQLastUpdatedBy" Type="int" />
+          <Property Name="AttdID" Type="int" />
+          <Property Name="AttdPatientID" Type="int" />
+          <Property Name="AttCArdNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Att_Date" Type="date" />
+          <Property Name="AttDoctorID" Type="int" />
+          <Property Name="AttConsultingRoom" Type="int" />
+          <Property Name="Expr2" Type="varchar" MaxLength="50" />
+          <Property Name="Expr3" Type="int" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Admission_attendance">
           <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
@@ -1629,6 +1649,7 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <EntitySet Name="stock" EntityType="Self.stock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="stockCategory" EntityType="Self.stockCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="surgery" EntityType="Self.surgery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sys_BatchControl" EntityType="Self.Sys_BatchControl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tarrif" EntityType="Self.tarrif" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_complaint" EntityType="Self.tbl_complaint" Schema="dbo" store:Type="Tables" />
@@ -1926,15 +1947,24 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
     [unit].[Unit] AS [Unit]
     FROM [dbo].[unit] AS [unit]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="UserView" EntityType="Self.UserView" store:Type="Views" store:Schema="dbo">
+          <EntitySet Name="vwFlowQueueAttendance" EntityType="Self.vwFlowQueueAttendance" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [UserView].[Id] AS [Id], 
-    [UserView].[UserName] AS [UserName], 
-    [UserView].[Email] AS [Email], 
-    [UserView].[RoleId] AS [RoleId], 
-    [UserView].[UserId] AS [UserId], 
-    [UserView].[Name] AS [Name]
-    FROM [dbo].[UserView] AS [UserView]</DefiningQuery>
+    [vwFlowQueueAttendance].[FQID] AS [FQID], 
+    [vwFlowQueueAttendance].[FQAttID] AS [FQAttID], 
+    [vwFlowQueueAttendance].[FQCurrentSTatus] AS [FQCurrentSTatus], 
+    [vwFlowQueueAttendance].[FQTimeStamp] AS [FQTimeStamp], 
+    [vwFlowQueueAttendance].[FQLastUpdatedBy] AS [FQLastUpdatedBy], 
+    [vwFlowQueueAttendance].[AttdID] AS [AttdID], 
+    [vwFlowQueueAttendance].[AttdPatientID] AS [AttdPatientID], 
+    [vwFlowQueueAttendance].[AttCArdNumber] AS [AttCArdNumber], 
+    [vwFlowQueueAttendance].[Att_Date] AS [Att_Date], 
+    [vwFlowQueueAttendance].[AttDoctorID] AS [AttDoctorID], 
+    [vwFlowQueueAttendance].[AttConsultingRoom] AS [AttConsultingRoom], 
+    [vwFlowQueueAttendance].[Expr2] AS [Expr2], 
+    [vwFlowQueueAttendance].[Expr3] AS [Expr3], 
+    [vwFlowQueueAttendance].[LastName] AS [LastName], 
+    [vwFlowQueueAttendance].[FirstName] AS [FirstName]
+    FROM [dbo].[vwFlowQueueAttendance] AS [vwFlowQueueAttendance]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Admission_attendance" Association="Self.FK_Admission_attendance">
             <End Role="attendance" EntitySet="attendance" />
@@ -2171,9 +2201,10 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InsertID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PatientID" Type="Int32" />
           <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="C_Date" Type="DateTime" Precision="0" />
+          <Property Name="C_Date" Type="DateTime" Precision="3" />
           <Property Name="Attended" Type="Boolean" />
           <Property Name="DoctorID" Type="Int32" />
           <Property Name="Consultant" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -2479,8 +2510,8 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AttID" Type="Int32" />
-          <Property Name="LastTimeStamp" Type="DateTime" Precision="3" />
           <Property Name="CurrentStatusID" Type="Int32" />
+          <Property Name="LastTimeStamp" Type="DateTime" Precision="3" />
           <Property Name="LastUpdatedBy" Type="Int32" />
         </EntityType>
         <EntityType Name="grouping">
@@ -2872,10 +2903,10 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <Property Name="StatusID" Type="Int32" />
           <Property Name="StartTime" Type="DateTime" Precision="3" />
           <Property Name="EndTime" Type="DateTime" Precision="3" />
-          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="attendance" Relationship="Self.FK_ProcessFlow_attendance" FromRole="ProcessFlow" ToRole="attendance" />
           <Property Name="TimeTaken" Type="Int64" />
+          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="attendance" Relationship="Self.FK_ProcessFlow_attendance" FromRole="ProcessFlow" ToRole="attendance" />
         </EntityType>
         <EntityType Name="scanreport">
           <Key>
@@ -3321,19 +3352,25 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <Property Name="ID" Type="Int64" Nullable="false" />
           <Property Name="Unit1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="UserView">
+        <EntityType Name="vwFlowQueueAttendance">
           <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="RoleId" />
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="Name" />
+            <PropertyRef Name="FQID" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FQID" Type="Int32" Nullable="false" />
+          <Property Name="FQAttID" Type="Int32" />
+          <Property Name="FQCurrentSTatus" Type="Int32" />
+          <Property Name="FQTimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="FQLastUpdatedBy" Type="Int32" />
+          <Property Name="AttdID" Type="Int32" />
+          <Property Name="AttdPatientID" Type="Int32" />
+          <Property Name="AttCArdNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Att_Date" Type="DateTime" Precision="0" />
+          <Property Name="AttDoctorID" Type="Int32" />
+          <Property Name="AttConsultingRoom" Type="Int32" />
+          <Property Name="Expr2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Expr3" Type="Int32" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Admission_attendance">
           <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
@@ -3630,7 +3667,7 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <EntitySet Name="states" EntityType="Self.state" />
           <EntitySet Name="status" EntityType="Self.status" />
           <EntitySet Name="units" EntityType="Self.unit" />
-          <EntitySet Name="UserViews" EntityType="Self.UserView" />
+          <EntitySet Name="vwFlowQueueAttendances" EntityType="Self.vwFlowQueueAttendance" />
           <AssociationSet Name="FK_Admission_attendance" Association="Self.FK_Admission_attendance">
             <End Role="attendance" EntitySet="attendances" />
             <End Role="Admission" EntitySet="Admissions" />
@@ -3703,7 +3740,21 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="Sys_BatchControl" EntityType="PamoDbModel.Sys_BatchControl" />
         </EntityContainer>
+        <EntityType Name="Sys_BatchControl">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+            <PropertyRef Name="DivisionID" />
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CompanyID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="DivisionID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="NextNumber" Type="Int32" />
+          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3859,6 +3910,7 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
             <EntityTypeMapping TypeName="PamoDbModel.attendance">
               <MappingFragment StoreEntitySet="attendance">
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="InsertID" ColumnName="InsertID" />
                 <ScalarProperty Name="PatientID" ColumnName="PatientID" />
                 <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
                 <ScalarProperty Name="C_Date" ColumnName="_Date" />
@@ -4171,11 +4223,11 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <EntitySetMapping Name="FlowQueues">
             <EntityTypeMapping TypeName="PamoDbModel.FlowQueue">
               <MappingFragment StoreEntitySet="FlowQueue">
-                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="AttID" ColumnName="AttID" />
-                <ScalarProperty Name="LastTimeStamp" ColumnName="LastTimeStamp" />
                 <ScalarProperty Name="CurrentStatusID" ColumnName="CurrentStatusID" />
+                <ScalarProperty Name="LastTimeStamp" ColumnName="LastTimeStamp" />
+                <ScalarProperty Name="LastUpdatedBy" ColumnName="LastUpdatedBy" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4573,14 +4625,14 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
           <EntitySetMapping Name="ProcessFlows">
             <EntityTypeMapping TypeName="PamoDbModel.ProcessFlow">
               <MappingFragment StoreEntitySet="ProcessFlow">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="TimeTaken" ColumnName="TimeTaken" />
                 <ScalarProperty Name="ProcessID" ColumnName="ProcessID" />
                 <ScalarProperty Name="AttID" ColumnName="AttID" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="TimeTaken" ColumnName="TimeTaken" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5051,15 +5103,24 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserViews">
-            <EntityTypeMapping TypeName="PamoDbModel.UserView">
-              <MappingFragment StoreEntitySet="UserView">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+          <EntitySetMapping Name="vwFlowQueueAttendances">
+            <EntityTypeMapping TypeName="PamoDbModel.vwFlowQueueAttendance">
+              <MappingFragment StoreEntitySet="vwFlowQueueAttendance">
+                <ScalarProperty Name="FQID" ColumnName="FQID" />
+                <ScalarProperty Name="FQAttID" ColumnName="FQAttID" />
+                <ScalarProperty Name="FQCurrentSTatus" ColumnName="FQCurrentSTatus" />
+                <ScalarProperty Name="FQTimeStamp" ColumnName="FQTimeStamp" />
+                <ScalarProperty Name="FQLastUpdatedBy" ColumnName="FQLastUpdatedBy" />
+                <ScalarProperty Name="AttdID" ColumnName="AttdID" />
+                <ScalarProperty Name="AttdPatientID" ColumnName="AttdPatientID" />
+                <ScalarProperty Name="AttCArdNumber" ColumnName="AttCArdNumber" />
+                <ScalarProperty Name="Att_Date" ColumnName="Att_Date" />
+                <ScalarProperty Name="AttDoctorID" ColumnName="AttDoctorID" />
+                <ScalarProperty Name="AttConsultingRoom" ColumnName="AttConsultingRoom" />
+                <ScalarProperty Name="Expr2" ColumnName="Expr2" />
+                <ScalarProperty Name="Expr3" ColumnName="Expr3" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5071,6 +5132,18 @@ warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key d
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Sys_BatchControl">
+            <EntityTypeMapping TypeName="PamoDbModel.Sys_BatchControl">
+              <MappingFragment StoreEntitySet="Sys_BatchControl">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="NextNumber" ColumnName="NextNumber" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -48,6 +48,9 @@
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\PamoApp.Web\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="OfficeOnline.DataBlock">
+      <HintPath>..\..\..\ProjectReferences\Upgrades\OfficeOnline.DataBlock.dll</HintPath>
+    </Reference>
     <Reference Include="PasswordUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\PamoApp.Web\packages\PasswordUtility.1.0.0\lib\PasswordUtility.dll</HintPath>
     </Reference>
@@ -83,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\dto_AspNetUser.cs" />
+    <Compile Include="DTOs\dto_BioVital.cs" />
     <Compile Include="DTOs\dto_Patients.cs" />
     <Compile Include="Models\Admission.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
@@ -318,6 +322,9 @@
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Sys_BatchControl.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tarrif.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
@@ -336,7 +343,7 @@
     <Compile Include="Models\UserType.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserView.cs">
+    <Compile Include="Models\vwFlowQueueAttendance.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WardRound.cs">
@@ -375,6 +382,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\PamoModel.Context.tt">

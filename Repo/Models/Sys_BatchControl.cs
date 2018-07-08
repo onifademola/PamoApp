@@ -12,13 +12,13 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserView
+    public partial class Sys_BatchControl
     {
-        public string Id { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string RoleId { get; set; }
-        public string UserId { get; set; }
-        public string Name { get; set; }
+        public string CompanyID { get; set; }
+        public string DivisionID { get; set; }
+        public string CategoryID { get; set; }
+        public Nullable<int> NextNumber { get; set; }
+        public Nullable<System.DateTime> LastEditDate { get; set; }
+        public Nullable<System.DateTime> CreationDate { get; set; }
     }
 }

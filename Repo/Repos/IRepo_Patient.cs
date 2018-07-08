@@ -11,7 +11,7 @@ namespace Repo.Repos
     public interface IRepo_Patient : IRepositoryBase<patient>
     {
         bool CardNumberExist(string cardNo);
-        dto_Patients GetPatientById(long patientId);
+        dto_Patients GetPatientById(int patientId);
         dto_Patients GetPatientByCardNumber(string cardNumber);
         IQueryable<dto_Patients> GetAllPatients();
         RepositoryActionResult<dto_Patients> AddPatient(dto_Patients pat);

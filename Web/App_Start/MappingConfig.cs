@@ -25,6 +25,7 @@ namespace Web.App_Start
                 config.CreateMap<patient, dto_Patients>();
 
                 config.CreateMap<AspNetUser, dto_AspNetUser>();
+                config.CreateMap<biovital, dto_BioVital>();
             });
         }
     }
