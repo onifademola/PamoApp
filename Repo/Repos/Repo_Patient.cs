@@ -110,6 +110,92 @@ namespace Repo.Repos
             }
         }
 
+        #region Patient's Biovital Repo
+        public IQueryable<dto_BioVital> GetAllBiovitalsForPatient(int patientID)
+        {
+            var allBio = _entities.biovitals.ProjectTo<dto_BioVital>().Where(n => n.PatientID == patientID);
+            return allBio;
+        }
+
+        public IQueryable<dto_BioVital> Get5BiovitalsForPatient(int patientID)
+        {
+            var allBio = _entities.biovitals.ProjectTo<dto_BioVital>()
+                .Where(n => n.PatientID == patientID)
+                .OrderByDescending(n => n.C_Date)
+                .Take(5);
+            return allBio;
+        }
+
+        public RepositoryActionResult<dto_BioVital> AddBiovital4Patient(dto_BioVital bio, int patientID)
+        {
+            try
+            {
+                bio.PatientID = patientID;
+                var entity = Mapper.Map<biovital>(bio);
+                _entities.biovitals.Add(entity);
+                var result = _entities.SaveChanges();
+                if (result > 0)
+                {
+                    return new RepositoryActionResult<dto_BioVital>(bio, RepositoryActionStatus.Created);
+                }
+                else
+                {
+                    return new RepositoryActionResult<dto_BioVital>(bio, RepositoryActionStatus.NothingModified, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<dto_BioVital>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<dto_BioVital> EditBiovital4Patient(dto_BioVital bio)
+        {
+            try
+            {
+                var getBio = _entities.biovitals.FirstOrDefault(n => n.ID == bio.ID);
+                if (getBio == null)
+                    return new RepositoryActionResult<dto_BioVital>(bio, RepositoryActionStatus.NothingModified, null);
+                var entity = Mapper.Map<biovital>(bio);
+                _entities.Set<biovital>().Attach(entity);
+                _entities.Entry<biovital>(entity).State = System.Data.Entity.EntityState.Modified;
+                var result = _entities.SaveChanges();
+                if (result > 0)
+                {
+                    return new RepositoryActionResult<dto_BioVital>(bio, RepositoryActionStatus.Updated);
+                }
+                else
+                {
+                    return new RepositoryActionResult<dto_BioVital>(bio, RepositoryActionStatus.NothingModified, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<dto_BioVital>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<dto_BioVital> DeleteBiovital4Patient(int bioId)
+        {
+            try
+            {
+                var biovit = _entities.biovitals.FirstOrDefault(n => n.ID == bioId);
+                if (biovit == null)
+                    return new RepositoryActionResult<dto_BioVital>(null, RepositoryActionStatus.NothingModified);
+                _entities.biovitals.Remove(biovit);
+                var result = _entities.SaveChanges();
+                if (result > 0)
+                    return new RepositoryActionResult<dto_BioVital>(null, RepositoryActionStatus.Deleted);
+                else
+                    return new RepositoryActionResult<dto_BioVital>(null, RepositoryActionStatus.NothingModified);
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<dto_BioVital>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+        #endregion
+
         //#region Appointment Repo
 
         //public IQueryable<appointment> GetAllAppointments()

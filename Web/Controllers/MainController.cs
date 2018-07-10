@@ -20,12 +20,14 @@ namespace Web.Controllers
             _irepoPflow = irepoPflow;
             _irepoPatient = irepoPatient;
         }
+
         // GET: Main
         public ActionResult Home()
         {
             return View();
         }
 
+        #region FRONT DESK CODECS
         public ActionResult FrontDesk()
         {
             ViewData["vstatus"] = _irepoUtil.ProcessStatuses();
@@ -115,5 +117,15 @@ namespace Web.Controllers
             }  
             //return Redirect(System.Web.HttpContext.Current.Request.UrlReferrer.ToString());
         }
+        #endregion
+
+        #region OPD CODECS
+        public ActionResult Opd()
+        {
+            ViewData["vstatus"] = _irepoUtil.ProcessStatuses();
+            ViewData["recBy"] = _irepoUtil.UserForGrid();
+            return View();
+        }
+        #endregion
     }
 }

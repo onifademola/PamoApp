@@ -18,7 +18,13 @@ namespace Repo.Repos
         RepositoryActionResult<dto_Patients> EditPatient(dto_Patients pat);
         RepositoryActionResult<dto_Patients> DeletePatient(long patId);
 
-
+        #region Patient's Biovital Repo
+        IQueryable<dto_BioVital> GetAllBiovitalsForPatient(int patientID);
+        IQueryable<dto_BioVital> Get5BiovitalsForPatient(int patientID);
+        RepositoryActionResult<dto_BioVital> AddBiovital4Patient(dto_BioVital bio, int patientID);
+        RepositoryActionResult<dto_BioVital> EditBiovital4Patient(dto_BioVital bio);
+        RepositoryActionResult<dto_BioVital> DeleteBiovital4Patient(int bioId);
+        #endregion
 
         #region Appointment Repo
         //IQueryable<appointment> GetAllAppointments();

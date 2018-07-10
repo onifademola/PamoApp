@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -113,6 +114,15 @@ namespace Repo.Repos
                 _entities.AspNetRoles.Add(role);
             }
             _entities.SaveChanges();
+        }
+
+        public IEnumerable<SelectListItem> UserForGrid()
+        {
+            return _entities.AspNetUsers.Select(x => new SelectListItem
+            {
+                Value = x.user_id.ToString(),
+                Text = x.Email
+            });
         }
 
         //public IEnumerable<List<KeyValuePair<int, string>>> ProcessStatusForGrid()

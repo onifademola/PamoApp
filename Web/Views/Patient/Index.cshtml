@@ -20,12 +20,13 @@
         .Columns(columns =>
         {
             //columns.Select();
-            columns.Bound(p => p.ID).Sortable(false).Filterable(false)//.Title("Select")//.ClientTemplate("<input type='checkbox' />")
-                .ClientTemplate("<input name=\"selectedTchLogIds\" type=\"checkbox\" id=\"chbox\" value=\"#=ID#\" />")
-            //.HeaderTemplate("<input type=\"checkbox\" class=\"selectAll\" />")
-            //.HeaderTemplate("<input class=\"selectAll\" type=\"checkbox\" id=\"allBox\" onclick=\"toggleSelection()\" />").Width(20)
-            .HeaderTemplate("<input type='checkbox' id='masterCheckBox'/>").Width(60);//.Lockable(true).Locked();
+            //columns.Bound(p => p.ID).Sortable(false).Filterable(false)//.Title("Select")//.ClientTemplate("<input type='checkbox' />")
+            //    .ClientTemplate("<input name=\"selectedTchLogIds\" type=\"checkbox\" id=\"chbox\" value=\"#=ID#\" />")
+            ////.HeaderTemplate("<input type=\"checkbox\" class=\"selectAll\" />")
+            ////.HeaderTemplate("<input class=\"selectAll\" type=\"checkbox\" id=\"allBox\" onclick=\"toggleSelection()\" />").Width(20)
+            //.HeaderTemplate("<input type='checkbox' id='masterCheckBox'/>").Width(60);//.Lockable(true).Locked();
 
+            columns.Select().Width(50);
 
             columns.Bound(c => c.CardNumber).Width(120);//.Locked().Lockable(true);
             columns.Bound(c => c.FirstName).Width(120);//.Locked().Lockable(true);
@@ -59,12 +60,11 @@
                 .HtmlAttributes(new { style = "height:580px;" })
                 .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("EditorPatient"))
                 .Filterable(f => f.Mode(GridFilterMode.Row))
-                .Scrollable()
+                .Scrollable(sr => sr.Endless(true))
                 .Groupable()
+                .Events(ev => ev.Change("onChange"))
+                //.PersistSelection()
                 .Sortable()
-                        .Selectable(selectable => selectable
-                    .Mode(GridSelectionMode.Single))
-
                 .Resizable(r => r.Columns(true))
                 .Excel(excel => excel
                     .FileName("PatientList.xlsx")
@@ -82,6 +82,7 @@
                             .Ajax()
                             .Batch(false)
                             .ServerOperation(false)
+                            .PageSize(50)
                             .Events(e =>
                             {
                                 e.Error("error_handler");
@@ -101,23 +102,9 @@
 </div>
 
 <script type="text/javascript">
-    //persist state
-    $(function () {
-        var grid = $("#studGrid").data("kendoGrid");
-
-        $("#save").click(function (e) {
-            e.preventDefault();
-            localStorage["kendo-grid-options"] = kendo.stringify(grid.getOptions());
-        });
-
-        $("#load").click(function (e) {
-            e.preventDefault();
-            var options = localStorage["kendo-grid-options"];
-            if (options) {
-                grid.setOptions(JSON.parse(options));
-            }
-        });
-    });
+    function onChange(arg) {
+        console.log("The selected product ids are: [" + this.selectedKeyNames().join(", ") + "]");
+    }
 
     $(function () {
         //disable button on load
@@ -133,17 +120,17 @@
         };
     });
 
-    $("#masterCheckBox").click(function () {
-        if (document.getElementById('masterCheckBox').checked) {
+    //$("#masterCheckBox").click(function () {
+    //    if (document.getElementById('masterCheckBox').checked) {
 
-            $('tr').find('[type=checkbox]').prop('checked', true);
-            $('tr.k-state-selected').find('[type=checkbox]').prop('checked', true);
-        }
-        else {
-            $('tr').find('[type=checkbox]').prop('checked', false);
-            $('tr.k-state-selected').find('[type=checkbox]').prop('checked', false);
-        }
-    });
+    //        $('tr').find('[type=checkbox]').prop('checked', true);
+    //        $('tr.k-state-selected').find('[type=checkbox]').prop('checked', true);
+    //    }
+    //    else {
+    //        $('tr').find('[type=checkbox]').prop('checked', false);
+    //        $('tr.k-state-selected').find('[type=checkbox]').prop('checked', false);
+    //    }
+    //});
 
     $("#btnSubmit").click(function () {
 

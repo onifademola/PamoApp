@@ -5,29 +5,5 @@
         <p class="" style="color:white"><span id="Tezt"></span></p>
         <h4 class="" id="Current"></h4>
     </div>
-    @*<div id="toggleLink" class="pull-right-md list-group-item" style="background-color:hotpink; border-color:hotpink">
-        <h6 id="toggleText" style="font-weight:600">HIDE</h6>
-    </div>*@
-
 </div>
 
-<script>
-    $(function () {
-        $("#toggleText").html('HIDE FILTER');
-    });
-
-    $("#toggleLink").click(function () {
-
-        var txt = $("#toggleText").html();
-
-        if (txt == 'HIDE FILTER') {
-            $("#toggleText").html('SHOW FILTER');
-            $("#filterBox").hide();
-        }
-
-        if (txt == 'SHOW FILTER') {
-            $("#toggleText").html('HIDE FILTER');
-            $("#filterBox").show();
-        }        
-    });
-</script>

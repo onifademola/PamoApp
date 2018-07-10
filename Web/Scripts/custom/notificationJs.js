@@ -15,19 +15,15 @@
 
 
 function DataSaveSuccess() {    
-    toastr.success("Your change(s) have been committed to the server.", "Successful Save", opts);
+    toastr.success("Your change(s) have been committed to the server.", "Successful Save !", opts);
 };
 
 function DataSaveError() {   
-    toastr.error("Sorry, we could not get your recent changes to the server right now. Please try again.", "Failed Save", opts);
+    toastr.error("Sorry, we could not get your recent changes to the server right now. Please try again.", "Failed Save !", opts);
 };
 
 function ServiceError() {
-    toastr.error("Sorry, something went wrong... We could not complete your requested task at the moment, please try again!", "Service Unreachable", opts);    
-};
-
-function TeacherClassNotFoundError() {
-    toastr.warning("Sorry, either you do not teach any Subject for the class selected or the server could not be reached, please verify your selection and try again!", "Subject Not Found", opts);
+    toastr.error("Sorry, something went wrong... We could not complete your requested task at the moment, please try again!", "Internal Error !", opts);    
 };
 
 

@@ -30,7 +30,7 @@
             .HeaderTemplate("<input type='checkbox' id='masterCheckBox'/>").Width(60) //onclick='checkAll(this)'
             .Locked().Lockable(true);
 
-
+            columns.Select().Width(50);
             columns.Bound(c => c.Card).Locked().Lockable(true).Width(120);
             columns.Bound(c => c.Remarks).Locked().Lockable(true).Width(120);
             columns.Bound(c => c.wAH).Width(120);

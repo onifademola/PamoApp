@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Repo.Repos
 {
@@ -16,5 +17,6 @@ namespace Repo.Repos
         List<KeyValuePair<int, string>> AdmissionStatus();
         DateTime GetNijaTime(DateTime timeToConvert);
         void AddToRolesTable();
+        IEnumerable<SelectListItem> UserForGrid();
     }
 }

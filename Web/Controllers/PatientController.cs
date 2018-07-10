@@ -35,7 +35,6 @@ namespace Web.Controllers
             var jsonResult = Json(model, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
-            //return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Patients_Read([DataSourceRequest] DataSourceRequest request)
@@ -88,5 +87,66 @@ namespace Web.Controllers
             return Json(patients.ToDataSourceResult(request, ModelState));
         }
 
+
+        #region BIOVITAL CODECS
+        public JsonResult PatientsBiovitalAll_Read([DataSourceRequest] DataSourceRequest request, int patientID)
+        {
+            var model = _patientRepo.GetAllBiovitalsForPatient(patientID);
+            JsonResult result = Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            result.MaxJsonLength = int.MaxValue;
+            return result;
+        }
+
+        public JsonResult PatientsBiovital5_Read([DataSourceRequest] DataSourceRequest request, int patientID)
+        {
+            var model = _patientRepo.Get5BiovitalsForPatient(patientID);
+            JsonResult result = Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            result.MaxJsonLength = int.MaxValue;
+            return result;
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult PatientBiovital_Create([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_BioVital> biovitals, int patientID)
+        {
+            foreach (var biovital in biovitals)
+            {
+                if (biovital != null && ModelState.IsValid)
+                {
+                    _patientRepo.AddBiovital4Patient(biovital, patientID);
+                }
+            }
+
+            return Json(biovitals.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult PatientsBioVital_BatchUpdate([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_BioVital> bios)
+        {
+            foreach (var bio in bios)
+            {
+                if (bio != null)
+                {
+                    _patientRepo.EditBiovital4Patient(bio);
+                }
+            }
+
+            return Json(bios.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult PatientsBiovital_Destroy([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_BioVital> bios)
+        {
+            foreach (var bio in bios)
+            {
+                if (bio != null && ModelState.IsValid)
+                {
+                    _patientRepo.DeleteBiovital4Patient(bio.ID);
+                }
+            }
+
+            return Json(bios.ToDataSourceResult(request, ModelState));
+        }
+
+        #endregion
     }
 }
