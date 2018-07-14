@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Consulting";
+}
+
+<h2>Consulting</h2>
+
+<script type="text/javascript">
+    var connection = $.connection;
+    var hub = connection.flowQueueHub;
+    var hubStart = connection.hub.start();
+    console.log("here");
+    var signalRDataSource = new kendo.data.DataSource({
+        type: "signalr",
+        autoSync: true,
+        push: function(e) {
+            var notification = $("#notification").data("kendoNotification");
+            notification.success(e.type);
+        },
+        schema: {
+            model: {
+                id: "FQID",
+                fields: {
+                    "FQID": { editable: false, type: "Number" },
+                    "AttCArdNumber": { type: "string" },
+                    "FirstName": { type: "string" }
+                }
+            }
+        },
+        transport: {
+            signalr: {
+                promise: hubStart,
+                hub: hub,
+                server: {
+                    read: "read",
+                },
+                client: {
+                    read: "read",
+                }
+            }
+        },
+        pageSize: 10,
+});
+
+    $("#grid").kendoGrid({
+        height: 700,
+        filterable: {
+            extra: false,
+            pageable: true,
+            sortable: {
+                mode: "multiple",
+                allowUnsort: true
+            },
+            columns: [
+                { field: "FQID", title: "Notification Id", width: 100, hidden: true },
+
+                { field: "AttCArdNumber", title: "Card Number", width: 150 },
+                { field: "FirstName", title: "Patient Name", width: 120 },
+            ],
+            dataSource: signalRDataSource
+        }
+    });
+</script>
+
+<div>
+    <div id="grid" style="margin-bottom:20px"></div>
+    <span id="notification"></span>
+</div>

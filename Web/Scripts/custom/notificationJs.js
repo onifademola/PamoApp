@@ -13,6 +13,20 @@
     "hideMethod": "fadeOut"
 };
 
+var qopts = {
+    "closeButton": true,
+    "debug": false,
+    "positionClass": "toast-bottom-right",
+    "onclick": null,
+    "showDuration": "0",
+    "hideDuration": "1000",
+    "timeOut": "0",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+};
+
 
 function DataSaveSuccess() {    
     toastr.success("Your change(s) have been committed to the server.", "Successful Save !", opts);
@@ -41,5 +55,9 @@ function CustomWarningNotify(message, title) {
 };
 
 function CustomErrorNotify(message, title) {
-    toastr.error(message, title, opts);
+    toastr.error(message, title, opts);    
+};
+
+function CustomQueueNotify(message, title) {
+    toastr.info(message, title, qopts);
 };

@@ -4,13 +4,43 @@
 }
 
 <script type="text/javascript">
-        $(document).ready(
-            function () {
-                $("#txt1").html("Front Desk ");
-                $("#txt2").html("(Attend to incoming Out Patients)");
-                //$("#txtWarning").html("System failure imminent, carefully change COMPUTE TYPE & CLASS HIERARCHY under strict change request, and only when agreed and advised by the SCHOOL ADMINISTRATORS!");
+    $(document).ready(
+        function () {
+            $("#txt1").html("Front Desk ");
+            $("#txt2").html("(Attend to incoming Out Patients)");
+            //$("#txtWarning").html("System failure imminent, carefully change COMPUTE TYPE & CLASS HIERARCHY under strict change request, and only when agreed and advised by the SCHOOL ADMINISTRATORS!");
+    });
+    
+    $(function () {
+        // Declare a proxy to reference the hub.
+        var notifications = $.connection.flowQueueHub;
+
+        //debugger;
+        // Create a function that the hub can call to broadcast messages.
+        notifications.client.updateMessages = function () {
+            //getAllMessages()
+            
+            var clsRegGrid = $("#GridOnVisit").data("kendoGrid");
+            clsRegGrid.dataSource.read();
+            
+        };
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+            //alert("connection started")
+            //getAllMessages();
+        }).fail(function (e) {
+            //alert(e);
         });
+    });
+
 </script>
+
+
+@(Html.Kendo().Notification()
+      .Name("notification")
+      .Width("100%")
+      .Position(position => position.Top(0).Left(0))
+)
 
 <div id="pageDP" class="container">
     
@@ -51,21 +81,21 @@
             //.ButtonCount(5)
             //.PageSizes(new[] { 50, 100, 250, 500 }))
             .DataSource(dataSource => dataSource
-            .Ajax()
-            .Batch(false)
-            .ServerOperation(false)
-            .PageSize(50)
-            .Events(e =>
-            {
-                e.Error("error_handler");
-            })
-            .Model(model =>
-            {
-                model.Id(p => p.ID);
-                //model.Field(p => p.StudentId).Editable(false);
-            })
-            .Read(read => read.Action("Patients_Read", "Patient"))
-            )
+                .Ajax()
+                .Batch(false)
+                .ServerOperation(false)
+                .PageSize(50)
+                .Events(e =>
+                {
+                    e.Error("error_handler");
+                })
+                .Model(model =>
+                {
+                    model.Id(p => p.ID);
+                    //model.Field(p => p.StudentId).Editable(false);
+                })
+                .Read(read => read.Action("Patients_Read", "Patient"))
+                )
             )
         </div>
     </div>);
@@ -97,25 +127,23 @@
                 .Selectable(selectable => selectable
                 .Mode(GridSelectionMode.Single))
                 .Mobile(MobileMode.Auto)
-                .Pageable(p => p.Numeric(false)
-                    .PreviousNext(false)
-                    .Refresh(true)
-                )
+                .Pageable(p => p.Numeric(false).PreviousNext(false).Refresh(true))
                 .DataSource(dataSource => dataSource
-                .Ajax()
-                .Batch(false)
-                .ServerOperation(false)
-                .PageSize(50)
-                .Events(e =>
-                {
-                    e.Error("error_handler");
-                })
-                .Model(model =>
-                {
-                    model.Id(p => p.FQID);
-                })
-                .Read(read => read.Action("Read_GetAllFlowQueues", "ProcessFlow"))
-                )
+                    .Ajax()
+                    .Batch(false)
+                    .ServerOperation(false)
+                    .PageSize(50)
+                    .Events(e =>
+                    {
+                        e.Error("error_handler");
+                    })
+                    .Model(model =>
+                    {
+                        model.Id(p => p.FQID);
+                        //model.Field(p => p.StudentId).Editable(false);
+                    })
+                    .Read(read => read.Action("Read_GetAllFlowQueues", "ProcessFlow"))
+                    )
                 )
             </div>
         </div>
@@ -127,6 +155,7 @@
 
 <script src="~/Scripts/custom/progressBar.js"></script>
 <script type="text/javascript">
+    
     function error_handler(e) {
         if (e.errors) {
             var message = "Errors:\n";
@@ -140,8 +169,7 @@
             alert(message);
         }
     }
-    
-
+        
     $("#btnSubmit").click(function () {
         var data = { };        
         var grid = $("#ptsGrid").data("kendoGrid");
@@ -169,30 +197,5 @@
                 ServiceError();
                 }
         );
-
-        //beginProgress();
-
-        //$.ajax({
-        //    cache: false,
-        //    type: "GET",
-        //    contentType: "application/json; charset=utf-8",
-        //    dataType: 'json',
-        //    url: "/Main/SendToOPD",
-        //    data: data,
-        //    success: function (result) {
-        //        endProgress();
-
-        //        if (result[0].resp == "ok") {
-        //            CustomSuccessNotify(result[0].mesag, "Registration successful !");
-        //        }
-        //        else {
-        //            CustomErrorNotify(result[0].mesag, "Registration failed !");
-        //        }
-        //    },
-        //    error: function (xhr, ajaxOptions, thrownError) {
-        //        endProgress();
-        //        ServiceError();
-        //    }
-        //});
     });
 </script>

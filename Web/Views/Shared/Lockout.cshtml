@@ -8,3 +8,222 @@
     <h1 class="text-danger">Locked out.</h1>
     <h2 class="text-danger">This account has been locked out, please try again later.</h2>
 </hgroup>
+
+
+
+@{
+    ViewBag.Title = "FrontDesk";
+}
+
+<script type="text/javascript">
+    $(document).ready(
+        function () {
+            $("#txt1").html("Front Desk ");
+            $("#txt2").html("(Attend to incoming Out Patients)");
+            //$("#txtWarning").html("System failure imminent, carefully change COMPUTE TYPE & CLASS HIERARCHY under strict change request, and only when agreed and advised by the SCHOOL ADMINISTRATORS!");
+    });
+
+    //var hub = $.connection.flowQueueHub;
+    //var hubStart = $.connection.hub.start();
+
+
+    $(function () {
+        // Declare a proxy to reference the hub.
+        var notifications = $.connection.flowQueueHub;
+
+        //debugger;
+        // Create a function that the hub can call to broadcast messages.
+        notifications.client.updateMessages = function () {
+            //getAllMessages()
+            var clsRegGrid = $("#GridOnVisit").data("kendoGrid");
+            clsRegGrid.dataSource.read();
+        };
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+            //alert("connection started")
+            //getAllMessages();
+        }).fail(function (e) {
+            //alert(e);
+        });
+    });
+
+</script>
+
+
+@(Html.Kendo().Notification()
+      .Name("notification")
+      .Width("100%")
+      .Position(position => position.Top(0).Left(0))
+)
+
+<div id="pageDP" class="container">
+
+    @(Html.Kendo().Splitter().Orientation(SplitterOrientation.Vertical)
+    .Name("horizontal")
+    .HtmlAttributes(new { style = "height: 580px;" }) //style = "height:580px;"
+    .Panes(horizontalPanes =>
+    {
+    horizontalPanes.Add()
+    .HtmlAttributes(new { id = "left-pane" })
+    //.Size("220px")
+    .Collapsible(true).Scrollable(false)
+    .Content(@<div class="pane-content">
+        <button class="btn btn-block btn-info" type="submit" name="btnSubmit" id="btnSubmit" title="Click to run process">
+            <i class="fa-share"></i>
+            Send selected Patient to OPD
+        </button>
+        <div id="pageGrid">
+            @(Html.Kendo().Grid<Repo.DTOs.dto_Patients>()
+            .Name("ptsGrid")
+            .NoRecords("No patient match is found")
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.CardNumber).Width(20);
+                columns.Bound(c => c.FirstName).Width(20);
+                columns.Bound(c => c.LastName).Width(20);
+            })
+            .Filterable(f => f.Mode(GridFilterMode.Row))
+            .Scrollable(sc => sc.Endless(true))
+            .Sortable()
+            .Selectable(selectable => selectable
+            .Mode(GridSelectionMode.Single))
+            .Mobile(MobileMode.Auto)
+            .Pageable(p => p.Numeric(false).PreviousNext(false).Refresh(true))
+            //.Pageable(pageable => pageable
+            //.Refresh(true)
+            //.Info(false)
+            //.ButtonCount(5)
+            //.PageSizes(new[] { 50, 100, 250, 500 }))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(false)
+                .ServerOperation(false)
+                .PageSize(50)
+                .Events(e =>
+                {
+                    e.Error("error_handler");
+                })
+                .Model(model =>
+                {
+                    model.Id(p => p.ID);
+                    //model.Field(p => p.StudentId).Editable(false);
+                })
+                .Read(read => read.Action("Patients_Read", "Patient"))
+                )
+            )
+        </div>
+    </div>);
+
+
+horizontalPanes.Add()
+.HtmlAttributes(new { id = "right-pane" })
+.Collapsible(true)
+//.MaxSize("550px")
+//.Size("550px")
+.Content(@<div class="pane-content">
+        <div class="container">
+            <h4>Patients on Visit</h4>
+            <div id="pageGrid2">
+                @(Html.Kendo().Grid<Repo.Models.vwFlowQueueAttendance>()
+                .Name("GridOnVisit")
+                .NoRecords("No patient on visit")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.AttCArdNumber).Title("").Width(20);
+                    columns.Bound(c => c.FirstName).Title("").Width(40);
+                    columns.ForeignKey(p => p.FQCurrentSTatus, (System.Collections.IEnumerable)ViewData["vstatus"], "Key", "Value")
+                    .Title("").Width(150);
+                    columns.Bound(c => c.FQTimeStamp).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("").Width(20);
+                    columns.Bound(c => c.FQLastUpdatedBy).Title("").Width(20);
+                })
+                .Scrollable(sc => sc.Endless(true))
+                .Sortable()
+                .Selectable(selectable => selectable
+                .Mode(GridSelectionMode.Single))
+                .Mobile(MobileMode.Auto)
+                .Pageable(p => p.Numeric(false).PreviousNext(false).Refresh(true))
+                .DataSource(dataSource => dataSource
+                .SignalR()
+                .AutoSync(true)
+                //.Events(events => events.Push("pushNote"))
+                //.PageSize(50)
+                .Transport(tr => tr
+                    .Promise("hubStart")
+                    .Hub("hub")
+                    .Client(c => c
+                        .Read("getAllFlowQueues")
+                        .Create("create")
+                        .Update("update")
+                        .Destroy("destroy")
+                        )
+                    .Server(s => s
+                        .Read("getAllFlowQueues")
+                        .Create("create")
+                        .Update("update")
+                        .Destroy("destroy")))
+                .Schema(schema => schema
+                    .Model(model =>
+                    {
+                        model.Id(m => m.FQID);
+                        //model.Field(m => m.ProductID).Editable(false);
+                    })
+                )))
+            </div>
+        </div>
+    </div>);
+    })
+    )
+</div>
+@Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
+
+<script src="~/Scripts/custom/progressBar.js"></script>
+<script type="text/javascript">
+
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+
+    function pushNote(e) {
+        var notification = $("#notification").data("kendoNotification");
+        notification.success(e.type);
+    }
+
+    $("#btnSubmit").click(function () {
+        var data = { };
+        var grid = $("#ptsGrid").data("kendoGrid");
+        var selectedItem = grid.dataItem(grid.select());
+        if (selectedItem == null) {
+            CustomErrorNotify("Sorry! You have not selected a Patient");
+        }
+        data = { "selectedPtIds": selectedItem.ID };
+
+        beginProgress();
+
+        $.post("/Main/SendToOPD", data)
+            .done(function (result) {
+                endProgress();
+
+                if (result[0].resp == "ok") {
+                    CustomSuccessNotify(result[0].mesag, "Success !");
+                }
+                else {
+                    CustomErrorNotify(result[0].mesag, "Error !");
+                }
+            }
+            ).error( function (xhr, ajaxOptions, thrownError) {
+                endProgress();
+                ServiceError();
+                }
+        );
+    });
+</script>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Web.Hubs;
 
 namespace Web.Controllers
 {
@@ -90,9 +91,10 @@ namespace Web.Controllers
                 bool res = _irepoPflow.StartPatientVisit(patient, userDoingTask);
                 result = res;
             }
-            
+                        
             if (result == true)
             {
+                FlowQueueHub.NotifyOPD();
                 var data = new[]
                  {
                     new
@@ -126,6 +128,19 @@ namespace Web.Controllers
             ViewData["recBy"] = _irepoUtil.UserForGrid();
             return View();
         }
+        #endregion
+
+        #region CONSULTING CODECS
+        public JsonResult GetConsultingRoomsForGrid()
+        {
+            return Json( _irepoUtil.ConsultingRoomForGrid(), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Consulting()
+        {
+            return View();
+        }
+
         #endregion
     }
 }

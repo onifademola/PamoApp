@@ -7,7 +7,7 @@
     $(document).ready(
         function () {
             $("#txt1").html("OPD");
-            $("#txt2").html("(Take OUt Patient's Bio Vital Data)");
+            $("#txt2").html("(Take Out Patient's Bio Vital Data)");
             //$("#txtWarning").html("System failure imminent, carefully change COMPUTE TYPE & CLASS HIERARCHY under strict change request, and only when agreed and advised by the SCHOOL ADMINISTRATORS!");
         });
 </script>
@@ -15,14 +15,12 @@
 
 <div>
     <div class="col-md-4">
-        <h4>Patients on Visit</h4>
-        <button class="btn btn-block btn-info" type="submit" name="btnSubmit" id="btnSubmit" title="Click to run process">
-            <i class="fa-share"></i>
-            Send selected Patient to Consulting
-        </button>
-        <div id="pageGridPatient">
+        @*<h4>Patients on Visit</h4>*@
+        
+        
+        <div class="row" id="pageGridPatient">
             @(Html.Kendo().Grid<Repo.Models.vwFlowQueueAttendance>()
-                .Name("GridOnVisit")
+                .Name("GridOPD")
                 .NoRecords("No patient on visit")
                 .Columns(columns =>
                 {
@@ -32,7 +30,41 @@
                     .Title("");
                     columns.Bound(c => c.FQTimeStamp).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("");
                     columns.Bound(c => c.FQLastUpdatedBy).Title("");
-                })                
+                })
+                .ToolBar(toolbar =>
+                {
+                toolbar.Template(@<text>
+                <div class="row">
+                    <div class="col-md-4 toolbar">
+                        @(Html.Kendo().DropDownList()
+                                  .Name("consDrpdwn")
+                                  .HtmlAttributes(new { style = "width:100%;" })
+                                  .OptionLabel("Select a Room...")
+                                  .DataTextField("Text")
+                                  .DataValueField("Value")
+                                  .DataSource(source =>
+                                  {
+                                      source.Read(read =>
+                                      {
+                                          read.Action("GetConsultingRoomsForGrid", "Main");
+                                      });
+                                  })
+                        )
+                    </div>
+
+                    <div class="col-md-6 toolbar">
+                        @(Html.Kendo().Button()
+                        .Name("iconButton")
+                        .Tag("a")
+                        .Icon("filter")
+                        .Content("Send to Consulting")
+                        //.Content("<span class='fa-share' title='Click to run process'>Send to Consulting</span>")
+
+                        )
+                    </div>
+                </div>
+                </text>);
+                })
                 .Resizable(r => r.Columns(true))
                 .Scrollable(sc => sc.Endless(true))
                 .Sortable()
@@ -63,7 +95,7 @@
         </div>
     </div>
     <div class="col-md-8" id="scoreList">
-        @Html.Partial("_PartialPageSelection")
+        @*@Html.Partial("_PartialPageSelection")*@
         @(Html.Kendo().Grid<Repo.DTOs.dto_BioVital>()
                 .Name("GridBV")
                 .NoRecords("No patient's biovital found")
@@ -123,7 +155,7 @@
         )
         <script>
             function filterData() {
-                var grid = $("#GridOnVisit").data("kendoGrid");
+                var grid = $("#GridOPD").data("kendoGrid");
                 var selectedItem = grid.dataItem(grid.select());
                 if (selectedItem != null) {
                     return {
@@ -159,7 +191,7 @@
     
     $("#btnSubmit").click(function () {
         var data = {};
-        var grid = $("#GridOnVisit").data("kendoGrid");
+        var grid = $("#GridOPD").data("kendoGrid");
         var selectedItem = grid.dataItem(grid.select());
         if (selectedItem == null) {
             CustomErrorNotify("Sorry! You have not selected a Patient");
@@ -186,6 +218,27 @@
             );
 
        
+    });
+
+    $(function () {
+        // Declare a proxy to reference the hub.
+        var notifications = $.connection.flowQueueHub;
+
+        //debugger;
+        // Create a function that the hub can call to broadcast messages.
+        notifications.client.updateMessages = function () {
+
+            var clsRegGrid = $("#GridOPD").data("kendoGrid");
+            clsRegGrid.dataSource.read();
+
+            CustomQueueNotify("New Patient arrives OPD", "Out Patient Alert !");
+        };
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+            //alert("connection started")
+        }).fail(function (e) {
+            //alert(e);
+        });
     });
 
     $(function () {

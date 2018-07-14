@@ -17,6 +17,7 @@ namespace Repo.Repos
         List<KeyValuePair<int, string>> AdmissionStatus();
         DateTime GetNijaTime(DateTime timeToConvert);
         void AddToRolesTable();
-        IEnumerable<SelectListItem> UserForGrid();
+        IQueryable<SelectListItem> UserForGrid();
+        IQueryable<SelectListItem> ConsultingRoomForGrid();
     }
 }

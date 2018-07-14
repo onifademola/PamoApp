@@ -116,12 +116,21 @@ namespace Repo.Repos
             _entities.SaveChanges();
         }
 
-        public IEnumerable<SelectListItem> UserForGrid()
+        public IQueryable<SelectListItem> UserForGrid()
         {
             return _entities.AspNetUsers.Select(x => new SelectListItem
             {
                 Value = x.user_id.ToString(),
                 Text = x.Email
+            });
+        }
+
+        public IQueryable<SelectListItem> ConsultingRoomForGrid()
+        {
+            return _entities.consultingRooms.Select(x => new SelectListItem
+            {
+                Value = x.ID.ToString(),
+                Text = x.Room
             });
         }
 
