@@ -65,20 +65,6 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult SendToOPD(int selectedPtIds)
         {
-            //foreach (var stud in selectedPtIds) //selectedIDsHF2.Split(new Char[] { ',' }))
-            //{
-
-            //    int patientID = Convert.ToInt32(stud);
-            //    if (patientID < 0)
-            //        return null;
-            //    string uid = User.Identity.GetUserId();
-            //    var userDoingTask = _irepoPflow.GetUserDoingTask(uid);
-            //    var patient = _irepoPatient.GetPatientById(patientID);
-            //    if (patient != null && userDoingTask != null)
-            //    {
-            //        _irepoPflow.StartPatientVisit(patient, userDoingTask);
-            //    }
-            //}
             bool result = false;
             int patientID = Convert.ToInt32(selectedPtIds);
             if (patientID < 0)
@@ -128,6 +114,49 @@ namespace Web.Controllers
             ViewData["recBy"] = _irepoUtil.UserForGrid();
             return View();
         }
+
+        [HttpPost]
+        public ActionResult SendToConsulting(int attdID, int consultnRmID)
+        {
+            bool result = false;
+            int attdsID = Convert.ToInt32(attdID);
+            int consRmID = Convert.ToInt32(consultnRmID);
+            if (attdsID < 0 || consRmID < 0)
+                return null;
+            string uid = User.Identity.GetUserId();
+            var userDoingTask = _irepoPflow.GetUserDoingTask(uid);
+            if (userDoingTask != null)
+            {
+                bool res = _irepoPflow.QueuePatientAtConsulting(attdsID, consRmID, userDoingTask);
+                result = res;
+            }
+
+            if (result == true)
+            {
+                FlowQueueHub.NotifyConsulting();
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "ok",
+                        mesag = "The registration was successful!"
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "error",
+                        mesag = "Process aborted, either classes have already been registered or something went wrong. Please check your task."
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
 
         #region CONSULTING CODECS
@@ -138,6 +167,8 @@ namespace Web.Controllers
 
         public ActionResult Consulting()
         {
+            ViewData["vstatus"] = _irepoUtil.ProcessStatuses();
+            ViewData["conRoom"] = _irepoUtil.ConsultingRoomForGrid();
             return View();
         }
 

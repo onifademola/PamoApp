@@ -12,11 +12,13 @@ namespace Repo.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class C__MigrationHistory
+    public partial class UserView
     {
-        public string MigrationId { get; set; }
-        public string ContextKey { get; set; }
-        public byte[] Model { get; set; }
-        public string ProductVersion { get; set; }
+        public string Id { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string RoleId { get; set; }
+        public string UserId { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -4,17 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PamoDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
+      <Schema Namespace="PamoDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admission">
           <Key>
             <PropertyRef Name="ID" />
@@ -161,25 +151,15 @@
           <Property Name="InsertID" Type="nvarchar" MaxLength="50" />
           <Property Name="PatientID" Type="int" />
           <Property Name="CardNumber" Type="varchar" MaxLength="50" />
-          <Property Name="_Date" Type="datetime" />
+          <Property Name="AttDate" Type="datetime" />
           <Property Name="Attended" Type="bit" />
           <Property Name="DoctorID" Type="int" />
           <Property Name="Consultant" Type="varchar" MaxLength="50" />
           <Property Name="ConsultingRoomID" Type="int" />
           <Property Name="Room" Type="varchar" MaxLength="50" />
-          <Property Name="Diagnosis" Type="varchar" MaxLength="50" />
           <Property Name="ServiceType" Type="varchar" MaxLength="50" />
-          <Property Name="Outcome" Type="varchar" MaxLength="50" />
-          <Property Name="AttendanceType" Type="varchar" MaxLength="50" />
-          <Property Name="Age" Type="varchar" MaxLength="20" />
           <Property Name="NHISNo" Type="varchar" MaxLength="50" />
-          <Property Name="Sex" Type="varchar" MaxLength="10" />
-          <Property Name="Month" Type="varchar" MaxLength="12" />
           <Property Name="SchemeID" Type="varchar" MaxLength="20" />
-          <Property Name="SpecialCode" Type="varchar" MaxLength="50" />
-          <Property Name="Description" Type="varchar(max)" />
-          <Property Name="Package" Type="varchar" MaxLength="50" />
-          <Property Name="Position" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="bank">
           <Key>
@@ -256,6 +236,19 @@
           <Property Name="Temp" Type="varchar" MaxLength="50" />
           <Property Name="RBS" Type="varchar" MaxLength="30" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'PamoDb.dbo.booln' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="booln">
+          <Property Name="val" Type="smallint" />
+          <Property Name="type" Type="varchar" MaxLength="5" />
+          <Property Name="dd" Type="date" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'PamoDb.dbo.booln2' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="booln2">
+          <Property Name="val" Type="smallint" />
+          <Property Name="type" Type="varchar" MaxLength="5" />
+        </EntityType>-->
         <EntityType Name="cash">
           <Key>
             <PropertyRef Name="ID" />
@@ -765,6 +758,12 @@ warning 6002: The table/view 'PamoDb.dbo.mstock' does not have a primary key def
           <Property Name="Unit" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6013: The table/view 'PamoDb.dbo.nationality' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="nationality">
+          <Property Name="Nat_ID" Type="int" />
+          <Property Name="Nationality" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'PamoDb.dbo.nhis mstock' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="nhis mstock">
           <Key>
@@ -836,6 +835,17 @@ warning 6002: The table/view 'PamoDb.dbo.office' does not have a primary key def
           <Property Name="Office" Type="varchar" MaxLength="50" />
           <Property Name="company" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'PamoDb.dbo.OwnerDetail' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="OwnerDetail">
+          <Property Name="Company Name" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="150" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="Facility No" Type="varchar" MaxLength="30" />
+        </EntityType>-->
         <EntityType Name="patient">
           <Key>
             <PropertyRef Name="ID" />
@@ -991,7 +1001,7 @@ warning 6002: The table/view 'PamoDb.dbo.procedures' does not have a primary key
           <Property Name="StartTime" Type="datetime" />
           <Property Name="EndTime" Type="datetime" />
           <Property Name="TimeTaken" Type="bigint" />
-          <Property Name="Comment" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="255" />
           <Property Name="UserID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -1003,6 +1013,15 @@ warning 6002: The table/view 'PamoDb.dbo.profession' does not have a primary key
           <Property Name="Profession" Type="varchar" MaxLength="50" />
           <Property Name="id" Type="bigint" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'PamoDb.dbo.rank' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="rank">
+          <Property Name="RankID" Type="varchar" MaxLength="15" />
+          <Property Name="Rank" Type="varchar" MaxLength="50" />
+          <Property Name="Rank Sort Order" Type="varchar" MaxLength="50" />
+          <Property Name="Cadre" Type="varchar" MaxLength="50" />
+          <Property Name="company" Type="varchar" MaxLength="50" />
+        </EntityType>-->
         <!--Errors Found During Generation:
 warning 6002: The table/view 'PamoDb.dbo.requisition' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="requisition">
@@ -1334,6 +1353,22 @@ warning 6002: The table/view 'PamoDb.dbo.unit' does not have a primary key defin
           <Property Name="DoctorID" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'PamoDb.dbo.UserView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwFlowQueueAttendance">
           <Key>
@@ -1347,13 +1382,14 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="AttdID" Type="int" />
           <Property Name="AttdPatientID" Type="int" />
           <Property Name="AttCArdNumber" Type="varchar" MaxLength="50" />
-          <Property Name="Att_Date" Type="date" />
           <Property Name="AttDoctorID" Type="int" />
           <Property Name="AttConsultingRoom" Type="int" />
           <Property Name="Expr2" Type="varchar" MaxLength="50" />
           <Property Name="Expr3" Type="int" />
           <Property Name="LastName" Type="varchar" MaxLength="50" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="AttDate" Type="datetime" />
+          <Property Name="Attended" Type="bit" />
         </EntityType>
         <Association Name="FK_Admission_attendance">
           <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
@@ -1594,7 +1630,6 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PamoDbModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admission" EntityType="Self.Admission" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="anc" EntityType="Self.anc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="appointment" EntityType="Self.appointment" Schema="dbo" store:Type="Tables" />
@@ -1947,6 +1982,16 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
     [unit].[Unit] AS [Unit]
     FROM [dbo].[unit] AS [unit]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="UserView" EntityType="Self.UserView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserView].[Id] AS [Id], 
+    [UserView].[UserName] AS [UserName], 
+    [UserView].[Email] AS [Email], 
+    [UserView].[RoleId] AS [RoleId], 
+    [UserView].[UserId] AS [UserId], 
+    [UserView].[Name] AS [Name]
+    FROM [dbo].[UserView] AS [UserView]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vwFlowQueueAttendance" EntityType="Self.vwFlowQueueAttendance" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwFlowQueueAttendance].[FQID] AS [FQID], 
@@ -1957,13 +2002,14 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
     [vwFlowQueueAttendance].[AttdID] AS [AttdID], 
     [vwFlowQueueAttendance].[AttdPatientID] AS [AttdPatientID], 
     [vwFlowQueueAttendance].[AttCArdNumber] AS [AttCArdNumber], 
-    [vwFlowQueueAttendance].[Att_Date] AS [Att_Date], 
     [vwFlowQueueAttendance].[AttDoctorID] AS [AttDoctorID], 
     [vwFlowQueueAttendance].[AttConsultingRoom] AS [AttConsultingRoom], 
     [vwFlowQueueAttendance].[Expr2] AS [Expr2], 
     [vwFlowQueueAttendance].[Expr3] AS [Expr3], 
     [vwFlowQueueAttendance].[LastName] AS [LastName], 
-    [vwFlowQueueAttendance].[FirstName] AS [FirstName]
+    [vwFlowQueueAttendance].[FirstName] AS [FirstName], 
+    [vwFlowQueueAttendance].[AttDate] AS [AttDate], 
+    [vwFlowQueueAttendance].[Attended] AS [Attended]
     FROM [dbo].[vwFlowQueueAttendance] AS [vwFlowQueueAttendance]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Admission_attendance" Association="Self.FK_Admission_attendance">
@@ -2043,20 +2089,11 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
             <End Role="WardRound" EntitySet="WardRound" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PamoDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="C__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="Admission">
           <Key>
             <PropertyRef Name="ID" />
@@ -2204,28 +2241,18 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="InsertID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PatientID" Type="Int32" />
           <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="C_Date" Type="DateTime" Precision="3" />
+          <Property Name="AttDate" Type="DateTime" Precision="3" />
           <Property Name="Attended" Type="Boolean" />
           <Property Name="DoctorID" Type="Int32" />
           <Property Name="Consultant" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ConsultingRoomID" Type="Int32" />
           <Property Name="Room" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Diagnosis" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ServiceType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Outcome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AttendanceType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Age" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="NHISNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Month" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="SchemeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="SpecialCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Package" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Position" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Admissions" Relationship="Self.FK_Admission_attendance" FromRole="attendance" ToRole="Admission" />
           <NavigationProperty Name="patient" Relationship="Self.FK_attendance_patient" FromRole="attendance" ToRole="patient" />
-          <NavigationProperty Name="diagnosis1" Relationship="Self.FK_diagnosis_attendance" FromRole="attendance" ToRole="diagnosis" />
+          <NavigationProperty Name="diagnosis" Relationship="Self.FK_diagnosis_attendance" FromRole="attendance" ToRole="diagnosis" />
           <NavigationProperty Name="PatientComplaints" Relationship="Self.FK_PatientComplaint_attendance" FromRole="attendance" ToRole="PatientComplaint" />
           <NavigationProperty Name="phyexams" Relationship="Self.FK_phyexam_attendance" FromRole="attendance" ToRole="phyexam" />
           <NavigationProperty Name="prescriptions" Relationship="Self.FK_prescription_attendance" FromRole="attendance" ToRole="prescription" />
@@ -2904,7 +2931,7 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="StartTime" Type="DateTime" Precision="3" />
           <Property Name="EndTime" Type="DateTime" Precision="3" />
           <Property Name="TimeTaken" Type="Int64" />
-          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="UserID" Type="Int32" />
           <NavigationProperty Name="attendance" Relationship="Self.FK_ProcessFlow_attendance" FromRole="ProcessFlow" ToRole="attendance" />
         </EntityType>
@@ -2967,6 +2994,19 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Sys_BatchControl">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+            <PropertyRef Name="DivisionID" />
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CompanyID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DivisionID" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="NextNumber" Type="Int32" />
+          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -3352,6 +3392,20 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="ID" Type="Int64" Nullable="false" />
           <Property Name="Unit1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="UserView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="vwFlowQueueAttendance">
           <Key>
             <PropertyRef Name="FQID" />
@@ -3364,13 +3418,14 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="AttdID" Type="Int32" />
           <Property Name="AttdPatientID" Type="Int32" />
           <Property Name="AttCArdNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Att_Date" Type="DateTime" Precision="0" />
           <Property Name="AttDoctorID" Type="Int32" />
           <Property Name="AttConsultingRoom" Type="Int32" />
           <Property Name="Expr2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Expr3" Type="Int32" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AttDate" Type="DateTime" Precision="3" />
+          <Property Name="Attended" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Admission_attendance">
           <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
@@ -3587,7 +3642,6 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
         </Association>
         <EntityContainer Name="PamoDbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="Admissions" EntityType="Self.Admission" />
           <EntitySet Name="ancs" EntityType="Self.anc" />
           <EntitySet Name="appointments" EntityType="Self.appointment" />
@@ -3641,6 +3695,7 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <EntitySet Name="stocks" EntityType="Self.stock" />
           <EntitySet Name="stockCategories" EntityType="Self.stockCategory" />
           <EntitySet Name="surgeries" EntityType="Self.surgery" />
+          <EntitySet Name="Sys_BatchControl" EntityType="Self.Sys_BatchControl" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="tarrifs" EntityType="Self.tarrif" />
           <EntitySet Name="tbl_complaint" EntityType="Self.tbl_complaint" />
@@ -3667,6 +3722,7 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <EntitySet Name="states" EntityType="Self.state" />
           <EntitySet Name="status" EntityType="Self.status" />
           <EntitySet Name="units" EntityType="Self.unit" />
+          <EntitySet Name="UserViews" EntityType="Self.UserView" />
           <EntitySet Name="vwFlowQueueAttendances" EntityType="Self.vwFlowQueueAttendance" />
           <AssociationSet Name="FK_Admission_attendance" Association="Self.FK_Admission_attendance">
             <End Role="attendance" EntitySet="attendances" />
@@ -3740,37 +3796,13 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="Sys_BatchControl" EntityType="PamoDbModel.Sys_BatchControl" />
         </EntityContainer>
-        <EntityType Name="Sys_BatchControl">
-          <Key>
-            <PropertyRef Name="CompanyID" />
-            <PropertyRef Name="DivisionID" />
-            <PropertyRef Name="CategoryID" />
-          </Key>
-          <Property Name="CompanyID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
-          <Property Name="DivisionID" Type="String" Nullable="false" MaxLength="36" FixedLength="false" Unicode="true" />
-          <Property Name="CategoryID" Type="String" Nullable="false" MaxLength="6" FixedLength="true" Unicode="false" />
-          <Property Name="NextNumber" Type="Int32" />
-          <Property Name="LastEditDate" Type="DateTime" Precision="3" />
-          <Property Name="CreationDate" Type="DateTime" Precision="3" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PamoDbModelStoreContainer" CdmEntityContainer="PamoDbEntities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="PamoDbModel.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Admissions">
             <EntityTypeMapping TypeName="PamoDbModel.Admission">
               <MappingFragment StoreEntitySet="Admission">
@@ -3913,25 +3945,15 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
                 <ScalarProperty Name="InsertID" ColumnName="InsertID" />
                 <ScalarProperty Name="PatientID" ColumnName="PatientID" />
                 <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
-                <ScalarProperty Name="C_Date" ColumnName="_Date" />
+                <ScalarProperty Name="AttDate" ColumnName="AttDate" />
                 <ScalarProperty Name="Attended" ColumnName="Attended" />
                 <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
                 <ScalarProperty Name="Consultant" ColumnName="Consultant" />
                 <ScalarProperty Name="ConsultingRoomID" ColumnName="ConsultingRoomID" />
                 <ScalarProperty Name="Room" ColumnName="Room" />
-                <ScalarProperty Name="Diagnosis" ColumnName="Diagnosis" />
                 <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
-                <ScalarProperty Name="Outcome" ColumnName="Outcome" />
-                <ScalarProperty Name="AttendanceType" ColumnName="AttendanceType" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="NHISNo" ColumnName="NHISNo" />
-                <ScalarProperty Name="Sex" ColumnName="Sex" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
                 <ScalarProperty Name="SchemeID" ColumnName="SchemeID" />
-                <ScalarProperty Name="SpecialCode" ColumnName="SpecialCode" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Package" ColumnName="Package" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4700,6 +4722,18 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Sys_BatchControl">
+            <EntityTypeMapping TypeName="PamoDbModel.Sys_BatchControl">
+              <MappingFragment StoreEntitySet="Sys_BatchControl">
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="NextNumber" ColumnName="NextNumber" />
+                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="PamoDbModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -5103,6 +5137,18 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserViews">
+            <EntityTypeMapping TypeName="PamoDbModel.UserView">
+              <MappingFragment StoreEntitySet="UserView">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="vwFlowQueueAttendances">
             <EntityTypeMapping TypeName="PamoDbModel.vwFlowQueueAttendance">
               <MappingFragment StoreEntitySet="vwFlowQueueAttendance">
@@ -5114,13 +5160,14 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
                 <ScalarProperty Name="AttdID" ColumnName="AttdID" />
                 <ScalarProperty Name="AttdPatientID" ColumnName="AttdPatientID" />
                 <ScalarProperty Name="AttCArdNumber" ColumnName="AttCArdNumber" />
-                <ScalarProperty Name="Att_Date" ColumnName="Att_Date" />
                 <ScalarProperty Name="AttDoctorID" ColumnName="AttDoctorID" />
                 <ScalarProperty Name="AttConsultingRoom" ColumnName="AttConsultingRoom" />
                 <ScalarProperty Name="Expr2" ColumnName="Expr2" />
                 <ScalarProperty Name="Expr3" ColumnName="Expr3" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="AttDate" ColumnName="AttDate" />
+                <ScalarProperty Name="Attended" ColumnName="Attended" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5132,18 +5179,6 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
-          <EntitySetMapping Name="Sys_BatchControl">
-            <EntityTypeMapping TypeName="PamoDbModel.Sys_BatchControl">
-              <MappingFragment StoreEntitySet="Sys_BatchControl">
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
-                <ScalarProperty Name="NextNumber" ColumnName="NextNumber" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="DivisionID" ColumnName="DivisionID" />
-                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

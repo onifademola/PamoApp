@@ -1,4 +1,5 @@
-﻿using OfficeOnline.DataBlock;
+﻿using AutoMapper.QueryableExtensions;
+using OfficeOnline.DataBlock;
 using Repo.DTOs;
 using Repo.Models;
 using System;
@@ -19,6 +20,18 @@ namespace Repo.Repos
             return user;
         }
 
+        public bool UpdateAttendance(dto_Attendance attd)
+        {
+            var entity = AutoMapper.Mapper.Map<attendance>(attd);
+            _entities.Set<attendance>().Attach(entity);
+            _entities.Entry<attendance>(entity).State = System.Data.Entity.EntityState.Modified;
+            var result = _entities.SaveChanges();
+            if (result > 0)
+                return true;
+            else
+                return false;
+        }
+
         public bool AddNewFlowQueue(FlowQueue fq)
         {
             //call the datetime service here to reduce that data size transfered between server and client
@@ -37,7 +50,8 @@ namespace Repo.Repos
             _entities.Entry<FlowQueue>(fq).State = System.Data.Entity.EntityState.Modified;
 
             //update the previous process flow end time
-            ProcessFlow lpf = _entities.ProcessFlows.LastOrDefault(n => n.AttID == fq.AttID);
+            ProcessFlow lpf = _entities.ProcessFlows.Where(n => n.AttID == fq.AttID)
+                .OrderByDescending(n => n.ProcessID).FirstOrDefault();
             lpf.EndTime = eventTime;
             lpf.TimeTaken = (lpf.EndTime.Value - lpf.StartTime.Value).Ticks;
 
@@ -100,7 +114,7 @@ namespace Repo.Repos
                 return false;
         }
 
-        public bool QueuePatientAtConsulting(int AttID, AspNetUser userDoingTask) //Process Status 2 - At Consulting
+        public bool QueuePatientAtConsulting(int AttID, int consultingRoomID, AspNetUser userDoingTask) //Process Status 2 - At Consulting
         {
             int processStatus = 2;
             DateTime eventTime = _repoUtil.GetNijaTime(DateTime.Now);
@@ -113,9 +127,11 @@ namespace Repo.Repos
             eFQ.CurrentStatusID = processStatus;
             eFQ.LastTimeStamp = eventTime;
             eFQ.LastUpdatedBy = userDoingTask.user_id;
-            this.UpdateFlowQueue(eFQ, eventTime);
+            UpdateFlowQueue(eFQ, eventTime);
+            _entities.SaveChanges();
 
             //then generate a new process flow
+            //PamoDbEntities db = new PamoDbEntities();
             ProcessFlow newPF = new ProcessFlow();
             newPF.AttID = AttID;
             newPF.Comment = "Patient sent to Consulting by " + userDoingTask.Email;
@@ -123,8 +139,17 @@ namespace Repo.Repos
             newPF.StartTime = eventTime;
             newPF.UserID = userDoingTask.user_id;
             _entities.ProcessFlows.Add(newPF);
+            _entities.SaveChanges();
 
-            var result = _entities.SaveChanges();
+            //update attendance with consulting room id
+            dto_Attendance attendance = _entities.attendances.ProjectTo<dto_Attendance>().FirstOrDefault(n => n.ID == AttID);
+            if (attendance == null)
+                return false;
+            if (consultingRoomID > 0)
+            attendance.ConsultingRoomID = consultingRoomID;
+            UpdateAttendance(attendance);
+
+            var result = 1;
             if (result > 0)
                 return true;
             else
@@ -315,7 +340,7 @@ namespace Repo.Repos
             att.InsertID = thisBatch;
             att.PatientID = patient.ID;
             att.CardNumber = patient.CardNumber;
-            att.C_Date = eventDate;
+            att.AttDate = eventDate;
             _entities.attendances.Add(att);
             var saveResult = _entities.SaveChanges();
 

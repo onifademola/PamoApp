@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOs\dto_AspNetUser.cs" />
+    <Compile Include="DTOs\dto_Attendance.cs" />
     <Compile Include="DTOs\dto_BioVital.cs" />
     <Compile Include="DTOs\dto_Patients.cs" />
     <Compile Include="Models\Admission.cs">
@@ -144,9 +145,6 @@
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\contract.cs">
-      <DependentUpon>PamoModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\delivery.cs">
@@ -342,6 +340,9 @@
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserType.cs">
+      <DependentUpon>PamoModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserView.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vwFlowQueueAttendance.cs">

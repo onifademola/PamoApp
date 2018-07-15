@@ -23,9 +23,16 @@ namespace Web.App_Start
 
                 //Patient to eregister mapping
                 config.CreateMap<patient, dto_Patients>();
+                config.CreateMap<dto_Patients, patient>();
 
                 config.CreateMap<AspNetUser, dto_AspNetUser>();
+                config.CreateMap<dto_AspNetUser, AspNetUser>();
+
                 config.CreateMap<biovital, dto_BioVital>();
+                config.CreateMap<dto_BioVital, biovital>();
+
+                config.CreateMap<attendance, dto_Attendance>();
+                config.CreateMap<dto_Attendance, attendance>();
             });
         }
     }

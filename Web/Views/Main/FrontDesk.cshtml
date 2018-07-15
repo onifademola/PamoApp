@@ -35,31 +35,23 @@
 
 </script>
 
+<div id="pageDP">
+    <div class="col-md-4" id="pageTopLeft">
 
-@(Html.Kendo().Notification()
-      .Name("notification")
-      .Width("100%")
-      .Position(position => position.Top(0).Left(0))
-)
+        @(Html.Kendo().Grid<Repo.DTOs.dto_Patients>()
+            .ToolBar(tb => tb.Template(@<text>
+            <div class="toolbar">
+                @(Html.Kendo().Button()
+                        .Name("iconButton")
+                        .Tag("a")
+                        .Icon("refresh")
+                        .Content("Send selected Patient to OPD")
+                        .Events(e => e.Click("btnClick"))
+                    //.Content("<span class='fa-share' title='Click to run process'>Send to Consulting</span>")
 
-<div id="pageDP" class="container">
-    
-    @(Html.Kendo().Splitter().Orientation(SplitterOrientation.Vertical)
-    .Name("horizontal")
-    .HtmlAttributes(new { style = "height: 580px;" }) //style = "height:580px;"
-    .Panes(horizontalPanes =>
-    {
-    horizontalPanes.Add()
-    .HtmlAttributes(new { id = "left-pane" })
-    //.Size("220px")
-    .Collapsible(true).Scrollable(false)
-    .Content(@<div class="pane-content">
-                  <button class="btn btn-block btn-info" type="submit" name="btnSubmit" id="btnSubmit" title="Click to run process">
-                      <i class="fa-share"></i>
-                      Send selected Patient to OPD
-                  </button>
-        <div id="pageGrid">
-            @(Html.Kendo().Grid<Repo.DTOs.dto_Patients>()
+                )
+            </div>
+            </text>))
             .Name("ptsGrid")
             .NoRecords("No patient match is found")
             .Columns(columns =>
@@ -96,32 +88,27 @@
                 })
                 .Read(read => read.Action("Patients_Read", "Patient"))
                 )
-            )
-        </div>
-    </div>);
+        )
+    </div>
 
-
-    horizontalPanes.Add()
-    .HtmlAttributes(new { id = "right-pane" })
-    .Collapsible(true)
-    //.MaxSize("550px")
-    //.Size("550px")
-    .Content(@<div class="pane-content">
-        <div class="container">
-            <h4>Patients on Visit</h4>
-            <div id="pageGrid2">
-                @(Html.Kendo().Grid<Repo.Models.vwFlowQueueAttendance>()
+    <div class="col-sm-8 col-md-8" id="pageBottomRight">
+        @(Html.Kendo().Grid<Repo.Models.vwFlowQueueAttendance>()
                 .Name("GridOnVisit")
                 .NoRecords("No patient on visit")
                 .Columns(columns =>
                 {
-                    columns.Bound(c => c.AttCArdNumber).Title("").Width(20);
-                    columns.Bound(c => c.FirstName).Title("").Width(40);
+                    columns.Bound(c => c.AttCArdNumber).Title("Card").Width(20);
+                    columns.Bound(c => c.FirstName).Title("Name").Width(40);
                     columns.ForeignKey(p => p.FQCurrentSTatus, (System.Collections.IEnumerable)ViewData["vstatus"], "Key", "Value")
                     .Title("").Width(150);
-                    columns.Bound(c => c.FQTimeStamp).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("").Width(20);
-                    columns.Bound(c => c.FQLastUpdatedBy).Title("").Width(20);
+                    columns.Bound(c => c.FQTimeStamp).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("Date/Time").Width(80);
+                    columns.Bound(c => c.FQLastUpdatedBy).Title("Action By").Width(20);
                 })
+                 .ToolBar(toolbar =>
+                 {
+                     toolbar.Pdf();
+                     toolbar.Excel();
+                 })
                 .Scrollable(sc => sc.Endless(true))
                 .Sortable()
                 .Selectable(selectable => selectable
@@ -144,14 +131,14 @@
                     })
                     .Read(read => read.Action("Read_GetAllFlowQueues", "ProcessFlow"))
                     )
-                )
-            </div>
-        </div>
-    </div>);
-    })
-    )
+        )
+    </div>
 </div>
-@Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
+
+<div class="container">
+    @Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
+</div>
+
 
 <script src="~/Scripts/custom/progressBar.js"></script>
 <script type="text/javascript">
@@ -169,9 +156,9 @@
             alert(message);
         }
     }
-        
-    $("#btnSubmit").click(function () {
-        var data = { };        
+
+    function btnClick() {
+        var data = {};
         var grid = $("#ptsGrid").data("kendoGrid");
         var selectedItem = grid.dataItem(grid.select());
         if (selectedItem == null) {
@@ -187,15 +174,21 @@
 
                 if (result[0].resp == "ok") {
                     CustomSuccessNotify(result[0].mesag, "Success !");
+                    
+                    var agrid = $("#GridOnVisit").data("kendoGrid");
+                    agrid.dataSource.read();
                 }
                 else {
                     CustomErrorNotify(result[0].mesag, "Error !");
                 }
             }
-            ).error( function (xhr, ajaxOptions, thrownError) {
+            ).error(function (xhr, ajaxOptions, thrownError) {
                 endProgress();
                 ServiceError();
-                }
-        );
+            });
+    }
+        
+    $("#btnSubmit").click(function () {
+        
     });
 </script>

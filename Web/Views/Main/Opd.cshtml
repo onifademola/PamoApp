@@ -13,13 +13,10 @@
 </script>
 
 
-<div>
-    <div class="col-md-4">
-        @*<h4>Patients on Visit</h4>*@
-        
-        
-        <div class="row" id="pageGridPatient">
-            @(Html.Kendo().Grid<Repo.Models.vwFlowQueueAttendance>()
+<div id="pageDP">
+    <div class="col-md-4" id="pageGridPatient">
+
+        @(Html.Kendo().Grid<Repo.Models.vwFlowQueueAttendance>()
                 .Name("GridOPD")
                 .NoRecords("No patient on visit")
                 .Columns(columns =>
@@ -34,11 +31,11 @@
                 .ToolBar(toolbar =>
                 {
                 toolbar.Template(@<text>
-                <div class="row">
-                    <div class="col-md-4 toolbar">
-                        @(Html.Kendo().DropDownList()
+            <div class="row">
+                <div class="col-sm-2 col-md-4 toolbar">
+                    @(Html.Kendo().DropDownList()
                                   .Name("consDrpdwn")
-                                  .HtmlAttributes(new { style = "width:100%;" })
+                                  //.HtmlAttributes(new { style = "width:100%;" })
                                   .OptionLabel("Select a Room...")
                                   .DataTextField("Text")
                                   .DataValueField("Value")
@@ -49,20 +46,21 @@
                                           read.Action("GetConsultingRoomsForGrid", "Main");
                                       });
                                   })
-                        )
-                    </div>
+                    )
+                </div>
 
-                    <div class="col-md-6 toolbar">
-                        @(Html.Kendo().Button()
+                <div class="col-sm-4 col-md-6 toolbar">
+                    @(Html.Kendo().Button()
                         .Name("iconButton")
                         .Tag("a")
-                        .Icon("filter")
+                        .Icon("refresh")
                         .Content("Send to Consulting")
+                        .Events(e => e.Click("csonClick"))
                         //.Content("<span class='fa-share' title='Click to run process'>Send to Consulting</span>")
 
-                        )
-                    </div>
+                    )
                 </div>
+            </div>
                 </text>);
                 })
                 .Resizable(r => r.Columns(true))
@@ -91,8 +89,7 @@
                 })
                 .Read(read => read.Action("Read_GetOPDFlowQueues", "ProcessFlow"))
                 )
-            )
-        </div>
+        )
     </div>
     <div class="col-md-8" id="scoreList">
         @*@Html.Partial("_PartialPageSelection")*@
@@ -154,7 +151,7 @@
                 )
         )
         <script>
-            function filterData() {
+            function filterData() { //AttdID
                 var grid = $("#GridOPD").data("kendoGrid");
                 var selectedItem = grid.dataItem(grid.select());
                 if (selectedItem != null) {
@@ -171,7 +168,7 @@
     </div>
 
 </div>
-
+@Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
 
 <script src="~/Scripts/custom/progressBar.js"></script>
 <script type="text/javascript">
@@ -187,25 +184,45 @@
             });
             alert(message);
         }
-    }
+            }
+
+    function csonClick() {
+        if (confirm('NOTE: THis process cannot be reversed ! \n Is it Ok to send Patient to Consulting?'))
+            sendToConsulting();
+        else
+            CustomErrorNotify("Send to OPD aborted.", "Abort !");
+    };
     
-    $("#btnSubmit").click(function () {
-        var data = {};
+    
+    function sendToConsulting() {
+        var consulRmID = $("#consDrpdwn").data("kendoDropDownList").value();
+        console.log(consulRmID);
+        if (consulRmID == null)
+            return CustomErrorNotify("Sorry! You have not specified a Consulting Room", "Error !");
         var grid = $("#GridOPD").data("kendoGrid");
         var selectedItem = grid.dataItem(grid.select());
+        console.log(selectedItem);
         if (selectedItem == null) {
-            CustomErrorNotify("Sorry! You have not selected a Patient");
+            CustomErrorNotify("Sorry! You have not selected a Patient", "Error !");
         }
-        data = { "selectedPtIds": selectedItem.ID };
+        var data = {
+            "attdID": selectedItem.AttdID,
+            "consultnRmID": consulRmID
+        };
 
         beginProgress();
 
-        $.post("/Main/SendToOPDs", data)
+        $.post("/Main/SendToConsulting", data)
             .done(function (result) {
                 endProgress();
 
                 if (result[0].resp == "ok") {
                     CustomSuccessNotify(result[0].mesag, "Success !");
+                    var agrid = $("#GridOPD").data("kendoGrid");
+                    agrid.dataSource.read();
+                    var abgrid = $("#GridBV").data("kendoGrid");
+                    abgrid.dataSource.read();
+                    
                 }
                 else {
                     CustomErrorNotify(result[0].mesag, "Error !");
@@ -216,15 +233,12 @@
                 ServiceError();
             }
             );
-
-       
-    });
+    };
 
     $(function () {
         // Declare a proxy to reference the hub.
         var notifications = $.connection.flowQueueHub;
 
-        //debugger;
         // Create a function that the hub can call to broadcast messages.
         notifications.client.updateMessages = function () {
 

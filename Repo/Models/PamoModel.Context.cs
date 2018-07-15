@@ -25,7 +25,6 @@ namespace Repo.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<Admission> Admissions { get; set; }
         public virtual DbSet<anc> ancs { get; set; }
         public virtual DbSet<appointment> appointments { get; set; }
@@ -79,6 +78,7 @@ namespace Repo.Models
         public virtual DbSet<stock> stocks { get; set; }
         public virtual DbSet<stockCategory> stockCategories { get; set; }
         public virtual DbSet<surgery> surgeries { get; set; }
+        public virtual DbSet<Sys_BatchControl> Sys_BatchControl { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<tarrif> tarrifs { get; set; }
         public virtual DbSet<tbl_complaint> tbl_complaint { get; set; }
@@ -105,7 +105,7 @@ namespace Repo.Models
         public virtual DbSet<state> states { get; set; }
         public virtual DbSet<status> status { get; set; }
         public virtual DbSet<unit> units { get; set; }
+        public virtual DbSet<UserView> UserViews { get; set; }
         public virtual DbSet<vwFlowQueueAttendance> vwFlowQueueAttendances { get; set; }
-        public virtual DbSet<Sys_BatchControl> Sys_BatchControl { get; set; }
     }
 }

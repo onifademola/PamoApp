@@ -22,12 +22,13 @@ namespace Repo.Models
         public Nullable<int> AttdID { get; set; }
         public Nullable<int> AttdPatientID { get; set; }
         public string AttCArdNumber { get; set; }
-        public Nullable<System.DateTime> Att_Date { get; set; }
         public Nullable<int> AttDoctorID { get; set; }
         public Nullable<int> AttConsultingRoom { get; set; }
         public string Expr2 { get; set; }
         public Nullable<int> Expr3 { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
+        public Nullable<System.DateTime> AttDate { get; set; }
+        public Nullable<bool> Attended { get; set; }
     }
 }

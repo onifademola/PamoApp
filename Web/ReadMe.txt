@@ -95,3 +95,7 @@ The involved tables are:
 
 REFACTORING NOTES:
 -- WardRound is done on Admission, hence WardRound should be mapped to Admission Table, not Patient
+
+QUES
+1. Who schedules appointment? Doctor i guess !
+2. 

@@ -14,7 +14,7 @@ namespace Repo.Repos
         //bool DeleteFlowQueue(int id);
 
         //bool QueuePatientAtOPD(int AttID, AspNetUser userDoingTask);
-        bool QueuePatientAtConsulting(int AttID, AspNetUser userDoingTask);
+        bool QueuePatientAtConsulting(int AttID, int consultingRoomID, AspNetUser userDoingTask);
         bool QueuePatientAtLab(int AttID, AspNetUser userDoingTask);
         bool QueuePatientAtAdmission(int AttID, AspNetUser userDoingTask);
         bool QueuePatientAtPharmacy(int AttID, AspNetUser userDoingTask);
