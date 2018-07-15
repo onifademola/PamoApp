@@ -86,7 +86,7 @@ namespace Web.Controllers
                     new
                     {
                         resp = "ok",
-                        mesag = "The registration was successful!"
+                        mesag = "Patient sent to OPD !"
                     }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -98,7 +98,7 @@ namespace Web.Controllers
                     new
                     {
                         resp = "error",
-                        mesag = "Process aborted, either classes have already been registered or something went wrong. Please check your task."
+                        mesag = "Process aborted, something went wrong. Please check your task and retry, or contact Support."
                     }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -139,7 +139,7 @@ namespace Web.Controllers
                     new
                     {
                         resp = "ok",
-                        mesag = "The registration was successful!"
+                        mesag = "Patient sent to Consulting !"
                     }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -151,7 +151,7 @@ namespace Web.Controllers
                     new
                     {
                         resp = "error",
-                        mesag = "Process aborted, either classes have already been registered or something went wrong. Please check your task."
+                        mesag = "Process aborted, something went wrong. Please check your task and retry, or contact Support."
                     }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);

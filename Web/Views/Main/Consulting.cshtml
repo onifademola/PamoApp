@@ -43,28 +43,24 @@
                         .Name("iconButton")
                         .Tag("a")
                         .Icon("refresh")
-                        .Content("Send selected Patient to OPD")
+                        .Content("To OPD")
                         .Events(e => e.Click("btnClick"))
                 )
-            </div>
-        <div class="toolbar">
-            @(Html.Kendo().Button()
+                @(Html.Kendo().Button()
                         .Name("btnPharm")
                         .Tag("a")
                         .Icon("refresh")
-                        .Content("Send selected Patient to Pharmacy")
-                        .Events(e => e.Click("btnClickPharm"))
-            )
-        </div>
-        <div class="toolbar">
-            @(Html.Kendo().Button()
+                        .Content("To Pharmacy")
+            //.Events(e => e.Click("btnClickPharm"))
+                )
+                @(Html.Kendo().Button()
                         .Name("btnLab")
                         .Tag("a")
                         .Icon("refresh")
-                        .Content("Send selected Patient to LAB")
-                        .Events(e => e.Click("btnClickLab"))
-            )
-        </div>
+                        .Content("To LAB")
+            //.Events(e => e.Click("btnClickLab"))
+                )
+            </div>
             </text>))
             .Name("consPtsGrid")
             .NoRecords("No patient match is found")
@@ -109,14 +105,12 @@
     </div>
 </div>
 
-@Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
+<div class="container">
+    @Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
+</div>
 
 <script src="~/Scripts/custom/progressBar.js"></script>
 <script type="text/javascript">
-
-    $(document).ready(function () {
-        $("#progBar").hide();
-    });
 
     function error_handler(e) {
         if (e.errors) {

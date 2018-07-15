@@ -168,7 +168,10 @@
     </div>
 
 </div>
-@Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
+
+<div class="container">
+    @Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
+</div>
 
 <script src="~/Scripts/custom/progressBar.js"></script>
 <script type="text/javascript">
@@ -187,23 +190,27 @@
             }
 
     function csonClick() {
-        if (confirm('NOTE: THis process cannot be reversed ! \n Is it Ok to send Patient to Consulting?'))
-            sendToConsulting();
-        else
-            CustomErrorNotify("Send to OPD aborted.", "Abort !");
+        var consulRmID = $("#consDrpdwn").data("kendoDropDownList").value();
+        //console.log(consulRmID);
+        if (consulRmID > 0) {
+            if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Consulting?'))
+                sendToConsulting(consulRmID);
+            else
+                CustomErrorNotify("Send to Consulting aborted.", "Abort !");
+        } else {
+            return CustomErrorNotify("Sorry! You have not specified a Consulting Room", "Error !");
+        }    
+        
     };
     
     
-    function sendToConsulting() {
-        var consulRmID = $("#consDrpdwn").data("kendoDropDownList").value();
-        console.log(consulRmID);
-        if (consulRmID == null)
-            return CustomErrorNotify("Sorry! You have not specified a Consulting Room", "Error !");
+    function sendToConsulting(consulRmID) {
+        //console.log(consulRmID);
         var grid = $("#GridOPD").data("kendoGrid");
         var selectedItem = grid.dataItem(grid.select());
-        console.log(selectedItem);
+        //console.log(selectedItem);
         if (selectedItem == null) {
-            CustomErrorNotify("Sorry! You have not selected a Patient", "Error !");
+            return CustomErrorNotify("Sorry! You have not selected a Patient", "Error !");
         }
         var data = {
             "attdID": selectedItem.AttdID,
@@ -218,10 +225,13 @@
 
                 if (result[0].resp == "ok") {
                     CustomSuccessNotify(result[0].mesag, "Success !");
+                    //reset the dropdown control
+                    $("#consDrpdwn").val("").data("kendoDropDownList").text("")
                     var agrid = $("#GridOPD").data("kendoGrid");
                     agrid.dataSource.read();
+                    //clear bio data grid
                     var abgrid = $("#GridBV").data("kendoGrid");
-                    abgrid.dataSource.read();
+                    abgrid.dataSource.data([]);
                     
                 }
                 else {
