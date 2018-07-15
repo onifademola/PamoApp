@@ -27,6 +27,20 @@ var qopts = {
     "hideMethod": "fadeOut"
 };
 
+var docopts = {
+    "closeButton": true,
+    "debug": false,
+    "positionClass": "toast-top-full-width",
+    "onclick": null,
+    "showDuration": "0",
+    "hideDuration": "1000",
+    "timeOut": "0",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+};
+
 
 function DataSaveSuccess() {    
     toastr.success("Your change(s) have been committed to the server.", "Successful Save !", opts);
@@ -60,4 +74,8 @@ function CustomErrorNotify(message, title) {
 
 function CustomQueueNotify(message, title) {
     toastr.info(message, title, qopts);
+};
+
+function CustomDocConsWarningNotify(message, title) {
+    toastr.error(message, title, docopts);
 };

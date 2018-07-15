@@ -35,6 +35,13 @@ namespace Web.Controllers
             return result;
         }
 
+        public JsonResult Read_GetConsultingFlowQueuesByRoomID([DataSourceRequest] DataSourceRequest request, int conRoomID)
+        {
+            var model = _irepoPFlow.GetConsultingQueuesByRoomID(conRoomID);
+            JsonResult result = Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            return result;
+        }
+
         public JsonResult Read_GetLabFlowQueues([DataSourceRequest] DataSourceRequest request)
         {
             var model = _irepoPFlow.GetLabQueues();

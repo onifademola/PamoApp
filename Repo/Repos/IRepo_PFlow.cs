@@ -30,6 +30,7 @@ namespace Repo.Repos
         IQueryable<vwFlowQueueAttendance> AllFlowQueues();
         IQueryable<vwFlowQueueAttendance> GetOPDQueues();
         IQueryable<vwFlowQueueAttendance> GetConsultingQueues();
+        IQueryable<vwFlowQueueAttendance> GetConsultingQueuesByRoomID(int conRmID);
         IQueryable<vwFlowQueueAttendance> GetLabQueues();
         IQueryable<vwFlowQueueAttendance> GetAdmissionQueues();
         IQueryable<vwFlowQueueAttendance> GetPharmacyQueues();

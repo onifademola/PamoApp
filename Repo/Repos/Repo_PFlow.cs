@@ -380,6 +380,13 @@ namespace Repo.Repos
             return model;
         }
 
+        public IQueryable<vwFlowQueueAttendance> GetConsultingQueuesByRoomID(int conRmID)
+        {
+            var model = _entities.vwFlowQueueAttendances
+                .Where(n => n.FQCurrentSTatus == 2 && n.AttConsultingRoom == conRmID);
+            return model;
+        }
+
         public IQueryable<vwFlowQueueAttendance> GetLabQueues()
         {
             var model = _entities.vwFlowQueueAttendances.Where(n => n.FQCurrentSTatus == 3);

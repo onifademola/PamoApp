@@ -7,9 +7,9 @@
     $(document).ready(
         function () {
             $("#txt1").html("Consulting ");
-            $("#txt2").html("(Diagnose & recommed treatment for incoming Out Patients)");
-            //$("#txtWarning").html("System failure imminent, carefully change COMPUTE TYPE & CLASS HIERARCHY under strict change request, and only when agreed and advised by the SCHOOL ADMINISTRATORS!");
-    });
+            $("#txt2").html("(Diagnose & recommed treatment for incoming Out Patients)");               
+        }
+    );
 
     $(function () {
         // Declare a proxy to reference the hub.
@@ -39,31 +39,50 @@
         @(Html.Kendo().Grid<Repo.Models.vwFlowQueueAttendance>()
             .ToolBar(tb => tb.Template(@<text>
             <div class="toolbar">
-                @(Html.Kendo().Button()
-                        .Name("iconButton")
-                        .Tag("a")
-                        .Icon("refresh")
-                        .Content("To OPD")
-                        .Events(e => e.Click("btnClick"))
-                )
+                @(Html.Kendo().DropDownList()
+                                  .Name("consrDrpdwn")
+                                  .HtmlAttributes(new { style = "width:100%;" })
+                                  .OptionLabel("Choose your Room...")
+                                  .DataTextField("Text")
+                                  .DataValueField("Value")
+                                  .Events(e => e.Change("drpdwnChange"))
+                                  .DataSource(source =>
+                                  {
+                                      source.Read(read =>
+                                      {
+                                          read.Action("GetConsultingRoomsForGrid", "Main");
+                                      });                                      
+                                  })
+                                  
+                )                
+            </div>
+            <br />
+            <div class="toolbar">
                 @(Html.Kendo().Button()
                         .Name("btnPharm")
                         .Tag("a")
                         .Icon("refresh")
                         .Content("To Pharmacy")
-            //.Events(e => e.Click("btnClickPharm"))
+                        .Events(e => e.Click("btnPharmClick"))
                 )
                 @(Html.Kendo().Button()
                         .Name("btnLab")
                         .Tag("a")
                         .Icon("refresh")
                         .Content("To LAB")
-            //.Events(e => e.Click("btnClickLab"))
+                        .Events(e => e.Click("btnLabClick"))
+                )
+                @(Html.Kendo().Button()
+                        .Name("btnAdmitp")
+                        .Tag("a")
+                        .Icon("refresh")
+                        .Content("Admit Patient")
+                        .Events(e => e.Click("btnAdmitpClick"))
                 )
             </div>
             </text>))
             .Name("consPtsGrid")
-            .NoRecords("No patient match is found")
+            .NoRecords("No patient match is found, or you have not specified a Consulting Room")
             .Columns(columns =>
             {
                 columns.Bound(c => c.AttCArdNumber).Title("Card").Width(20);
@@ -80,10 +99,11 @@
             .Sortable()
             .Selectable(selectable => selectable
             .Mode(GridSelectionMode.Single))
-            .Mobile(MobileMode.Auto)
+            .Mobile(MobileMode.Auto).AutoBind(false)
             .Pageable(p => p.Numeric(false).PreviousNext(false).Refresh(true))
             .DataSource(dataSource => dataSource
                 .Ajax()
+                .AutoSync(false)
                 .Batch(false)
                 .ServerOperation(false)
                 .PageSize(50)
@@ -95,9 +115,19 @@
                 {
                     model.Id(p => p.FQID);
                 })
-                .Read(read => read.Action("Read_GetConsultingFlowQueues", "ProcessFlow"))
+                .Read(read => read.Action("Read_GetConsultingFlowQueuesByRoomID", "ProcessFlow").Data("filterData"))
             )
         )
+        <script>
+            function filterData() {
+                var consultnnRmID = $("#consrDrpdwn").data("kendoDropDownList").value();
+                if (consultnnRmID > 0) {
+                    return { conRoomID: consultnnRmID };
+                } else {
+                    return CustomDocConsWarningNotify("Sorry! We could not retrieve data. You have not specified your Consulting Room", "Error !");
+                }
+            };
+        </script>
     </div>
 
     <div class="col-sm-8 col-md-8" id="pageBottomRight">
@@ -112,6 +142,20 @@
 <script src="~/Scripts/custom/progressBar.js"></script>
 <script type="text/javascript">
 
+    $(document).ready(
+        function () {
+            var consultRmID = $("#consrDrpdwn").data("kendoDropDownList").value();
+            if (consultRmID > 0) {
+                if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Consulting?'))
+                    sendToConsulting(consulRmID);
+                else
+                    CustomErrorNotify("Send to Consulting aborted.", "Abort !");
+            } else {
+                return CustomDocConsWarningNotify("Sorry! You have to choose your Consulting Room before you can attend to Patients", "Warning !");
+            }
+        }
+    );
+
     function error_handler(e) {
         if (e.errors) {
             var message = "Errors:\n";
@@ -124,34 +168,116 @@
             });
             alert(message);
         }
-    }
+    };
 
-    function btnClick() {
+    function drpdwnChange() {
+        var consultnnRmID = $("#consrDrpdwn").data("kendoDropDownList").value();
+        if (consultnnRmID > 0) {
+            var grid = $("#consPtsGrid").data("kendoGrid");
+            grid.dataSource.read();
+        } else {
+            //clear data grid
+            var abgrid = $("#consPtsGrid").data("kendoGrid");
+            abgrid.dataSource.data([]);
+        }
+    };
+
+    function btnPharmClick() {
         var data = {};
-        var grid = $("#ptsGrid").data("kendoGrid");
+        var grid = $("#consPtsGrid").data("kendoGrid");
         var selectedItem = grid.dataItem(grid.select());
         if (selectedItem == null) {
-            CustomErrorNotify("Sorry! You have not selected a Patient");
+            return CustomErrorNotify("Sorry! You have not selected a Patient");
         }
+
         data = { "selectedPtIds": selectedItem.ID };
 
-        beginProgress();
+        if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Pharmacy?')) {
+            beginProgress();
 
-        $.post("/Main/SendToOPD", data)
-            .done(function (result) {
-                endProgress();
+            $.post("/Main/SendToPharmacy", data)
+                .done(function (result) {
+                    endProgress();
 
-                if (result[0].resp == "ok") {
-                    CustomSuccessNotify(result[0].mesag, "Success !");
+                    if (result[0].resp == "ok") {
+                        CustomSuccessNotify(result[0].mesag, "Success !");
+                    }
+                    else {
+                        CustomErrorNotify(result[0].mesag, "Error !");
+                    }
                 }
-                else {
-                    CustomErrorNotify(result[0].mesag, "Error !");
+                ).error(function (xhr, ajaxOptions, thrownError) {
+                    endProgress();
+                    ServiceError();
+                });
+        } else {
+            CustomErrorNotify("Send to Pharmacy aborted.", "Abort !");
+        }
+    };
+
+    function btnLabClick() {
+        var data = {};
+        var grid = $("#consPtsGrid").data("kendoGrid");
+        var selectedItem = grid.dataItem(grid.select());
+        if (selectedItem == null) {
+            return CustomErrorNotify("Sorry! You have not selected a Patient");
+        }
+
+        data = { "selectedPtIds": selectedItem.ID };
+
+        if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Lab?')) {
+            beginProgress();
+
+            $.post("/Main/SendToLab", data)
+                .done(function (result) {
+                    endProgress();
+
+                    if (result[0].resp == "ok") {
+                        CustomSuccessNotify(result[0].mesag, "Success !");
+                    }
+                    else {
+                        CustomErrorNotify(result[0].mesag, "Error !");
+                    }
                 }
-            }
-            ).error(function (xhr, ajaxOptions, thrownError) {
-                endProgress();
-                ServiceError();
-            });
-    }
+                ).error(function (xhr, ajaxOptions, thrownError) {
+                    endProgress();
+                    ServiceError();
+                });
+        } else {
+            CustomErrorNotify("Send to Lab aborted.", "Abort !");
+        }
+    };
     
+    function btnAdmitpClick() {
+        var data = {};
+        var grid = $("#consPtsGrid").data("kendoGrid");
+        var selectedItem = grid.dataItem(grid.select());
+        if (selectedItem == null) {
+            return CustomErrorNotify("Sorry! You have not selected a Patient");
+        }
+
+        data = { "selectedPtIds": selectedItem.ID };
+
+        if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Admission?')) {
+            beginProgress();
+
+            $.post("/Main/SendToAdmission", data)
+                .done(function (result) {
+                    endProgress();
+
+                    if (result[0].resp == "ok") {
+                        CustomSuccessNotify(result[0].mesag, "Success !");
+                    }
+                    else {
+                        CustomErrorNotify(result[0].mesag, "Error !");
+                    }
+                }
+                ).error(function (xhr, ajaxOptions, thrownError) {
+                    endProgress();
+                    ServiceError();
+                });
+        } else {
+            CustomErrorNotify("Send to Admission aborted.", "Abort !");
+        }
+    };
 </script>
