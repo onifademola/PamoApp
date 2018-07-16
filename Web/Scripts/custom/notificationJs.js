@@ -51,7 +51,7 @@ function DataSaveError() {
 };
 
 function ServiceError() {
-    toastr.error("Sorry, something went wrong... We could not complete your requested task at the moment, please try again!", "Internal Error !", opts);    
+    toastr.error("Sorry, something went wrong... We could not complete your requested task at the moment, please try again or contact Support!", "Internal Error !", opts);    
 };
 
 

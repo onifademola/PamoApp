@@ -133,7 +133,7 @@ namespace Web.Controllers
 
             if (result == true)
             {
-                FlowQueueHub.NotifyConsulting();
+                FlowQueueHub.NotifyConsulting(consRmID);
                 var data = new[]
                  {
                     new
@@ -170,6 +170,21 @@ namespace Web.Controllers
             ViewData["vstatus"] = _irepoUtil.ProcessStatuses();
             ViewData["conRoom"] = _irepoUtil.ConsultingRoomForGrid();
             return View();
+        }
+
+        public ActionResult SendToPharmacy()
+        {
+            return null;
+        }
+
+        public ActionResult SendToLab()
+        {
+            return null;
+        }
+
+        public ActionResult SendToAdmission()
+        {
+            return null;
         }
 
         #endregion

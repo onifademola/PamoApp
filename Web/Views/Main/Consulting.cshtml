@@ -16,11 +16,15 @@
         var notifications = $.connection.flowQueueHub;
         
         // Create a function that the hub can call to broadcast messages.
-        notifications.client.updateConsultingMsgs = function () {
+        notifications.client.updateConsultingMsgs = function (data) {
 
-            var grid = $("#consPtsGrid").data("kendoGrid");
-            grid.dataSource.read();
-
+            //check that update will be sent to the only doctor in the selected consulting room
+            var consultRmID = $("#consrDrpdwn").data("kendoDropDownList").value();
+            if (consultRmID > 0 & consultRmID == data) {
+                var grid = $("#consPtsGrid").data("kendoGrid");
+                grid.dataSource.read();
+                CustomQueueNotify("New Patient is queued at your consulting room", "Out Patient Alert !");
+            }            
         };
         // Start the connection.
         $.connection.hub.start().done(function () {

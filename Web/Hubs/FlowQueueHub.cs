@@ -34,10 +34,10 @@ namespace Web.Hubs
             context.Clients.All.updateMessages();
         }
 
-        public static void NotifyConsulting()
+        public static void NotifyConsulting(int conrId)
         {
             IHubContext context = GlobalHost.ConnectionManager.GetHubContext<FlowQueueHub>();
-            context.Clients.All.updateConsultingMsgs();
+            context.Clients.All.updateConsultingMsgs(conrId);
         }
 
         public IQueryable<vwFlowQueueAttendance> GetAllFlowQueues()

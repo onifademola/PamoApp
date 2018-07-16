@@ -13,9 +13,6 @@ function beginProgress() {
 };
 
 function endProgress() {
-    //when all registration has been completed suucessfully
-    //var gridStudN = $("#gridStuds").data("kendoGrid");
-    //gridStudN.dataSource.read();
     //remove the progress bar
     $("#progBar").hide();
     //and show the grid

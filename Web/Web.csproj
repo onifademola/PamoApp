@@ -2003,7 +2003,6 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom\backEndRepair.js" />
     <Content Include="Scripts\custom\notificationJs.js" />
-    <Content Include="Scripts\custom\notificationReg.js" />
     <Content Include="Scripts\custom\notificationStyle.css" />
     <Content Include="Scripts\custom\progressBar.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
