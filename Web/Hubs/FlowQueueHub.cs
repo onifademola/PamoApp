@@ -64,10 +64,10 @@ namespace Web.Hubs
             context.Clients.All.updateAccMsgs();
         }
 
-        public static void NotifyFrontDesk()
+        public static void NotifyFrontDesk(string mssg)
         {
             IHubContext context = GlobalHost.ConnectionManager.GetHubContext<FlowQueueHub>();
-            context.Clients.All.updateFDMsgs();
+            context.Clients.All.updateFDMsgs(mssg);
         }
 
         #region may not be used

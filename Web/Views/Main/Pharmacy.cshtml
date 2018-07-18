@@ -18,7 +18,7 @@
 
         @(Html.Kendo().Grid<Repo.Models.vwFlowQueueAttendance>()
                 .Name("GridPharm")
-                .NoRecords("No patient on visit")
+                .NoRecords("No patient in pharmacy found")
                 .Columns(columns =>
                 {
                     columns.Bound(c => c.AttCArdNumber).Title("");

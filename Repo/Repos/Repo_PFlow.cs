@@ -120,6 +120,16 @@ namespace Repo.Repos
             int processStatus = 1;
             DateTime eventTime = _repoUtil.GetNijaTime(DateTime.Now);
 
+            //first, update the existing the flow queue
+            //get flow queue by AttID, since only an instance of Attendance can be in a flowqueue per visit
+            FlowQueue eFQ = _entities.FlowQueues.FirstOrDefault(n => n.AttID == AttID);
+            if (eFQ == null)
+                return false;
+            eFQ.CurrentStatusID = processStatus;
+            eFQ.LastTimeStamp = eventTime;
+            eFQ.LastUpdatedBy = userDoingTask.user_id;
+            this.UpdateFlowQueue(eFQ, eventTime);
+
             //first generate a process flow
             ProcessFlow newPF = new ProcessFlow();
             newPF.AttID = AttID;
@@ -128,14 +138,6 @@ namespace Repo.Repos
             newPF.StartTime = eventTime;
             newPF.UserID = userDoingTask.user_id;
             _entities.ProcessFlows.Add(newPF);
-
-            //then create the flow queue
-            FlowQueue newFQ = new FlowQueue();
-            newFQ.AttID = AttID;
-            newFQ.CurrentStatusID = processStatus;
-            newFQ.LastTimeStamp = eventTime;
-            newFQ.LastUpdatedBy = userDoingTask.user_id;
-            _entities.FlowQueues.Add(newFQ);
 
             var result = _entities.SaveChanges();
             if (result > 0)

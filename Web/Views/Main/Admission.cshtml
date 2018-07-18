@@ -7,7 +7,7 @@
     $(document).ready(
         function () {
             $("#txt1").html("Admission");
-            $("#txt2").html("(Attend to Patients on AdmissionS)");
+            $("#txt2").html("(Attend to Patients on Admission)");
             //$("#txtWarning").html("System failure imminent, carefully change COMPUTE TYPE & CLASS HIERARCHY under strict change request, and only when agreed and advised by the SCHOOL ADMINISTRATORS!");
         });
 </script>
@@ -18,7 +18,7 @@
 
         @(Html.Kendo().Grid<Repo.Models.vwFlowQueueAttendance>()
                 .Name("GridAdmsn")
-                .NoRecords("No patient on visit")
+                .NoRecords("No patient placed on admission found")
                 .Columns(columns =>
                 {
                     columns.Bound(c => c.AttCArdNumber).Title("");

@@ -194,7 +194,7 @@
             return CustomErrorNotify("Sorry! You have not selected a Patient");
         }
 
-        data = { "selectedPtIds": selectedItem.ID };
+        data = { "attdID": selectedItem.AttdID };
 
         if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Pharmacy?')) {
             beginProgress();
@@ -205,6 +205,8 @@
 
                     if (result[0].resp == "ok") {
                         CustomSuccessNotify(result[0].mesag, "Success !");
+                        var agrid = $("#consPtsGrid").data("kendoGrid");
+                        agrid.dataSource.read();
                     }
                     else {
                         CustomErrorNotify(result[0].mesag, "Error !");
@@ -227,7 +229,7 @@
             return CustomErrorNotify("Sorry! You have not selected a Patient");
         }
 
-        data = { "selectedPtIds": selectedItem.ID };
+        data = { "attdID": selectedItem.AttdID };
 
         if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Lab?')) {
             beginProgress();
@@ -238,6 +240,8 @@
 
                     if (result[0].resp == "ok") {
                         CustomSuccessNotify(result[0].mesag, "Success !");
+                        var agrid = $("#consPtsGrid").data("kendoGrid");
+                        agrid.dataSource.read();
                     }
                     else {
                         CustomErrorNotify(result[0].mesag, "Error !");
@@ -260,7 +264,7 @@
             return CustomErrorNotify("Sorry! You have not selected a Patient");
         }
 
-        data = { "selectedPtIds": selectedItem.ID };
+        data = { "attdID": selectedItem.AttdID };
 
         if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Admission?')) {
             beginProgress();
@@ -271,6 +275,8 @@
 
                     if (result[0].resp == "ok") {
                         CustomSuccessNotify(result[0].mesag, "Success !");
+                        var agrid = $("#consPtsGrid").data("kendoGrid");
+                        agrid.dataSource.read();
                     }
                     else {
                         CustomErrorNotify(result[0].mesag, "Error !");

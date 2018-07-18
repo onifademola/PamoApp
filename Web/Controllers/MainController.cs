@@ -81,6 +81,7 @@ namespace Web.Controllers
             if (result == true)
             {
                 FlowQueueHub.NotifyOPD();
+                FlowQueueHub.NotifyFrontDesk("Fresh update !");
                 var data = new[]
                  {
                     new
@@ -134,6 +135,7 @@ namespace Web.Controllers
             if (result == true)
             {
                 FlowQueueHub.NotifyConsulting(consRmID);
+                FlowQueueHub.NotifyFrontDesk("Fresh update !");
                 var data = new[]
                  {
                     new
@@ -189,6 +191,7 @@ namespace Web.Controllers
             if (result == true)
             {
                 FlowQueueHub.NotifyPharmacy();
+                FlowQueueHub.NotifyFrontDesk("Fresh update !");
                 var data = new[]
                  {
                     new
@@ -230,6 +233,7 @@ namespace Web.Controllers
             if (result == true)
             {
                 FlowQueueHub.NotifyLab();
+                FlowQueueHub.NotifyFrontDesk("Fresh update !");
                 var data = new[]
                  {
                     new
@@ -271,6 +275,7 @@ namespace Web.Controllers
             if (result == true)
             {
                 FlowQueueHub.NotifyAdmission();
+                FlowQueueHub.NotifyFrontDesk("Fresh update !");
                 var data = new[]
                  {
                     new
@@ -321,6 +326,7 @@ namespace Web.Controllers
             if (result == true)
             {
                 FlowQueueHub.NotifyOPD();
+                FlowQueueHub.NotifyFrontDesk("Fresh update !");
                 var data = new[]
                  {
                     new
@@ -370,6 +376,7 @@ namespace Web.Controllers
             if (result == true)
             {
                 FlowQueueHub.NotifyAccount();
+                FlowQueueHub.NotifyFrontDesk("Fresh update !");
                 var data = new[]
                  {
                     new
@@ -418,7 +425,7 @@ namespace Web.Controllers
 
             if (result == true)
             {
-                FlowQueueHub.NotifyFrontDesk();
+                FlowQueueHub.NotifyFrontDesk("A patient's visit has ended !");
                 var data = new[]
                  {
                     new
@@ -469,6 +476,7 @@ namespace Web.Controllers
             if (result == true)
             {
                 FlowQueueHub.NotifyPharmacy();
+                FlowQueueHub.NotifyFrontDesk("Fresh update !");
                 var data = new[]
                  {
                     new

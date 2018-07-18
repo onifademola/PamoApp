@@ -25,12 +25,12 @@
             
         };
 
-        notifications.client.updateFDMsgs = function () {
+        notifications.client.updateFDMsgs = function (msg) {
 
             var clsRegGrid = $("#GridOnVisit").data("kendoGrid");
             clsRegGrid.dataSource.read();
 
-            CustomQueueNotify("A patient's visit has ended !", "Out Patient Alert !");
+            CustomQueueNotify(msg, "Out Patient Alert !");
         };
 
         // Start the connection.
