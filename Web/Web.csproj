@@ -221,7 +221,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BackEndRepairController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LabController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
@@ -3243,7 +3242,6 @@
     <Content Include="Views\Shared\EditorTemplates\TeacherRemarkTextEditMT.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Url.cshtml" />
-    <Content Include="Views\Lab\Index.cshtml" />
     <Content Include="Views\Main\Home.cshtml" />
     <Content Include="Views\BackEndRepair\Index.cshtml" />
     <Content Include="Views\Shared\_PartialPageMainMenu.cshtml" />
@@ -4174,10 +4172,13 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-TW.min.js.map" />
     <Content Include="Views\Main\Opd.cshtml" />
     <Content Include="Views\Main\Consulting.cshtml" />
+    <Content Include="Views\Main\Lab.cshtml" />
+    <Content Include="Views\Main\Pharmacy.cshtml" />
+    <Content Include="Views\Main\Admission.cshtml" />
+    <Content Include="Views\Main\Accounts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Default\" />
     <Folder Include="Views\ProcessFlow\" />
   </ItemGroup>
   <ItemGroup>

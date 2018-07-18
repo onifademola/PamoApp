@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "Pharmacy";
+}
+
+<script type="text/javascript">
+    $(document).ready(
+        function () {
+            $("#txt1").html("Pharmacy");
+            $("#txt2").html("(Give Doctor prescribed drugs to Patients)");
+            //$("#txtWarning").html("System failure imminent, carefully change COMPUTE TYPE & CLASS HIERARCHY under strict change request, and only when agreed and advised by the SCHOOL ADMINISTRATORS!");
+        });
+</script>
+
+
+<div id="pageDP">
+    <div class="col-md-4" id="pageGridPatient">
+
+        @(Html.Kendo().Grid<Repo.Models.vwFlowQueueAttendance>()
+                .Name("GridPharm")
+                .NoRecords("No patient on visit")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.AttCArdNumber).Title("");
+                    columns.Bound(c => c.FirstName).Title("");
+                    columns.ForeignKey(p => p.FQCurrentSTatus, (System.Collections.IEnumerable)ViewData["vstatus"], "Key", "Value")
+                    .Title("");
+                    columns.Bound(c => c.FQTimeStamp).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("");
+                    columns.Bound(c => c.FQLastUpdatedBy).Title("");
+                })
+                .ToolBar(toolbar =>
+                {
+                toolbar.Template(@<text>
+            <div class="row">
+                <div class="col-sm-4 col-md-6 toolbar">
+                    @(Html.Kendo().Button()
+                        .Name("iconButton")
+                        .Tag("a")
+                        .Icon("refresh")
+                        .Content("Send to Accounts")
+                        .Events(e => e.Click("csonClick"))
+                        //.Content("<span class='fa-share' title='Click to run process'>Send to Consulting</span>")
+
+                    )
+                </div>
+            </div>
+                </text>);
+                })
+                .Resizable(r => r.Columns(true))
+                .Scrollable(sc => sc.Endless(true))
+                .Sortable()
+                .Selectable(selectable => selectable
+                .Mode(GridSelectionMode.Single))
+                .Mobile(MobileMode.Auto)
+                .Pageable(p => p.Numeric(false)
+                    .PreviousNext(false)
+                    .Refresh(true)
+                )
+                .Events(ev => ev.Change("onChange"))
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(false)
+                .ServerOperation(false)
+                .PageSize(50)
+                .Events(e =>
+                {
+                    e.Error("error_handler");
+                })
+                .Model(model =>
+                {
+                    model.Id(p => p.FQID);
+                })
+                .Read(read => read.Action("Read_GetPharmacyFlowQueues", "ProcessFlow"))
+                )
+        )
+    </div>
+    <div class="col-md-8" id="scoreList">
+        
+    </div>
+
+</div>
+
+<div class="container">
+    @Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
+</div>
+
+<script src="~/Scripts/custom/progressBar.js"></script>
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+            }
+
+    function csonClick() {
+        if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Accounts?'))
+            sendToAccounts();
+        else
+            CustomErrorNotify("Send to Accounts aborted.", "Abort !");      
+    };
+    
+    
+    function sendToAccounts() {
+        //console.log(consulRmID);
+        var grid = $("#GridPharm").data("kendoGrid");
+        var selectedItem = grid.dataItem(grid.select());
+        //console.log(selectedItem);
+        if (selectedItem == null) {
+            return CustomErrorNotify("Sorry! You have not selected a Patient", "Error !");
+        }
+        var data = {
+            "attdID": selectedItem.AttdID
+        };
+
+        beginProgress();
+
+        $.post("/Main/SendToAccounts", data)
+            .done(function (result) {
+                endProgress();
+
+                if (result[0].resp == "ok") {
+                    CustomSuccessNotify(result[0].mesag, "Success !");
+
+                    var agrid = $("#GridPharm").data("kendoGrid");
+                    agrid.dataSource.read();
+                    //clear bio data grid
+                    //var abgrid = $("#GridBV").data("kendoGrid");
+                    //abgrid.dataSource.data([]);
+                    
+                }
+                else {
+                    CustomErrorNotify(result[0].mesag, "Error !");
+                }
+            }
+            ).error(function (xhr, ajaxOptions, thrownError) {
+                endProgress();
+                ServiceError();
+            }
+            );
+    };
+
+    $(function () {
+        // Declare a proxy to reference the hub.
+        var notifications = $.connection.flowQueueHub;
+
+        // Create a function that the hub can call to broadcast messages.
+        notifications.client.updatePharmMsgs = function () {
+
+            var clsRegGrid = $("#GridPharm").data("kendoGrid");
+            clsRegGrid.dataSource.read();
+
+            CustomQueueNotify("New Patient arrives Pharmacy", "Out Patient Alert !");
+        };
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+            //alert("connection started")
+        }).fail(function (e) {
+            //alert(e);
+        });
+    });
+    
+    function onChange(arg) {
+        //kendoConsole.log("The selected product ids are: [" + this.selectedKeyNames().join(", ") + "]");
+        var grid = $("#GridBV").data("kendoGrid");
+        grid.dataSource.read();
+        $("#scoreList").show();
+        $("#scoreTop").show();
+    }
+    
+    function onFilterChange() {
+        $("#scoreList").hide();
+        $("#scoreTop").hide();
+    }
+</script>
+

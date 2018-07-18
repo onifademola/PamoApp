@@ -24,6 +24,15 @@
             clsRegGrid.dataSource.read();
             
         };
+
+        notifications.client.updateFDMsgs = function () {
+
+            var clsRegGrid = $("#GridOnVisit").data("kendoGrid");
+            clsRegGrid.dataSource.read();
+
+            CustomQueueNotify("A patient's visit has ended !", "Out Patient Alert !");
+        };
+
         // Start the connection.
         $.connection.hub.start().done(function () {
             //alert("connection started")
@@ -155,7 +164,7 @@
             });
             alert(message);
         }
-    }
+    };
 
     function btnClick() {
         var data = {};
@@ -186,9 +195,5 @@
                 endProgress();
                 ServiceError();
             });
-    }
-        
-    $("#btnSubmit").click(function () {
-        
-    });
+    };
 </script>

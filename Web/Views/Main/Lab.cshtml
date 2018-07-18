@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewBag.Title = "Lab";
+}
+
+<script type="text/javascript">
+    $(document).ready(
+        function () {
+            $("#txt1").html("LAB");
+            $("#txt2").html("(Conduct lab test for Patients)");
+            //$("#txtWarning").html("System failure imminent, carefully change COMPUTE TYPE & CLASS HIERARCHY under strict change request, and only when agreed and advised by the SCHOOL ADMINISTRATORS!");
+        });
+</script>
+
+
+<div id="pageDP">
+    <div class="col-md-4" id="pageGridPatient">
+
+        @(Html.Kendo().Grid<Repo.Models.vwFlowQueueAttendance>()
+                .Name("GridLab")
+                .NoRecords("No patient on visit")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.AttCArdNumber).Title("");
+                    columns.Bound(c => c.FirstName).Title("");
+                    columns.ForeignKey(p => p.FQCurrentSTatus, (System.Collections.IEnumerable)ViewData["vstatus"], "Key", "Value")
+                    .Title("");
+                    columns.Bound(c => c.FQTimeStamp).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("");
+                    columns.Bound(c => c.FQLastUpdatedBy).Title("");
+                })
+                .ToolBar(toolbar =>
+                {
+                toolbar.Template(@<text>
+            <div class="row">
+                <div class="col-sm-4 col-md-6 toolbar">
+                    @(Html.Kendo().Button()
+                        .Name("iconButton")
+                        .Tag("a")
+                        .Icon("refresh")
+                        .Content("Return to OPD")
+                        .Events(e => e.Click("csonClick"))
+                        //.Content("<span class='fa-share' title='Click to run process'>Send to Consulting</span>")
+
+                    )
+                </div>
+            </div>
+                </text>);
+                })
+                .Resizable(r => r.Columns(true))
+                .Scrollable(sc => sc.Endless(true))
+                .Sortable()
+                .Selectable(selectable => selectable
+                .Mode(GridSelectionMode.Single))
+                .Mobile(MobileMode.Auto)
+                .Pageable(p => p.Numeric(false)
+                    .PreviousNext(false)
+                    .Refresh(true)
+                )
+                .Events(ev => ev.Change("onChange"))
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(false)
+                .ServerOperation(false)
+                .PageSize(50)
+                .Events(e =>
+                {
+                    e.Error("error_handler");
+                })
+                .Model(model =>
+                {
+                    model.Id(p => p.FQID);
+                })
+                .Read(read => read.Action("Read_GetLabFlowQueues", "ProcessFlow"))
+                )
+        )
+    </div>
+    <div class="col-md-8" id="scoreList">
+        @*@Html.Partial("_PartialPageSelection")*@
+        @(Html.Kendo().Grid<Repo.DTOs.dto_BioVital>()
+                .Name("GridBV")
+                .NoRecords("No patient's biovital found")
+                .Columns(columns =>
+                {
+                    //columns.Bound(c => c.CardNumber);
+                    columns.Bound(c => c.C_Date).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("Date");
+                    columns.Bound(c => c.BP);
+                    columns.Bound(c => c.Height);
+                    columns.Bound(c => c.Weight);
+                    columns.Bound(c => c.Mass);
+                    columns.Bound(c => c.Pulse);
+                    columns.Bound(c => c.Temp);
+                    columns.Bound(c => c.Fasting);
+                    columns.Bound(c => c.RBS);
+                    columns.ForeignKey(c => c.RecordedById, (System.Collections.IEnumerable)ViewData["recBy"], "Value", "Text")
+                    .Title("Recorded By");
+                })
+                .ToolBar(toolbar =>
+                 {
+                     toolbar.Create();
+                     toolbar.Save();
+                     toolbar.Excel();
+                 })
+                .Editable(editable => editable.Mode(GridEditMode.InCell))
+                .AutoBind(false)
+                .Resizable(r => r.Columns(true))
+                .Scrollable(sc => sc.Endless(true))
+                .Sortable()
+                .Selectable(selectable => selectable
+                .Mode(GridSelectionMode.Single))
+                .Mobile(MobileMode.Auto)
+                .Pageable(p => p.Numeric(false)
+                    .PreviousNext(false)
+                    .Refresh(true)
+                )
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(false)
+                .ServerOperation(false)
+                .PageSize(50)
+                .Events(e =>
+                {
+                    e.Error("error_handler");
+                })
+                .Model(model =>
+                {
+                    model.Id(p => p.ID);
+                    model.Field(p => p.C_Date).Editable(false);
+                    model.Field(p => p.RecordedById).Editable(false);
+                })
+                    .Read(read => read.Action("PatientsBiovital5_Read", "Patient").Data("filterData"))
+                    .Update(update => update.Action("PatientsBioVital_BatchUpdate", "Patient"))
+                    .Create(c => c.Action("PatientsBiovital5_Create", "Patient").Data("filterData"))
+                    .Destroy(d => d.Action("PatientsBiovital5_Read", "Patient"))
+                )
+        )
+        <script>
+            function filterData() {
+                var grid = $("#GridLab").data("kendoGrid");
+                var selectedItem = grid.dataItem(grid.select());
+                if (selectedItem != null) {
+                    return {
+                        patientID: selectedItem.AttdPatientID
+                    };
+                } else {
+                    return {
+                        patientID: 0
+                    };
+                }
+            };
+        </script>
+    </div>
+
+</div>
+
+<div class="container">
+    @Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
+</div>
+
+<script src="~/Scripts/custom/progressBar.js"></script>
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+            }
+
+    function csonClick() {
+        if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to return Patient to OPD?'))
+            sendToOPDfromLab();
+        else
+            CustomErrorNotify("Return to OPD aborted.", "Abort !");      
+    };
+    
+    
+    function sendToOPDfromLab() {
+        //console.log(consulRmID);
+        var grid = $("#GridLab").data("kendoGrid");
+        var selectedItem = grid.dataItem(grid.select());
+        //console.log(selectedItem);
+        if (selectedItem == null) {
+            return CustomErrorNotify("Sorry! You have not selected a Patient", "Error !");
+        }
+        var data = {
+            "attdID": selectedItem.AttdID
+        };
+
+        beginProgress();
+
+        $.post("/Main/ReturnToOpdFromLab", data)
+            .done(function (result) {
+                endProgress();
+
+                if (result[0].resp == "ok") {
+                    CustomSuccessNotify(result[0].mesag, "Success !");
+
+                    var agrid = $("#GridLab").data("kendoGrid");
+                    agrid.dataSource.read();
+                    //clear bio data grid
+                    //var abgrid = $("#GridBV").data("kendoGrid");
+                    //abgrid.dataSource.data([]);
+                    
+                }
+                else {
+                    CustomErrorNotify(result[0].mesag, "Error !");
+                }
+            }
+            ).error(function (xhr, ajaxOptions, thrownError) {
+                endProgress();
+                ServiceError();
+            }
+            );
+    };
+
+    $(function () {
+        // Declare a proxy to reference the hub.
+        var notifications = $.connection.flowQueueHub;
+
+        // Create a function that the hub can call to broadcast messages.
+        notifications.client.updateLabMsgs = function () {
+
+            var clsRegGrid = $("#GridLab").data("kendoGrid");
+            clsRegGrid.dataSource.read();
+
+            CustomQueueNotify("New Patient arrives LAB", "Out Patient Alert !");
+        };
+        // Start the connection.
+        $.connection.hub.start().done(function () {
+            //alert("connection started")
+        }).fail(function (e) {
+            //alert(e);
+        });
+    });
+    
+    function onChange(arg) {
+        //kendoConsole.log("The selected product ids are: [" + this.selectedKeyNames().join(", ") + "]");
+        var grid = $("#GridBV").data("kendoGrid");
+        grid.dataSource.read();
+        $("#scoreList").show();
+        $("#scoreTop").show();
+    }
+    
+    function onFilterChange() {
+        $("#scoreList").hide();
+        $("#scoreTop").hide();
+    }
+</script>
+

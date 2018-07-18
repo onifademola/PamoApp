@@ -105,6 +105,36 @@ namespace Repo.Repos
             newFQ.AttID = AttID;
             newFQ.CurrentStatusID = processStatus;
             newFQ.LastTimeStamp = eventTime;
+            newFQ.LastUpdatedBy = userDoingTask.user_id;
+            _entities.FlowQueues.Add(newFQ);
+
+            var result = _entities.SaveChanges();
+            if (result > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public bool QueuePatientAtOPDFromLab(int AttID, AspNetUser userDoingTask) //Process Status 1 - At OPD
+        {
+            int processStatus = 1;
+            DateTime eventTime = _repoUtil.GetNijaTime(DateTime.Now);
+
+            //first generate a process flow
+            ProcessFlow newPF = new ProcessFlow();
+            newPF.AttID = AttID;
+            newPF.Comment = "Patient returned to OPD from Lab by " + userDoingTask.Email;
+            newPF.StatusID = processStatus;
+            newPF.StartTime = eventTime;
+            newPF.UserID = userDoingTask.user_id;
+            _entities.ProcessFlows.Add(newPF);
+
+            //then create the flow queue
+            FlowQueue newFQ = new FlowQueue();
+            newFQ.AttID = AttID;
+            newFQ.CurrentStatusID = processStatus;
+            newFQ.LastTimeStamp = eventTime;
+            newFQ.LastUpdatedBy = userDoingTask.user_id;
             _entities.FlowQueues.Add(newFQ);
 
             var result = _entities.SaveChanges();
@@ -267,7 +297,7 @@ namespace Repo.Repos
             //then generate a new process flow
             ProcessFlow newPF = new ProcessFlow();
             newPF.AttID = AttID;
-            newPF.Comment = "Patient's visit ends. End report created by " + userDoingTask.Email;
+            newPF.Comment = "Patient sent to accounts by " + userDoingTask.Email;            
             newPF.StatusID = processStatus;
             newPF.StartTime = eventTime;
             newPF.UserID = userDoingTask.user_id;
@@ -300,7 +330,7 @@ namespace Repo.Repos
             //then generate a new process flow
             ProcessFlow newPF = new ProcessFlow();
             newPF.AttID = AttID;
-            newPF.Comment = "Patient sent to accounts by " + userDoingTask.Email;
+            newPF.Comment = "Patient's visit ends. End report created by " + userDoingTask.Email;
             newPF.StatusID = processStatus;
             newPF.StartTime = eventTime;
             newPF.UserID = userDoingTask.user_id;

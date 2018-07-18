@@ -40,48 +40,79 @@ namespace Web.Hubs
             context.Clients.All.updateConsultingMsgs(conrId);
         }
 
-        public IQueryable<vwFlowQueueAttendance> GetAllFlowQueues()
+        public static void NotifyPharmacy()
         {
-            var mode = _irepoPFlow.AllFlowQueues();
-            var model = mode;
-            return model;
+            IHubContext context = GlobalHost.ConnectionManager.GetHubContext<FlowQueueHub>();
+            context.Clients.All.updatePharmMsgs();
         }
 
-        public IQueryable<vwFlowQueueAttendance> GetOPDFlowQueues()
+        public static void NotifyLab()
         {
-            var model = _irepoPFlow.GetOPDQueues();
-            return model;
+            IHubContext context = GlobalHost.ConnectionManager.GetHubContext<FlowQueueHub>();
+            context.Clients.All.updateLabMsgs();
         }
 
-        public IQueryable<vwFlowQueueAttendance> GetConsultingFlowQueues()
+        public static void NotifyAdmission()
         {
-            var model = _irepoPFlow.GetConsultingQueues();
-            return model;
+            IHubContext context = GlobalHost.ConnectionManager.GetHubContext<FlowQueueHub>();
+            context.Clients.All.updateAdmsMsgs();
         }
 
-        public IQueryable<vwFlowQueueAttendance> GetLabFlowQueues()
+        public static void NotifyAccount()
         {
-            var model = _irepoPFlow.GetLabQueues();
-            return model;
+            IHubContext context = GlobalHost.ConnectionManager.GetHubContext<FlowQueueHub>();
+            context.Clients.All.updateAccMsgs();
         }
 
-        public IQueryable<vwFlowQueueAttendance> GetAdmissionFlowQueues()
+        public static void NotifyFrontDesk()
         {
-            var model = _irepoPFlow.GetAdmissionQueues();
-            return model;
+            IHubContext context = GlobalHost.ConnectionManager.GetHubContext<FlowQueueHub>();
+            context.Clients.All.updateFDMsgs();
         }
 
-        public IQueryable<vwFlowQueueAttendance> GetPharmacyFlowQueues()
-        {
-            var model = _irepoPFlow.GetPharmacyQueues();
-            return model;
-        }
+        #region may not be used
+        //public IQueryable<vwFlowQueueAttendance> GetAllFlowQueues()
+        //{
+        //    var mode = _irepoPFlow.AllFlowQueues();
+        //    var model = mode;
+        //    return model;
+        //}
 
-        public IQueryable<vwFlowQueueAttendance> GetAccountsFlowQueues()
-        {
-            var model = _irepoPFlow.GetAccountsQueues();
-            return model;
-        }
+        //public IQueryable<vwFlowQueueAttendance> GetOPDFlowQueues()
+        //{
+        //    var model = _irepoPFlow.GetOPDQueues();
+        //    return model;
+        //}
 
+        //public IQueryable<vwFlowQueueAttendance> GetConsultingFlowQueues()
+        //{
+        //    var model = _irepoPFlow.GetConsultingQueues();
+        //    return model;
+        //}
+
+        //public IQueryable<vwFlowQueueAttendance> GetLabFlowQueues()
+        //{
+        //    var model = _irepoPFlow.GetLabQueues();
+        //    return model;
+        //}
+
+        //public IQueryable<vwFlowQueueAttendance> GetAdmissionFlowQueues()
+        //{
+        //    var model = _irepoPFlow.GetAdmissionQueues();
+        //    return model;
+        //}
+
+        //public IQueryable<vwFlowQueueAttendance> GetPharmacyFlowQueues()
+        //{
+        //    var model = _irepoPFlow.GetPharmacyQueues();
+        //    return model;
+        //}
+
+        //public IQueryable<vwFlowQueueAttendance> GetAccountsFlowQueues()
+        //{
+        //    var model = _irepoPFlow.GetAccountsQueues();
+        //    return model;
+        //}
+        #endregion
     }
 }

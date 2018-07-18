@@ -172,21 +172,326 @@ namespace Web.Controllers
             return View();
         }
 
-        public ActionResult SendToPharmacy()
+        public ActionResult SendToPharmacy(int attdID)
         {
-            return null;
+            bool result = false;
+            int attdsID = Convert.ToInt32(attdID);
+            if (attdsID < 0)
+                return null;
+            string uid = User.Identity.GetUserId();
+            var userDoingTask = _irepoPflow.GetUserDoingTask(uid);
+            if (userDoingTask != null)
+            {
+                bool res = _irepoPflow.QueuePatientAtPharmacy(attdsID, userDoingTask);
+                result = res;
+            }
+
+            if (result == true)
+            {
+                FlowQueueHub.NotifyPharmacy();
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "ok",
+                        mesag = "Patient sent to Pharmacy !"
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "error",
+                        mesag = "Process aborted, something went wrong. Please check your task and retry, or contact Support."
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
 
-        public ActionResult SendToLab()
+        public ActionResult SendToLab(int attdID)
         {
-            return null;
+            bool result = false;
+            int attdsID = Convert.ToInt32(attdID);
+            if (attdsID < 0)
+                return null;
+            string uid = User.Identity.GetUserId();
+            var userDoingTask = _irepoPflow.GetUserDoingTask(uid);
+            if (userDoingTask != null)
+            {
+                bool res = _irepoPflow.QueuePatientAtLab(attdsID, userDoingTask);
+                result = res;
+            }
+
+            if (result == true)
+            {
+                FlowQueueHub.NotifyLab();
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "ok",
+                        mesag = "Patient sent to the Lab !"
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "error",
+                        mesag = "Process aborted, something went wrong. Please check your task and retry, or contact Support."
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
 
-        public ActionResult SendToAdmission()
+        public ActionResult SendToAdmission(int attdID)
         {
-            return null;
+            bool result = false;
+            int attdsID = Convert.ToInt32(attdID);
+            if (attdsID < 0)
+                return null;
+            string uid = User.Identity.GetUserId();
+            var userDoingTask = _irepoPflow.GetUserDoingTask(uid);
+            if (userDoingTask != null)
+            {
+                bool res = _irepoPflow.QueuePatientAtAdmission(attdsID, userDoingTask);
+                result = res;
+            }
+
+            if (result == true)
+            {
+                FlowQueueHub.NotifyAdmission();
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "ok",
+                        mesag = "Patient has been admitted !"
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "error",
+                        mesag = "Process aborted, something went wrong. Please check your task and retry, or contact Support."
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
         }
 
+        #endregion
+
+        #region LAB CODECS
+        public ActionResult Lab()
+        {
+            ViewData["vstatus"] = _irepoUtil.ProcessStatuses();
+            return View();
+        }
+
+        public ActionResult ReturnToOpdFromLab(int attdID)
+        {
+            bool result = false;
+            int attdsID = Convert.ToInt32(attdID);
+            if (attdsID < 0)
+                return null;
+            string uid = User.Identity.GetUserId();
+            var userDoingTask = _irepoPflow.GetUserDoingTask(uid);
+            if (userDoingTask != null)
+            {
+                bool res = _irepoPflow.QueuePatientAtOPDFromLab(attdsID, userDoingTask);
+                result = res;
+            }
+
+            if (result == true)
+            {
+                FlowQueueHub.NotifyOPD();
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "ok",
+                        mesag = "Patient returned to OPD !"
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "error",
+                        mesag = "Process aborted, something went wrong. Please check your task and retry, or contact Support."
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
+
+        #region PHARMACY CODECS
+        public ActionResult Pharmacy()
+        {
+            ViewData["vstatus"] = _irepoUtil.ProcessStatuses();
+            return View();
+        }
+
+        public ActionResult SendToAccounts(int attdID)
+        {
+            bool result = false;
+            int attdsID = Convert.ToInt32(attdID);
+            if (attdsID < 0)
+                return null;
+            string uid = User.Identity.GetUserId();
+            var userDoingTask = _irepoPflow.GetUserDoingTask(uid);
+            if (userDoingTask != null)
+            {
+                bool res = _irepoPflow.QueuePatientWithAccounts(attdsID, userDoingTask);
+                result = res;
+            }
+
+            if (result == true)
+            {
+                FlowQueueHub.NotifyAccount();
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "ok",
+                        mesag = "Patient sent to Accounts for payment !"
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "error",
+                        mesag = "Process aborted, something went wrong. Please check your task and retry, or contact Support."
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
+
+        #region ACCOUNTS CODECS
+        public ActionResult Accounts()
+        {
+            ViewData["vstatus"] = _irepoUtil.ProcessStatuses();
+            return View();
+        }
+
+        public ActionResult EndPatientsVisit(int attdID)
+        {
+            bool result = false;
+            int attdsID = Convert.ToInt32(attdID);
+            if (attdsID < 0)
+                return null;
+            string uid = User.Identity.GetUserId();
+            var userDoingTask = _irepoPflow.GetUserDoingTask(uid);
+            if (userDoingTask != null)
+            {
+                bool res = _irepoPflow.QueueEnds(attdsID, userDoingTask);
+                result = res;
+            }
+
+            if (result == true)
+            {
+                FlowQueueHub.NotifyFrontDesk();
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "ok",
+                        mesag = "Patient's visit has ended !"
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "error",
+                        mesag = "Process aborted, something went wrong. Please check your task and retry, or contact Support."
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
+
+        #region ADMISSION CODECS
+        public ActionResult Admission()
+        {
+            ViewData["vstatus"] = _irepoUtil.ProcessStatuses();
+            return View();
+        }
+        
+        public ActionResult DischargeAndSendToPharmacy(int attdID)
+        {
+            bool result = false;
+            int attdsID = Convert.ToInt32(attdID);
+            if (attdsID < 0)
+                return null;
+            string uid = User.Identity.GetUserId();
+            var userDoingTask = _irepoPflow.GetUserDoingTask(uid);
+            if (userDoingTask != null)
+            {
+                //----STILL NEED TO WRITE CODE TO DISCHARGE PATIENT HERE----//
+                bool res = _irepoPflow.QueuePatientAtPharmacy(attdsID, userDoingTask);
+                result = res;
+            }
+
+            if (result == true)
+            {
+                FlowQueueHub.NotifyPharmacy();
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "ok",
+                        mesag = "Patient discharged and sent to Pharmacy !"
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "error",
+                        mesag = "Process aborted, something went wrong. Please check your task and retry, or contact Support."
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
     }
 }
