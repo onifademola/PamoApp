@@ -98,7 +98,8 @@ REFACTORING NOTES:
 
 QUES
 1. Who schedules appointment? Doctor i guess !
-2. 
+2. Get lab report templates
+3. Get doctor's report template
 
 
 TABLES CONVERTED TO FIELDS:
@@ -107,4 +108,4 @@ TABLES CONVERTED TO FIELDS:
 3. Procedure
 4. Investigation
 5. Physical Examination
-6. 
+6. Other

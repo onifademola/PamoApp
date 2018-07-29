@@ -73,12 +73,9 @@
     },
 
     setup: function (ed) {
-        //!---Call the save function here
-
-        //ed.on('keyup', function (e) {
-        //    tinyMceChange(ed);
-        //});
+               
         ed.on('focusout', function (e) {
+            //!---Call the save function here
             tinyMceChange(ed);
         });
     }

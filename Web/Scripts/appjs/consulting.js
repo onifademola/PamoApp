@@ -53,7 +53,7 @@ function tinyMceChange(ed) {
     //console.log(data);
     $.ajax({
         cache: false,
-        type: "GET",
+        type: "POST",
         //contentType: "application/json; charset=utf-8",
         //dataType: 'json',
         url: "/Consultation/UpdateDocReportForAttendance",
@@ -82,7 +82,7 @@ function onChange(arg) {
         data = { "attdId": selectedItem.AttdID };
         $.ajax({
             cache: false,
-            type: "GET",
+            type: "POST",
             //contentType: "application/json; charset=utf-8",
             //dataType: 'json',
             url: "/Consultation/GetDocReportForAttendance",
