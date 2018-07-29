@@ -23,7 +23,5 @@ namespace Repo.Models
         public string Doctor { get; set; }
         public Nullable<int> AttID { get; set; }
         public string Temp { get; set; }
-    
-        public virtual attendance attendance { get; set; }
     }
 }

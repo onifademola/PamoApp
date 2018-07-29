@@ -99,3 +99,12 @@ REFACTORING NOTES:
 QUES
 1. Who schedules appointment? Doctor i guess !
 2. 
+
+
+TABLES CONVERTED TO FIELDS:
+1. Complaint
+2. Diagnosis
+3. Procedure
+4. Investigation
+5. Physical Examination
+6. 

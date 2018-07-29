@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Consulting";
 }
-
+<script src="~/Scripts/appjs/consulting.js"></script>
 <script type="text/javascript">
     $(document).ready(
         function () {
@@ -10,31 +10,6 @@
             $("#txt2").html("(Diagnose & recommed treatment for incoming Out Patients)");               
         }
     );
-
-    $(function () {
-        // Declare a proxy to reference the hub.
-        var notifications = $.connection.flowQueueHub;
-        
-        // Create a function that the hub can call to broadcast messages.
-        notifications.client.updateConsultingMsgs = function (data) {
-
-            //check that update will be sent to the only doctor in the selected consulting room
-            var consultRmID = $("#consrDrpdwn").data("kendoDropDownList").value();
-            if (consultRmID > 0 & consultRmID == data) {
-                var grid = $("#consPtsGrid").data("kendoGrid");
-                grid.dataSource.read();
-                CustomQueueNotify("New Patient is queued at your consulting room", "Out Patient Alert !");
-            }            
-        };
-        // Start the connection.
-        $.connection.hub.start().done(function () {
-            //alert("connection started")
-            //getAllMessages();
-        }).fail(function (e) {
-            //alert(e);
-        });
-    });
-
 </script>
 
 <div id="pageDP">
@@ -49,15 +24,19 @@
                                   .OptionLabel("Choose your Room...")
                                   .DataTextField("Text")
                                   .DataValueField("Value")
-                                  .Events(e => e.Change("drpdwnChange"))
+                                  .Events(e => {
+                                      e.Change("drpdwnChange");
+                                      //e.Open("drpdwnOpen");
+                                      //e.Close("drpdwnClose");
+                                  })
                                   .DataSource(source =>
                                   {
                                       source.Read(read =>
                                       {
                                           read.Action("GetConsultingRoomsForGrid", "Main");
-                                      });                                      
+                                      });
                                   })
-                                  
+
                 )                
             </div>
             <br />
@@ -97,14 +76,15 @@
                 .Title("").Width(150);
                 columns.Bound(c => c.FQTimeStamp).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("Date/Time").Width(80);
                 columns.Bound(c => c.FQLastUpdatedBy).Title("Action By").Width(20);
-            })
+            }).AutoBind(false)
             .Filterable(f => f.Mode(GridFilterMode.Row))
             .Scrollable(sc => sc.Endless(true))
             .Sortable()
             .Selectable(selectable => selectable
             .Mode(GridSelectionMode.Single))
-            .Mobile(MobileMode.Auto).AutoBind(false)
+            .Mobile(MobileMode.Auto)
             .Pageable(p => p.Numeric(false).PreviousNext(false).Refresh(true))
+            .Events(ev => ev.Change("onChange"))
             .DataSource(dataSource => dataSource
                 .Ajax()
                 .AutoSync(false)
@@ -119,11 +99,11 @@
                 {
                     model.Id(p => p.FQID);
                 })
-                .Read(read => read.Action("Read_GetConsultingFlowQueuesByRoomID", "ProcessFlow").Data("filterData"))
+                .Read(read => read.Action("Read_GetConsultingFlowQueuesByRoomID", "ProcessFlow").Data("filterConData"))
             )
         )
         <script>
-            function filterData() {
+            function filterConData() {
                 var consultnnRmID = $("#consrDrpdwn").data("kendoDropDownList").value();
                 if (consultnnRmID > 0) {
                     return { conRoomID: consultnnRmID };
@@ -135,159 +115,152 @@
     </div>
 
     <div class="col-sm-8 col-md-8" id="pageBottomRight">
+        <div>
 
+            <ul class="nav nav-tabs nav-tabs-justified">
+                <li class="active">
+                    <a href="#home-3" data-toggle="tab">
+                        <span class="visible-xs"><i class="fa-home"></i></span>
+                        <span class="hidden-xs">Report</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#profile-3" data-toggle="tab">
+                        <span class="visible-xs"><i class="fa-user"></i></span>
+                        <span class="hidden-xs">Bio Vital</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#messages-3" data-toggle="tab">
+                        <span class="visible-xs"><i class="fa-envelope-o"></i></span>
+                        <span class="hidden-xs">Prescriptions</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#settings-3" data-toggle="tab">
+                        <span class="visible-xs"><i class="fa-cog"></i></span>
+                        <span class="hidden-xs">Lab Requests</span>
+                    </a>
+                </li>                
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="home-3">
+                    <textarea class="tinymce" id="texteditor"></textarea>
+                </div>
+                <div class="tab-pane" id="profile-3">
+                    <div id="biov">
+                        @(Html.Kendo().Grid<Repo.DTOs.dto_BioVital>()
+                .Name("GridBV")
+                .NoRecords("No patient's biovital found")
+                .Columns(columns =>
+                {
+                    //columns.Bound(c => c.CardNumber);
+                    columns.Bound(c => c.C_Date).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("Date");
+                    columns.Bound(c => c.BP);
+                    columns.Bound(c => c.Height);
+                    columns.Bound(c => c.Weight);
+                    columns.Bound(c => c.Mass);
+                    columns.Bound(c => c.Pulse);
+                    columns.Bound(c => c.Temp);
+                    columns.Bound(c => c.Fasting);
+                    columns.Bound(c => c.RBS);
+                    //columns.ForeignKey(c => c.RecordedById, (System.Collections.IEnumerable)ViewData["recBy"], "Value", "Text")
+                    //.Title("Recorded By");
+                    columns.Command(command => { command.Edit().Text("View"); command.Destroy(); }).Width(250);
+                })
+                .ToolBar(toolbar =>
+                {
+                    toolbar.Create();
+                    toolbar.Excel();
+                })
+                .Editable(editable => editable.Mode(GridEditMode.PopUp))
+                .AutoBind(false)
+                .Resizable(r => r.Columns(true))
+                .Scrollable(sc => sc.Endless(true))
+                .Sortable()
+                .Selectable(selectable => selectable
+                .Mode(GridSelectionMode.Single))
+                .Mobile(MobileMode.Auto)
+                .Pageable(p => p.Numeric(false)
+                    .PreviousNext(false)
+                    .Refresh(true)
+                )
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(false)
+                .ServerOperation(false)
+                .PageSize(50)
+                .Events(e =>
+                {
+                    e.Error("error_handler");
+                })
+                .Model(model =>
+                {
+                    model.Id(p => p.ID);
+                    model.Field(p => p.C_Date).Editable(false);
+                    model.Field(p => p.RecordedById).Editable(false);
+                })
+                    .Read(read => read.Action("PatientsBiovital5_Read", "Patient").Data("filternData"))
+                    .Update(update => update.Action("PatientsBioVital_BatchUpdate", "Patient"))
+                    .Create(c => c.Action("PatientsBiovital5_Create", "Patient").Data("filternData"))
+                    .Destroy(d => d.Action("PatientsBiovital5_Delete", "Patient"))
+                )
+                        )
+                        <script>
+                            function filternData() {
+                                var grid = $("#consPtsGrid").data("kendoGrid");
+                                if (grid != null) {
+                                    var selectedItem = grid.dataItem(grid.select());
+                                    if (selectedItem != null) {
+                                        return {
+                                            patientID: selectedItem.AttdPatientID
+                                        };
+                                    } else {
+                                        return {
+                                            patientID: 0
+                                        };
+                                    }
+                                }
+                            };
+                        </script>
+                    </div>                    
+                </div>
+                <div class="tab-pane" id="messages-3">
+
+                    <p>When be draw drew ye. Defective in do recommend suffering. House it seven in spoil tiled court. Sister others marked fat missed did out use. Alteration possession dispatched collecting instrument travelling he or on. Snug give made at spot or late that mr. </p>
+
+                    <p>Carriage quitting securing be appetite it declared. High eyes kept so busy feel call in. Would day nor ask walls known. But preserved advantage are but and certainty earnestly enjoyment. Passage weather as up am exposed. And natural related man subject. Eagerness get situation his was delighted. </p>
+
+                </div>
+
+                <div class="tab-pane" id="settings-3">
+
+                    <p>Luckily friends do ashamed to do suppose. Tried meant mr smile so. Exquisite behaviour as to middleton perfectly. Chicken no wishing waiting am. Say concerns dwelling graceful six humoured. Whether mr up savings talking an. Active mutual nor father mother exeter change six did all. </p>
+
+                    <p>Carriage quitting securing be appetite it declared. High eyes kept so busy feel call in. Would day nor ask walls known. But preserved advantage are but and certainty earnestly enjoyment. Passage weather as up am exposed. And natural related man subject. Eagerness get situation his was delighted. </p>
+
+                </div>
+
+                <div class="tab-pane" id="inbox-3">
+
+                    <p>Carriage quitting securing be appetite it declared. High eyes kept so busy feel call in. Would day nor ask walls known. But preserved advantage are but and certainty earnestly enjoyment. Passage weather as up am exposed. And natural related man subject. Eagerness get situation his was delighted. </p>
+
+                    <p>Luckily friends do ashamed to do suppose. Tried meant mr smile so. Exquisite behaviour as to middleton perfectly. Chicken no wishing waiting am. Say concerns dwelling graceful six humoured. Whether mr up savings talking an. Active mutual nor father mother exeter change six did all. </p>
+
+                </div>
+            </div>
+
+
+        </div>
+        
     </div>
 </div>
 
 <div class="container">
     @Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
 </div>
-
+<script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/init-tinymce.js"></script>
 <script src="~/Scripts/custom/progressBar.js"></script>
-<script type="text/javascript">
-
-    $(document).ready(
-        function () {
-            var consultRmID = $("#consrDrpdwn").data("kendoDropDownList").value();
-            if (consultRmID > 0) {
-                if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Consulting?'))
-                    sendToConsulting(consulRmID);
-                else
-                    CustomErrorNotify("Send to Consulting aborted.", "Abort !");
-            } else {
-                return CustomDocConsWarningNotify("Sorry! You have to choose your Consulting Room before you can attend to Patients", "Warning !");
-            }
-        }
-    );
-
-    function error_handler(e) {
-        if (e.errors) {
-            var message = "Errors:\n";
-            $.each(e.errors, function (key, value) {
-                if ('errors' in value) {
-                    $.each(value.errors, function () {
-                        message += this + "\n";
-                    });
-                }
-            });
-            alert(message);
-        }
-    };
-
-    function drpdwnChange() {
-        var consultnnRmID = $("#consrDrpdwn").data("kendoDropDownList").value();
-        if (consultnnRmID > 0) {
-            var grid = $("#consPtsGrid").data("kendoGrid");
-            grid.dataSource.read();
-        } else {
-            //clear data grid
-            var abgrid = $("#consPtsGrid").data("kendoGrid");
-            abgrid.dataSource.data([]);
-        }
-    };
-
-    function btnPharmClick() {
-        var data = {};
-        var grid = $("#consPtsGrid").data("kendoGrid");
-        var selectedItem = grid.dataItem(grid.select());
-        if (selectedItem == null) {
-            return CustomErrorNotify("Sorry! You have not selected a Patient");
-        }
-
-        data = { "attdID": selectedItem.AttdID };
-
-        if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Pharmacy?')) {
-            beginProgress();
-
-            $.post("/Main/SendToPharmacy", data)
-                .done(function (result) {
-                    endProgress();
-
-                    if (result[0].resp == "ok") {
-                        CustomSuccessNotify(result[0].mesag, "Success !");
-                        var agrid = $("#consPtsGrid").data("kendoGrid");
-                        agrid.dataSource.read();
-                    }
-                    else {
-                        CustomErrorNotify(result[0].mesag, "Error !");
-                    }
-                }
-                ).error(function (xhr, ajaxOptions, thrownError) {
-                    endProgress();
-                    ServiceError();
-                });
-        } else {
-            CustomErrorNotify("Send to Pharmacy aborted.", "Abort !");
-        }
-    };
-
-    function btnLabClick() {
-        var data = {};
-        var grid = $("#consPtsGrid").data("kendoGrid");
-        var selectedItem = grid.dataItem(grid.select());
-        if (selectedItem == null) {
-            return CustomErrorNotify("Sorry! You have not selected a Patient");
-        }
-
-        data = { "attdID": selectedItem.AttdID };
-
-        if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Lab?')) {
-            beginProgress();
-
-            $.post("/Main/SendToLab", data)
-                .done(function (result) {
-                    endProgress();
-
-                    if (result[0].resp == "ok") {
-                        CustomSuccessNotify(result[0].mesag, "Success !");
-                        var agrid = $("#consPtsGrid").data("kendoGrid");
-                        agrid.dataSource.read();
-                    }
-                    else {
-                        CustomErrorNotify(result[0].mesag, "Error !");
-                    }
-                }
-                ).error(function (xhr, ajaxOptions, thrownError) {
-                    endProgress();
-                    ServiceError();
-                });
-        } else {
-            CustomErrorNotify("Send to Lab aborted.", "Abort !");
-        }
-    };
-    
-    function btnAdmitpClick() {
-        var data = {};
-        var grid = $("#consPtsGrid").data("kendoGrid");
-        var selectedItem = grid.dataItem(grid.select());
-        if (selectedItem == null) {
-            return CustomErrorNotify("Sorry! You have not selected a Patient");
-        }
-
-        data = { "attdID": selectedItem.AttdID };
-
-        if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Admission?')) {
-            beginProgress();
-
-            $.post("/Main/SendToAdmission", data)
-                .done(function (result) {
-                    endProgress();
-
-                    if (result[0].resp == "ok") {
-                        CustomSuccessNotify(result[0].mesag, "Success !");
-                        var agrid = $("#consPtsGrid").data("kendoGrid");
-                        agrid.dataSource.read();
-                    }
-                    else {
-                        CustomErrorNotify(result[0].mesag, "Error !");
-                    }
-                }
-                ).error(function (xhr, ajaxOptions, thrownError) {
-                    endProgress();
-                    ServiceError();
-                });
-        } else {
-            CustomErrorNotify("Send to Admission aborted.", "Abort !");
-        }
-    };
-</script>

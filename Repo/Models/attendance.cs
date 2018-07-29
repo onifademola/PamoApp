@@ -18,11 +18,7 @@ namespace Repo.Models
         public attendance()
         {
             this.Admissions = new HashSet<Admission>();
-            this.diagnosis = new HashSet<diagnosi>();
-            this.PatientComplaints = new HashSet<PatientComplaint>();
-            this.phyexams = new HashSet<phyexam>();
             this.prescriptions = new HashSet<prescription>();
-            this.procedurs = new HashSet<procedur>();
             this.ProcessFlows = new HashSet<ProcessFlow>();
         }
     
@@ -37,22 +33,13 @@ namespace Repo.Models
         public Nullable<int> ConsultingRoomID { get; set; }
         public string Room { get; set; }
         public string ServiceType { get; set; }
-        public string NHISNo { get; set; }
-        public string SchemeID { get; set; }
+        public string Note { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Admission> Admissions { get; set; }
         public virtual patient patient { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<diagnosi> diagnosis { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PatientComplaint> PatientComplaints { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<phyexam> phyexams { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<prescription> prescriptions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<procedur> procedurs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProcessFlow> ProcessFlows { get; set; }
     }

@@ -8,7 +8,9 @@ namespace Repo.Repos
     public interface IRepo_PFlow : IRepositoryBase<ProcessFlow>
     {
         AspNetUser GetUserDoingTask(string userASPIdentityID);
-        
+        dto_Attendance GetAttendance(int AttID);
+        bool UpdateAttendance(dto_Attendance attd);
+
         bool QueuePatientAtOPDFromLab(int AttID, AspNetUser userDoingTask);
         bool QueuePatientAtConsulting(int AttID, int consultingRoomID, AspNetUser userDoingTask);
         bool QueuePatientAtLab(int AttID, AspNetUser userDoingTask);

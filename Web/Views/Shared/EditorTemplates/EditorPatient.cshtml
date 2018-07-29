@@ -8,7 +8,7 @@
     @Html.LabelFor(model => model.FirstName)
 </div>
 <div>
-    @Html.ValueFor(model => model.FirstName)
+    @Html.TextBoxFor(model => model.FirstName, new { @readonly = "true", style = "border: 0px; " })
     
 </div>
 
@@ -16,6 +16,6 @@
     @Html.LabelFor(model => model.CardNumber)
 </div>
 <div>
-    @Html.Kendo().EditorFor(model => model.CardNumber)
+    @Html.TextBoxFor(model => model.CardNumber, new { @readonly = "true" })
     @Html.ValidationMessageFor(model => model.CardNumber)
 </div>

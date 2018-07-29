@@ -19,7 +19,6 @@ namespace Repo.DTOs
         public Nullable<int> ConsultingRoomID { get; set; }
         public string Room { get; set; }
         public string ServiceType { get; set; }
-        public string NHISNo { get; set; }
-        public string SchemeID { get; set; }
+        public string Note { get; set; }
     }
 }

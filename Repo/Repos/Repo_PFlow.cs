@@ -3,10 +3,7 @@ using OfficeOnline.DataBlock;
 using Repo.DTOs;
 using Repo.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repo.Repos
 {
@@ -30,6 +27,15 @@ namespace Repo.Repos
                 return true;
             else
                 return false;
+        }
+
+        public dto_Attendance GetAttendance(int AttID)
+        {
+            dto_Attendance attendance = _entities.attendances.ProjectTo<dto_Attendance>().FirstOrDefault(n => n.ID == AttID);
+            if (attendance == null)
+                return null;
+            else
+                return attendance;
         }
 
         public bool AddNewFlowQueue(FlowQueue fq)

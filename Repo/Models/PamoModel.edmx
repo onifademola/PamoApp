@@ -158,8 +158,7 @@
           <Property Name="ConsultingRoomID" Type="int" />
           <Property Name="Room" Type="varchar" MaxLength="50" />
           <Property Name="ServiceType" Type="varchar" MaxLength="50" />
-          <Property Name="NHISNo" Type="varchar" MaxLength="50" />
-          <Property Name="SchemeID" Type="varchar" MaxLength="20" />
+          <Property Name="Note" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="bank">
           <Key>
@@ -1519,18 +1518,6 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_diagnosis_attendance">
-          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
-          <End Role="diagnosis" Type="Self.diagnosis" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="attendance">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="diagnosis">
-              <PropertyRef Name="AttID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_patient_ClientCompany">
           <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="0..1" />
           <End Role="patient" Type="Self.patient" Multiplicity="*" />
@@ -1543,30 +1530,6 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PatientComplaint_attendance">
-          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
-          <End Role="PatientComplaint" Type="Self.PatientComplaint" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="attendance">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PatientComplaint">
-              <PropertyRef Name="AttID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_phyexam_attendance">
-          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
-          <End Role="phyexam" Type="Self.phyexam" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="attendance">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="phyexam">
-              <PropertyRef Name="AttID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_prescription_attendance">
           <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
           <End Role="prescription" Type="Self.prescription" Multiplicity="*" />
@@ -1575,18 +1538,6 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="prescription">
-              <PropertyRef Name="AttID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_procedur_attendance">
-          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
-          <End Role="procedur" Type="Self.procedur" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="attendance">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="procedur">
               <PropertyRef Name="AttID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2052,29 +2003,13 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
             <End Role="patient" EntitySet="patient" />
             <End Role="delivery" EntitySet="delivery" />
           </AssociationSet>
-          <AssociationSet Name="FK_diagnosis_attendance" Association="Self.FK_diagnosis_attendance">
-            <End Role="attendance" EntitySet="attendance" />
-            <End Role="diagnosis" EntitySet="diagnosis" />
-          </AssociationSet>
           <AssociationSet Name="FK_patient_ClientCompany" Association="Self.FK_patient_ClientCompany">
             <End Role="ClientCompany" EntitySet="ClientCompany" />
             <End Role="patient" EntitySet="patient" />
           </AssociationSet>
-          <AssociationSet Name="FK_PatientComplaint_attendance" Association="Self.FK_PatientComplaint_attendance">
-            <End Role="attendance" EntitySet="attendance" />
-            <End Role="PatientComplaint" EntitySet="PatientComplaint" />
-          </AssociationSet>
-          <AssociationSet Name="FK_phyexam_attendance" Association="Self.FK_phyexam_attendance">
-            <End Role="attendance" EntitySet="attendance" />
-            <End Role="phyexam" EntitySet="phyexam" />
-          </AssociationSet>
           <AssociationSet Name="FK_prescription_attendance" Association="Self.FK_prescription_attendance">
             <End Role="attendance" EntitySet="attendance" />
             <End Role="prescription" EntitySet="prescription" />
-          </AssociationSet>
-          <AssociationSet Name="FK_procedur_attendance" Association="Self.FK_procedur_attendance">
-            <End Role="attendance" EntitySet="attendance" />
-            <End Role="procedur" EntitySet="procedur" />
           </AssociationSet>
           <AssociationSet Name="FK_ProcessFlow_attendance" Association="Self.FK_ProcessFlow_attendance">
             <End Role="attendance" EntitySet="attendance" />
@@ -2248,15 +2183,10 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="ConsultingRoomID" Type="Int32" />
           <Property Name="Room" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ServiceType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NHISNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SchemeID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Admissions" Relationship="Self.FK_Admission_attendance" FromRole="attendance" ToRole="Admission" />
           <NavigationProperty Name="patient" Relationship="Self.FK_attendance_patient" FromRole="attendance" ToRole="patient" />
-          <NavigationProperty Name="diagnosis" Relationship="Self.FK_diagnosis_attendance" FromRole="attendance" ToRole="diagnosis" />
-          <NavigationProperty Name="PatientComplaints" Relationship="Self.FK_PatientComplaint_attendance" FromRole="attendance" ToRole="PatientComplaint" />
-          <NavigationProperty Name="phyexams" Relationship="Self.FK_phyexam_attendance" FromRole="attendance" ToRole="phyexam" />
           <NavigationProperty Name="prescriptions" Relationship="Self.FK_prescription_attendance" FromRole="attendance" ToRole="prescription" />
-          <NavigationProperty Name="procedurs" Relationship="Self.FK_procedur_attendance" FromRole="attendance" ToRole="procedur" />
           <NavigationProperty Name="ProcessFlows" Relationship="Self.FK_ProcessFlow_attendance" FromRole="attendance" ToRole="ProcessFlow" />
         </EntityType>
         <EntityType Name="bank">
@@ -2462,7 +2392,6 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="DiagnosedByID" Type="Int32" />
           <Property Name="DiagnosedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AttID" Type="Int32" />
-          <NavigationProperty Name="attendance" Relationship="Self.FK_diagnosis_attendance" FromRole="diagnosis" ToRole="attendance" />
         </EntityType>
         <EntityType Name="diagnosis_type">
           <Key>
@@ -2867,7 +2796,6 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="TakenBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TakenByID" Type="Int32" />
           <Property Name="AttID" Type="Int32" />
-          <NavigationProperty Name="attendance" Relationship="Self.FK_PatientComplaint_attendance" FromRole="PatientComplaint" ToRole="attendance" />
         </EntityType>
         <EntityType Name="phyexam">
           <Key>
@@ -2882,7 +2810,6 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="Doctor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AttID" Type="Int32" />
           <Property Name="Temp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="attendance" Relationship="Self.FK_phyexam_attendance" FromRole="phyexam" ToRole="attendance" />
         </EntityType>
         <EntityType Name="prescription">
           <Key>
@@ -2919,7 +2846,6 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="DoctorID" Type="Int32" />
           <Property Name="Doctor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AttID" Type="Int32" />
-          <NavigationProperty Name="attendance" Relationship="Self.FK_procedur_attendance" FromRole="procedur" ToRole="attendance" />
         </EntityType>
         <EntityType Name="ProcessFlow">
           <Key>
@@ -3503,42 +3429,6 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_diagnosis_attendance">
-          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
-          <End Role="diagnosis" Type="Self.diagnosi" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="attendance">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="diagnosis">
-              <PropertyRef Name="AttID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PatientComplaint_attendance">
-          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
-          <End Role="PatientComplaint" Type="Self.PatientComplaint" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="attendance">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PatientComplaint">
-              <PropertyRef Name="AttID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_phyexam_attendance">
-          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
-          <End Role="phyexam" Type="Self.phyexam" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="attendance">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="phyexam">
-              <PropertyRef Name="AttID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_prescription_attendance">
           <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
           <End Role="prescription" Type="Self.prescription" Multiplicity="*" />
@@ -3547,18 +3437,6 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="prescription">
-              <PropertyRef Name="AttID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_procedur_attendance">
-          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
-          <End Role="procedur" Type="Self.procedur" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="attendance">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="procedur">
               <PropertyRef Name="AttID" />
             </Dependent>
           </ReferentialConstraint>
@@ -3748,25 +3626,9 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
             <End Role="patient" EntitySet="patients" />
             <End Role="attendance" EntitySet="attendances" />
           </AssociationSet>
-          <AssociationSet Name="FK_diagnosis_attendance" Association="Self.FK_diagnosis_attendance">
-            <End Role="attendance" EntitySet="attendances" />
-            <End Role="diagnosis" EntitySet="diagnosis" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PatientComplaint_attendance" Association="Self.FK_PatientComplaint_attendance">
-            <End Role="attendance" EntitySet="attendances" />
-            <End Role="PatientComplaint" EntitySet="PatientComplaints" />
-          </AssociationSet>
-          <AssociationSet Name="FK_phyexam_attendance" Association="Self.FK_phyexam_attendance">
-            <End Role="attendance" EntitySet="attendances" />
-            <End Role="phyexam" EntitySet="phyexams" />
-          </AssociationSet>
           <AssociationSet Name="FK_prescription_attendance" Association="Self.FK_prescription_attendance">
             <End Role="attendance" EntitySet="attendances" />
             <End Role="prescription" EntitySet="prescriptions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_procedur_attendance" Association="Self.FK_procedur_attendance">
-            <End Role="attendance" EntitySet="attendances" />
-            <End Role="procedur" EntitySet="procedurs" />
           </AssociationSet>
           <AssociationSet Name="FK_ProcessFlow_attendance" Association="Self.FK_ProcessFlow_attendance">
             <End Role="attendance" EntitySet="attendances" />
@@ -3952,8 +3814,7 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
                 <ScalarProperty Name="ConsultingRoomID" ColumnName="ConsultingRoomID" />
                 <ScalarProperty Name="Room" ColumnName="Room" />
                 <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
-                <ScalarProperty Name="NHISNo" ColumnName="NHISNo" />
-                <ScalarProperty Name="SchemeID" ColumnName="SchemeID" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
