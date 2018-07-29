@@ -49,10 +49,25 @@ function tinyMceChange(ed) {
 //called when doctor select a new patient in consultation queue
 function onChange(arg) {
     //when called, get doctor's report of selected patient if exists, or create new
-    $.get("/Scripts/tinymce/tinytemplates/docreport1.html", function (d) {
-        tinyMCE.get('texteditor').setContent(d);
-    });
+    var data = {};
+    var grid = $("#consPtsGrid").data("kendoGrid");
+    var selectedItem = grid.dataItem(grid.select());
+    if (selectedItem != null) {
+        data = { "attdId": selectedItem.AttdID };
 
+        $.post("/Consultation/GetDocReportForAttendance", data)
+            .done(function (result) {
+                if (result.length > 2) {
+                    tinyMCE.get('texteditor').setContent(result);
+                }
+                else {
+                    $.get("/Scripts/tinymce/tinytemplates/docreport1.html", function (d) {
+                        tinyMCE.get('texteditor').setContent(d);
+                    });
+                }
+            });    
+    }
+    
     //when called, get the bioviatl of selected patient
     var grid = $("#GridBV").data("kendoGrid");
     grid.dataSource.read();
@@ -60,6 +75,13 @@ function onChange(arg) {
 
 function drpdwnOpen() {
     $("#biov").hide();
+
+    //clear grid
+    var grid = $("#consPtsGrid").data("kendoGrid");
+    grid.dataSource.data([]);
+
+    //reset doc report
+    tinyMCE.get('texteditor').setContent("Data not yet set");
 };
 
 function drpdwnClose() {
