@@ -13,11 +13,13 @@ namespace Web.Controllers
     {
         public IRepo_Util _irepoUtil;
         public IRepo_PFlow _irepoPFlow;
+        public IRepo_Consulting _irepoConsult;
 
-        public ConsultationController(IRepo_Util irepoUtil, IRepo_PFlow irepoPFlow)
+        public ConsultationController(IRepo_Util irepoUtil, IRepo_PFlow irepoPFlow, IRepo_Consulting irepoConsult)
         {
             _irepoUtil = irepoUtil;
             _irepoPFlow = irepoPFlow;
+            _irepoConsult = irepoConsult;
         }
         
         public string GetDocReportForAttendance(int attdId)
@@ -30,7 +32,8 @@ namespace Web.Controllers
             return "Data not found";
         }
 
-        [HttpPost]        
+        //[HttpPost]
+        [ValidateInput(false)]
         public ActionResult UpdateDocReportForAttendance(int attdID, string note)
         {
             bool result = false;
@@ -56,7 +59,9 @@ namespace Web.Controllers
                 dto_Attendance dtoAtt = new dto_Attendance();
                 dtoAtt.ID = attdsID;
                 dtoAtt.Note = note;
-                bool res = _irepoPFlow.UpdateAttendance(dtoAtt);
+                dtoAtt.DoctorID = userDoingTask.user_id;
+                dtoAtt.Consultant = userDoingTask.Email;
+                bool res = _irepoConsult.UpdateDocRecAttendance(dtoAtt);
                 result = res;
             }
 
@@ -67,7 +72,7 @@ namespace Web.Controllers
                     new
                     {
                         resp = "ok",
-                        mesag = "Patient sent to Consulting !"
+                        mesag = "Report auto updated successfully!"
                     }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -79,7 +84,7 @@ namespace Web.Controllers
                     new
                     {
                         resp = "error",
-                        mesag = "Process aborted, something went wrong. Please check your task and retry, or contact Support."
+                        mesag = "Process aborted, something went wrong. Report not updated."
                     }
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);

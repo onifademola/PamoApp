@@ -41,7 +41,7 @@ namespace Web.DependencyResolution {
             For<IRepo_Patient>().Use<Repo_Patient>();
             For<IRepoBER>().Use<RepoBER>();
             For<IUserRepository>().Use<UserRepository>();
-            //For<IRepo_Labs>().Use<Repo_Labs>();
+            For<IRepo_Consulting>().Use<Repo_Consulting>();
         }
 
         #endregion

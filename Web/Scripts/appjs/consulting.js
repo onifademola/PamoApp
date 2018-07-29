@@ -43,7 +43,33 @@ if (consultRmID < 0) {
 
 //call the save function here so users dont have to save manually
 function tinyMceChange(ed) {
-    console.log('Editor contents was modified. Contents: ' + ed.getContent());
+    //console.log('Editor contents was modified. Contents: ' + ed.getContent());
+    var data = {};
+    var cntnt = ed.getContent();
+    var grid = $("#consPtsGrid").data("kendoGrid");
+    var selectedItem = grid.dataItem(grid.select());
+    
+    data = { "attdID": selectedItem.AttdID, "note": cntnt };
+    //console.log(data);
+    $.ajax({
+        cache: false,
+        type: "GET",
+        //contentType: "application/json; charset=utf-8",
+        //dataType: 'json',
+        url: "/Consultation/UpdateDocReportForAttendance",
+        data: data,
+        success: function (result) {
+            if (result[0].resp === "ok") {
+                CustomSuccessNotify(result[0].mesag, "Success !");
+            }
+            else {
+                //CustomErrorNotify(result[0].mesag, "Error !");
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            //do nothing
+        }
+    });
 };
 
 //called when doctor select a new patient in consultation queue
@@ -52,11 +78,16 @@ function onChange(arg) {
     var data = {};
     var grid = $("#consPtsGrid").data("kendoGrid");
     var selectedItem = grid.dataItem(grid.select());
-    if (selectedItem != null) {
+    if (selectedItem !== null) {
         data = { "attdId": selectedItem.AttdID };
-
-        $.post("/Consultation/GetDocReportForAttendance", data)
-            .done(function (result) {
+        $.ajax({
+            cache: false,
+            type: "GET",
+            //contentType: "application/json; charset=utf-8",
+            //dataType: 'json',
+            url: "/Consultation/GetDocReportForAttendance",
+            data: data,
+            success: function (result) {
                 if (result.length > 2) {
                     tinyMCE.get('texteditor').setContent(result);
                 }
@@ -65,12 +96,16 @@ function onChange(arg) {
                         tinyMCE.get('texteditor').setContent(d);
                     });
                 }
-            });    
-    }
-    
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+               //do nothing
+            }
+        });
+    };
+
     //when called, get the bioviatl of selected patient
-    var grid = $("#GridBV").data("kendoGrid");
-    grid.dataSource.read();
+    var bvgrid = $("#GridBV").data("kendoGrid");
+    bvgrid.dataSource.read();
 };
 
 function drpdwnOpen() {

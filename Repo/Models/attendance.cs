@@ -11,7 +11,8 @@ namespace Repo.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class attendance
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -33,6 +34,7 @@ namespace Repo.Models
         public Nullable<int> ConsultingRoomID { get; set; }
         public string Room { get; set; }
         public string ServiceType { get; set; }
+        [AllowHtml]
         public string Note { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
