@@ -89,7 +89,9 @@
     <Compile Include="DTOs\dto_AspNetUser.cs" />
     <Compile Include="DTOs\dto_Attendance.cs" />
     <Compile Include="DTOs\dto_BioVital.cs" />
+    <Compile Include="DTOs\dto_LabRequest.cs" />
     <Compile Include="DTOs\dto_Patients.cs" />
+    <Compile Include="DTOs\dto_Prescription.cs" />
     <Compile Include="Models\Admission.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>
@@ -355,7 +357,6 @@
     <Compile Include="Repos\IRepoBER.cs" />
     <Compile Include="Repos\IRepositoryBase.cs" />
     <Compile Include="Repos\IRepo_Consulting.cs" />
-    <Compile Include="Repos\IRepo_Labs.cs" />
     <Compile Include="Repos\IRepo_Patient.cs" />
     <Compile Include="Repos\IRepo_PFlow.cs" />
     <Compile Include="Repos\IRepo_Util.cs" />
@@ -365,7 +366,6 @@
     <Compile Include="Repos\RepositoryActionStatus.cs" />
     <Compile Include="Repos\RepositoryBase.cs" />
     <Compile Include="Repos\Repo_Consulting.cs" />
-    <Compile Include="Repos\Repo_Labs.cs" />
     <Compile Include="Repos\Repo_Patient.cs" />
     <Compile Include="Repos\Repo_PFlow.cs" />
     <Compile Include="Repos\Repo_Util.cs" />

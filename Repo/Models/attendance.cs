@@ -11,14 +11,14 @@ namespace Repo.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
-
+    
     public partial class attendance
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public attendance()
         {
             this.Admissions = new HashSet<Admission>();
+            this.labrequests = new HashSet<labrequest>();
             this.prescriptions = new HashSet<prescription>();
             this.ProcessFlows = new HashSet<ProcessFlow>();
         }
@@ -34,12 +34,13 @@ namespace Repo.Models
         public Nullable<int> ConsultingRoomID { get; set; }
         public string Room { get; set; }
         public string ServiceType { get; set; }
-        [AllowHtml]
         public string Note { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Admission> Admissions { get; set; }
         public virtual patient patient { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<labrequest> labrequests { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<prescription> prescriptions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

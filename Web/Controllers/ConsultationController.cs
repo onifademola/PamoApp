@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using Microsoft.AspNet.Identity;
 using Repo.DTOs;
 using Repo.Repos;
 using System;
@@ -90,5 +92,58 @@ namespace Web.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }
+
+        #region PRESCRIPTION CODECS
+        public JsonResult Prescription_Read([DataSourceRequest] DataSourceRequest request, int attId)
+        {
+            var model = _irepoConsult.GetPrescriptionForAttendance(attId);
+            JsonResult result = Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            result.MaxJsonLength = int.MaxValue;
+            return result;
+        }
+        
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Prescription_Create([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_Prescription> prescripts, int attId)
+        {
+            foreach (var prescrip in prescripts)
+            {
+                if (prescrip != null && ModelState.IsValid)
+                {
+                    _irepoConsult.AddPrescription(prescrip, attId);
+                }
+            }
+
+            return Json(prescripts.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Prescription_BatchUpdate([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_Prescription> prescripts)
+        {
+            foreach (var prescript in prescripts)
+            {
+                if (prescript != null)
+                {
+                    _irepoConsult.EditPrescription(prescript);
+                }
+            }
+
+            return Json(prescripts.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Prescription_Destroy([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_Prescription> prescripts)
+        {
+            foreach (var prescript in prescripts)
+            {
+                if (prescript != null && ModelState.IsValid)
+                {
+                    _irepoConsult.DeletePrescription(prescript.ID);
+                }
+            }
+
+            return Json(prescripts.ToDataSourceResult(request, ModelState));
+        }
+
+        #endregion
     }
 }

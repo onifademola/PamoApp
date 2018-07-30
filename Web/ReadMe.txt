@@ -96,10 +96,11 @@ The involved tables are:
 REFACTORING NOTES:
 -- WardRound is done on Admission, hence WardRound should be mapped to Admission Table, not Patient
 
-QUES
-1. Who schedules appointment? Doctor i guess !
+MEETING QUES
+1. Who schedules appointment? Doctor i guess, or is it front desk ?
 2. Get lab report templates
 3. Get doctor's report template
+4. Can prescription be altered by pharmacy without doctor's consent ?
 
 
 TABLES CONVERTED TO FIELDS:

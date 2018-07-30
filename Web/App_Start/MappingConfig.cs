@@ -33,6 +33,12 @@ namespace Web.App_Start
 
                 config.CreateMap<attendance, dto_Attendance>();
                 config.CreateMap<dto_Attendance, attendance>();
+
+                config.CreateMap<prescription, dto_Prescription>();
+                config.CreateMap<dto_Prescription, prescription>();
+
+                config.CreateMap<labrequest, dto_LabRequest>();
+                config.CreateMap<dto_LabRequest, labrequest>();
             });
         }
     }

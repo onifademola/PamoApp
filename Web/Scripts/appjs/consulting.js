@@ -106,10 +106,15 @@ function onChange(arg) {
     //when called, get the bioviatl of selected patient
     var bvgrid = $("#GridBV").data("kendoGrid");
     bvgrid.dataSource.read();
+    //$("#biov").show();
+
+    //when called, get the drug prescription of selected patient
+    var prgrid = $("#PrescGrid").data("kendoGrid");
+    prgrid.dataSource.read();
 };
 
 function drpdwnOpen() {
-    $("#biov").hide();
+    //$("#biov").hide();
 
     //clear grid
     var grid = $("#consPtsGrid").data("kendoGrid");

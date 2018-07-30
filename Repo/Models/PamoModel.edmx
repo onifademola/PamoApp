@@ -669,15 +669,18 @@ warning 6002: The table/view 'PamoDb.dbo.grade level' does not have a primary ke
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PatientID" Type="int" />
+          <Property Name="AttID" Type="int" />
           <Property Name="CardNumber" Type="varchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
           <Property Name="Test" Type="varchar" MaxLength="70" />
           <Property Name="Remark" Type="varchar(max)" />
           <Property Name="DoctorID" Type="int" />
           <Property Name="Doctor" Type="varchar" MaxLength="50" />
-          <Property Name="AttID" Type="bigint" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="Paid" Type="smallint" />
+          <Property Name="DoneBy" Type="nvarchar" MaxLength="255" />
+          <Property Name="DoneByID" Type="int" />
+          <Property Name="DoneOn" Type="datetime" />
         </EntityType>
         <EntityType Name="labw">
           <Key>
@@ -961,7 +964,11 @@ warning 6002: The table/view 'PamoDb.dbo.pnc' does not have a primary key define
           <Property Name="Mgt" Type="varchar" MaxLength="50" />
           <Property Name="SCode" Type="varchar" MaxLength="50" />
           <Property Name="Paid" Type="smallint" />
-          <Property Name="Staff" Type="varchar" MaxLength="48" Nullable="false" />
+          <Property Name="Staff" Type="varchar" MaxLength="48" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="50" />
+          <Property Name="DispensedByID" Type="int" />
+          <Property Name="DispensedBy" Type="nvarchar" MaxLength="255" />
+          <Property Name="DispensedOn" Type="datetime" />
         </EntityType>
         <EntityType Name="procedur">
           <Key>
@@ -1518,6 +1525,18 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_labrequest_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="labrequest" Type="Self.labrequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="labrequest">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_patient_ClientCompany">
           <End Role="ClientCompany" Type="Self.ClientCompany" Multiplicity="0..1" />
           <End Role="patient" Type="Self.patient" Multiplicity="*" />
@@ -2003,6 +2022,10 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
             <End Role="patient" EntitySet="patient" />
             <End Role="delivery" EntitySet="delivery" />
           </AssociationSet>
+          <AssociationSet Name="FK_labrequest_attendance" Association="Self.FK_labrequest_attendance">
+            <End Role="attendance" EntitySet="attendance" />
+            <End Role="labrequest" EntitySet="labrequest" />
+          </AssociationSet>
           <AssociationSet Name="FK_patient_ClientCompany" Association="Self.FK_patient_ClientCompany">
             <End Role="ClientCompany" EntitySet="ClientCompany" />
             <End Role="patient" EntitySet="patient" />
@@ -2186,6 +2209,7 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Admissions" Relationship="Self.FK_Admission_attendance" FromRole="attendance" ToRole="Admission" />
           <NavigationProperty Name="patient" Relationship="Self.FK_attendance_patient" FromRole="attendance" ToRole="patient" />
+          <NavigationProperty Name="labrequests" Relationship="Self.FK_labrequest_attendance" FromRole="attendance" ToRole="labrequest" />
           <NavigationProperty Name="prescriptions" Relationship="Self.FK_prescription_attendance" FromRole="attendance" ToRole="prescription" />
           <NavigationProperty Name="ProcessFlows" Relationship="Self.FK_ProcessFlow_attendance" FromRole="attendance" ToRole="ProcessFlow" />
         </EntityType>
@@ -2679,15 +2703,19 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PatientID" Type="Int32" />
+          <Property Name="AttID" Type="Int32" />
           <Property Name="CardNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Test" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
           <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DoctorID" Type="Int32" />
           <Property Name="Doctor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AttID" Type="Int64" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Paid" Type="Int16" />
+          <Property Name="DoneBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DoneByID" Type="Int32" />
+          <Property Name="DoneOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="attendance" Relationship="Self.FK_labrequest_attendance" FromRole="labrequest" ToRole="attendance" />
         </EntityType>
         <EntityType Name="labw">
           <Key>
@@ -2830,7 +2858,11 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <Property Name="Mgt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Paid" Type="Int16" />
-          <Property Name="Staff" Type="String" MaxLength="48" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Staff" Type="String" MaxLength="48" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DispensedByID" Type="Int32" />
+          <Property Name="DispensedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DispensedOn" Type="DateTime" Precision="3" />
           <NavigationProperty Name="attendance" Relationship="Self.FK_prescription_attendance" FromRole="prescription" ToRole="attendance" />
         </EntityType>
         <EntityType Name="procedur">
@@ -3429,6 +3461,18 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_labrequest_attendance">
+          <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
+          <End Role="labrequest" Type="Self.labrequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="attendance">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="labrequest">
+              <PropertyRef Name="AttID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_prescription_attendance">
           <End Role="attendance" Type="Self.attendance" Multiplicity="0..1" />
           <End Role="prescription" Type="Self.prescription" Multiplicity="*" />
@@ -3625,6 +3669,10 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
           <AssociationSet Name="FK_attendance_patient" Association="Self.FK_attendance_patient">
             <End Role="patient" EntitySet="patients" />
             <End Role="attendance" EntitySet="attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_labrequest_attendance" Association="Self.FK_labrequest_attendance">
+            <End Role="attendance" EntitySet="attendances" />
+            <End Role="labrequest" EntitySet="labrequests" />
           </AssociationSet>
           <AssociationSet Name="FK_prescription_attendance" Association="Self.FK_prescription_attendance">
             <End Role="attendance" EntitySet="attendances" />
@@ -4332,15 +4380,18 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
               <MappingFragment StoreEntitySet="labrequest">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="AttID" ColumnName="AttID" />
                 <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Test" ColumnName="Test" />
                 <ScalarProperty Name="Remark" ColumnName="Remark" />
                 <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
                 <ScalarProperty Name="Doctor" ColumnName="Doctor" />
-                <ScalarProperty Name="AttID" ColumnName="AttID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="DoneBy" ColumnName="DoneBy" />
+                <ScalarProperty Name="DoneByID" ColumnName="DoneByID" />
+                <ScalarProperty Name="DoneOn" ColumnName="DoneOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4487,6 +4538,10 @@ warning 6002: The table/view 'PamoDb.dbo.vwFlowQueueAttendance' does not have a 
                 <ScalarProperty Name="SCode" ColumnName="SCode" />
                 <ScalarProperty Name="Paid" ColumnName="Paid" />
                 <ScalarProperty Name="Staff" ColumnName="Staff" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="DispensedByID" ColumnName="DispensedByID" />
+                <ScalarProperty Name="DispensedBy" ColumnName="DispensedBy" />
+                <ScalarProperty Name="DispensedOn" ColumnName="DispensedOn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
