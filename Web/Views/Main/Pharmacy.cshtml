@@ -75,7 +75,83 @@
         )
     </div>
     <div class="col-md-8" id="scoreList">
-        
+        <div id="prescrip">
+            @(Html.Kendo().Grid<Repo.DTOs.dto_Prescription>()
+                .Name("PrescGrid")
+                .NoRecords("No prescription found")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.Prescription1);
+                    columns.Bound(c => c.Dose);
+                    columns.Bound(c => c.Duration);
+                    columns.Bound(c => c.Qty);
+                    columns.Bound(c => c.DispensedBy);
+                    columns.Bound(c => c.DispensedOn).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("Date");
+                    //columns.ForeignKey(c => c.RecordedById, (System.Collections.IEnumerable)ViewData["recBy"], "Value", "Text")
+                    //.Title("Recorded By");
+                    columns.Command(command => { command.Destroy(); });//.Width(250);
+                })
+                .ToolBar(toolbar =>
+                {
+                    toolbar.Create();
+                    toolbar.Save();
+                    toolbar.Excel();
+                })
+                .Editable(editable => editable.Mode(GridEditMode.InCell))
+                .AutoBind(false)
+                .Resizable(r => r.Columns(true))
+                .Scrollable(sc => sc.Endless(true))
+                .Sortable()
+                .Selectable(selectable => selectable
+                .Mode(GridSelectionMode.Single))
+                .Mobile(MobileMode.Auto)
+                .Pageable(p => p.Numeric(false)
+                    .PreviousNext(false)
+                    .Refresh(true)
+                )
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(true)
+                .ServerOperation(false)
+                .PageSize(50)
+                .Events(e =>
+                {
+                    e.Error("error_handler");
+                })
+                .Model(model =>
+                {
+                    model.Id(p => p.ID);
+                    model.Field(p => p.Dose).Editable(false);
+                    model.Field(p => p.Duration).Editable(false);
+                    model.Field(p => p.Qty).Editable(false);
+                    model.Field(p => p.DispensedBy).Editable(false);
+                    model.Field(p => p.DispensedOn).Editable(false);
+                })
+                    .Read(read => read.Action("Prescription_Read", "Consultation").Data("filterPreData"))
+                    .Update(update => update.Action("Prescription_BatchUpdate", "Consultation"))
+                    .Create(c => c.Action("Prescription_Create", "Consultation").Data("filterPreData"))
+                    .Destroy(d => d.Action("Prescription_Delete", "Consultation"))
+                )
+            )
+            <script>
+                function filterPreData() {
+                    var grid = $("#GridPharm").data("kendoGrid");
+                    if (grid != null) {
+                        var selectedItem = grid.dataItem(grid.select());
+                        if (selectedItem != null) {
+                            return {
+                                attId: selectedItem.AttdID
+                            };
+                        } else {
+                            return {
+                                patientID: 0
+                            };
+                        }
+                    }
+                };
+            </script>
+        </div>
+
     </div>
 
 </div>
@@ -84,100 +160,6 @@
     @Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
 </div>
 
+<script src="~/Scripts/appjs/pharmacy.js"></script>
 <script src="~/Scripts/custom/progressBar.js"></script>
-<script type="text/javascript">
-    function error_handler(e) {
-        if (e.errors) {
-            var message = "Errors:\n";
-            $.each(e.errors, function (key, value) {
-                if ('errors' in value) {
-                    $.each(value.errors, function () {
-                        message += this + "\n";
-                    });
-                }
-            });
-            alert(message);
-        }
-            }
-
-    function csonClick() {
-        if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Accounts?'))
-            sendToAccounts();
-        else
-            CustomErrorNotify("Send to Accounts aborted.", "Abort !");      
-    };
-    
-    
-    function sendToAccounts() {
-        //console.log(consulRmID);
-        var grid = $("#GridPharm").data("kendoGrid");
-        var selectedItem = grid.dataItem(grid.select());
-        //console.log(selectedItem);
-        if (selectedItem == null) {
-            return CustomErrorNotify("Sorry! You have not selected a Patient", "Error !");
-        }
-        var data = {
-            "attdID": selectedItem.AttdID
-        };
-
-        beginProgress();
-
-        $.post("/Main/SendToAccounts", data)
-            .done(function (result) {
-                endProgress();
-
-                if (result[0].resp == "ok") {
-                    CustomSuccessNotify(result[0].mesag, "Success !");
-
-                    var agrid = $("#GridPharm").data("kendoGrid");
-                    agrid.dataSource.read();
-                    //clear bio data grid
-                    //var abgrid = $("#GridBV").data("kendoGrid");
-                    //abgrid.dataSource.data([]);
-                    
-                }
-                else {
-                    CustomErrorNotify(result[0].mesag, "Error !");
-                }
-            }
-            ).error(function (xhr, ajaxOptions, thrownError) {
-                endProgress();
-                ServiceError();
-            }
-            );
-    };
-
-    $(function () {
-        // Declare a proxy to reference the hub.
-        var notifications = $.connection.flowQueueHub;
-
-        // Create a function that the hub can call to broadcast messages.
-        notifications.client.updatePharmMsgs = function () {
-
-            var clsRegGrid = $("#GridPharm").data("kendoGrid");
-            clsRegGrid.dataSource.read();
-
-            CustomQueueNotify("New Patient arrives Pharmacy", "Out Patient Alert !");
-        };
-        // Start the connection.
-        $.connection.hub.start().done(function () {
-            //alert("connection started")
-        }).fail(function (e) {
-            //alert(e);
-        });
-    });
-    
-    function onChange(arg) {
-        //kendoConsole.log("The selected product ids are: [" + this.selectedKeyNames().join(", ") + "]");
-        var grid = $("#GridBV").data("kendoGrid");
-        grid.dataSource.read();
-        $("#scoreList").show();
-        $("#scoreTop").show();
-    }
-    
-    function onFilterChange() {
-        $("#scoreList").hide();
-        $("#scoreTop").hide();
-    }
-</script>
 

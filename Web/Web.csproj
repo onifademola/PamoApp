@@ -1632,6 +1632,8 @@
     <Content Include="layout_assets\less\xenon-less\index.html" />
     <Content Include="ReadMe.txt" />
     <Content Include="Scripts\appjs\consulting.js" />
+    <Content Include="Scripts\appjs\lab.js" />
+    <Content Include="Scripts\appjs\pharmacy.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
