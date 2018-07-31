@@ -1,6 +1,5 @@
 ﻿tinymce.init({
     selector: "textarea.tinymce",
-    plugins: 'advlist autolink link image lists charmap print preview',
     formats: {
         alignleft: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'left' },
         aligncenter: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'center' },
@@ -15,7 +14,7 @@
         custom_format: { block: 'h1', attributes: { title: 'Header' }, styles: { color: 'red' } }
     },
     templates: [
-        { title: 'Report Type 1', description: 'Type 1 doctor\'s report', url: '/Scripts/tinymce/tinytemplates/docreport1.html' }
+        { title: 'Report Type 1', description: 'Type 1 doctor\'s report', url: '/TinyHtmlTemplates/docreport1.html' }
     ],
     theme: 'modern',
     //width: 600,

@@ -15,5 +15,13 @@ namespace Repo.Repos
         RepositoryActionResult<dto_Prescription> UpdatePrescriptionByPahrm(dto_Prescription bio);
         RepositoryActionResult<dto_Prescription> DeletePrescription(int bioId);
         #endregion
+
+        #region LAB Repo
+        IQueryable<dto_LabRequest> GetAllLabRequests();
+        IQueryable<dto_LabRequest> GetLabRequestForAttendance(int attdID);
+        RepositoryActionResult<dto_LabRequest> AddLab(dto_LabRequest pat, int attdId);
+        RepositoryActionResult<dto_LabRequest> EditLab(dto_LabRequest pat);
+        RepositoryActionResult<dto_LabRequest> DeleteLab(int labId);
+        #endregion
     }
 }

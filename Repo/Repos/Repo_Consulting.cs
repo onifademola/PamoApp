@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using Repo.DTOs;
 using Repo.Models;
 using System;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Repo.Repos
@@ -133,16 +134,23 @@ namespace Repo.Repos
         #endregion
 
         #region LAB Repo
-        public IQueryable GetAllLabws()
+        public IQueryable<dto_LabRequest> GetAllLabRequests()
         {
-            var model = _entities.labws;
+            var model = _entities.labrequests.ProjectTo<dto_LabRequest>();
             return model;
         }
 
-        public RepositoryActionResult<dto_LabRequest> AddLab(dto_LabRequest pat)
+        public IQueryable<dto_LabRequest> GetLabRequestForAttendance(int attdID)
+        {
+            var allPres = _entities.labrequests.ProjectTo<dto_LabRequest>().Where(n => n.AttID == attdID);
+            return allPres;
+        }
+
+        public RepositoryActionResult<dto_LabRequest> AddLab(dto_LabRequest pat, int attdId)
         {
             try
             {
+                pat.AttID = attdId;
                 var entity = Mapper.Map<labrequest>(pat);
                 _entities.labrequests.Add(entity);
                 var result = _entities.SaveChanges();
@@ -161,30 +169,57 @@ namespace Repo.Repos
             }
         }
 
-        public bool EditLab(labw pat)
+        public RepositoryActionResult<dto_LabRequest> EditLab(dto_LabRequest pat)
         {
-            //var entity = Mapper.Map<eregister>(pat);
-            _entities.Set<labw>().Attach(pat);
-            _entities.Entry<labw>(pat).State = System.Data.Entity.EntityState.Modified;
-            _entities.SaveChanges();
-            var result = _entities.SaveChanges();
-            if (result > 0)
-                return true;
-            else
-                return false;
+            try
+            {
+                var getBio = _entities.labrequests.FirstOrDefault(n => n.ID == pat.ID);
+                if (getBio == null)
+                    return new RepositoryActionResult<dto_LabRequest>(pat, RepositoryActionStatus.NothingModified, null);
+                var entity = Mapper.Map<labrequest>(pat);
+                var local = _entities.Set<labrequest>().Local.FirstOrDefault(f => f.ID == pat.ID);
+                if (local != null)
+                {
+                    _entities.Entry(local).State = EntityState.Detached;
+                }
+                _entities.Set<labrequest>().Attach(entity);
+                _entities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                var result = _entities.SaveChanges();
+                if (result > 0)
+                {
+                    return new RepositoryActionResult<dto_LabRequest>(pat, RepositoryActionStatus.Updated);
+                }
+                else
+                {
+                    return new RepositoryActionResult<dto_LabRequest>(pat, RepositoryActionStatus.NothingModified, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<dto_LabRequest>(null, RepositoryActionStatus.Error, ex);
+            }
         }
 
-        public bool DeleteLab(int patId)
+        public RepositoryActionResult<dto_LabRequest> DeleteLab(int labId)
         {
-            var patient = _entities.labws.FirstOrDefault(n => n.ID == patId);
-            if (patient == null)
-                return false;
-            _entities.labws.Remove(patient);
-            var result = _entities.SaveChanges();
-            if (result > 0)
-                return true;
-            else
-                return false;
+            try
+            {
+                var biovit = _entities.labrequests.FirstOrDefault(n => n.ID == labId);
+                if (biovit == null)
+                    return new RepositoryActionResult<dto_LabRequest>(null, RepositoryActionStatus.NothingModified);
+                if (string.IsNullOrEmpty(biovit.Remark))
+                    return new RepositoryActionResult<dto_LabRequest>(null, RepositoryActionStatus.NothingModified, "You cannot delete a Lab request with valid Lab report.", "");
+                _entities.labrequests.Remove(biovit);
+                var result = _entities.SaveChanges();
+                if (result > 0)
+                    return new RepositoryActionResult<dto_LabRequest>(null, RepositoryActionStatus.Deleted);
+                else
+                    return new RepositoryActionResult<dto_LabRequest>(null, RepositoryActionStatus.NothingModified);
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<dto_LabRequest>(null, RepositoryActionStatus.Error, ex);
+            }
         }
         #endregion
     }

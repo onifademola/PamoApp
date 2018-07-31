@@ -92,8 +92,8 @@ function onChange(arg) {
                     tinyMCE.get('texteditor').setContent(result);
                 }
                 else {
-                    $.get("/Scripts/tinymce/tinytemplates/docreport1.html", function (d) {
-                        tinyMCE.get('texteditor').setContent(d);
+                    $.get("/TinyHtmlTemplates/docreport1.html", function (content) {
+                        tinyMCE.get('texteditor').setContent(content);
                     });
                 }
             },
@@ -111,6 +111,10 @@ function onChange(arg) {
     //when called, get the drug prescription of selected patient
     var prgrid = $("#PrescGrid").data("kendoGrid");
     prgrid.dataSource.read();
+
+    //when called, get lab requests of selected patient
+    var lbgrid = $("#labReqGrid").data("kendoGrid");
+    lbgrid.dataSource.read();
 };
 
 function drpdwnOpen() {

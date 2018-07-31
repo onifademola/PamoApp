@@ -143,6 +143,66 @@ namespace Web.Controllers
 
             return Json(prescripts.ToDataSourceResult(request, ModelState));
         }
+        #endregion
+
+        #region LAB REQUEST CODECS
+        public JsonResult LabRequestAll_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            var model = _irepoConsult.GetAllLabRequests();
+            JsonResult result = Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            result.MaxJsonLength = int.MaxValue;
+            return result;
+        }
+
+        public JsonResult LabRequest_Read([DataSourceRequest] DataSourceRequest request, int attId)
+        {
+            var model = _irepoConsult.GetLabRequestForAttendance(attId);
+            JsonResult result = Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            result.MaxJsonLength = int.MaxValue;
+            return result;
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult LabRequest_Create([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_LabRequest> labreqs, int attId)
+        {
+            foreach (var labreq in labreqs)
+            {
+                if (labreq != null && ModelState.IsValid)
+                {
+                    _irepoConsult.AddLab(labreq, attId);
+                }
+            }
+
+            return Json(labreqs.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult LabRequest_BatchUpdate([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_LabRequest> labreqs)
+        {
+            foreach (var labreq in labreqs)
+            {
+                if (labreq != null)
+                {
+                    _irepoConsult.EditLab(labreq);
+                }
+            }
+
+            return Json(labreqs.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult LabRequest_Destroy([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_LabRequest> labreqs)
+        {
+            foreach (var labreq in labreqs)
+            {
+                if (labreq != null && ModelState.IsValid)
+                {
+                    _irepoConsult.DeleteLab(labreq.ID);
+                }
+            }
+
+            return Json(labreqs.ToDataSourceResult(request, ModelState));
+        }
 
         #endregion
     }

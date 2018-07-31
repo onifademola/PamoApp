@@ -168,14 +168,14 @@
                     columns.Bound(c => c.RBS);
                     //columns.ForeignKey(c => c.RecordedById, (System.Collections.IEnumerable)ViewData["recBy"], "Value", "Text")
                     //.Title("Recorded By");
-                    columns.Command(command => { command.Edit().Text("View"); command.Destroy(); }).Width(250);
+                    //columns.Command(command => { command.Edit().Text("View"); command.Destroy(); }).Width(250);
                 })
-                .ToolBar(toolbar =>
-                {
-                    toolbar.Create();
-                    toolbar.Excel();
-                })
-                .Editable(editable => editable.Mode(GridEditMode.PopUp))
+                //.ToolBar(toolbar =>
+                //{
+                //    toolbar.Create();
+                //    toolbar.Excel();
+                //})
+                //.Editable(editable => editable.Mode(GridEditMode.PopUp))
                 .AutoBind(false)
                 .Resizable(r => r.Columns(true))
                 .Scrollable(sc => sc.Endless(true))
@@ -199,13 +199,10 @@
                 .Model(model =>
                 {
                     model.Id(p => p.ID);
-                    model.Field(p => p.C_Date).Editable(false);
-                    model.Field(p => p.RecordedById).Editable(false);
+                    //model.Field(p => p.C_Date).Editable(false);
+                    //model.Field(p => p.RecordedById).Editable(false);
                 })
                     .Read(read => read.Action("PatientsBiovital5_Read", "Patient").Data("filternData"))
-                    .Update(update => update.Action("PatientsBioVital_BatchUpdate", "Patient"))
-                    .Create(c => c.Action("PatientsBiovital5_Create", "Patient").Data("filternData"))
-                    .Destroy(d => d.Action("PatientsBiovital5_Delete", "Patient"))
                 )
                         )
                         <script>
@@ -228,7 +225,6 @@
                     </div>                    
                 </div>
                 <div class="tab-pane" id="messages-3">
-
                     <div id="prescrip">
                         @(Html.Kendo().Grid<Repo.DTOs.dto_Prescription>()
                 .Name("PrescGrid")
@@ -243,7 +239,7 @@
                     columns.Bound(c => c.DispensedOn).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("Date");
                     //columns.ForeignKey(c => c.RecordedById, (System.Collections.IEnumerable)ViewData["recBy"], "Value", "Text")
                     //.Title("Recorded By");
-                    //columns.Command(command => { command.Edit().Text("View"); command.Destroy(); }).Width(250);
+                    columns.Command(command => { command.Destroy(); });//.Width(250);
                 })
                 .ToolBar(toolbar =>
                 {
@@ -308,23 +304,76 @@
                 </div>
 
                 <div class="tab-pane" id="settings-3">
-
-                    <p>Luckily friends do ashamed to do suppose. Tried meant mr smile so. Exquisite behaviour as to middleton perfectly. Chicken no wishing waiting am. Say concerns dwelling graceful six humoured. Whether mr up savings talking an. Active mutual nor father mother exeter change six did all. </p>
-
-                    <p>Carriage quitting securing be appetite it declared. High eyes kept so busy feel call in. Would day nor ask walls known. But preserved advantage are but and certainty earnestly enjoyment. Passage weather as up am exposed. And natural related man subject. Eagerness get situation his was delighted. </p>
-
-                </div>
-
-                <div class="tab-pane" id="inbox-3">
-
-                    <p>Carriage quitting securing be appetite it declared. High eyes kept so busy feel call in. Would day nor ask walls known. But preserved advantage are but and certainty earnestly enjoyment. Passage weather as up am exposed. And natural related man subject. Eagerness get situation his was delighted. </p>
-
-                    <p>Luckily friends do ashamed to do suppose. Tried meant mr smile so. Exquisite behaviour as to middleton perfectly. Chicken no wishing waiting am. Say concerns dwelling graceful six humoured. Whether mr up savings talking an. Active mutual nor father mother exeter change six did all. </p>
-
+                    <div id="labreq">
+                        @(Html.Kendo().Grid<Repo.DTOs.dto_LabRequest>()
+                .Name("labReqGrid")
+                .NoRecords("No lab test requested")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.Test).Title("Requested Test");
+                    columns.Bound(c => c.Doctor).Title("Requested By");
+                    columns.Bound(c => c.DoneBy).Title("Test Done By");
+                    columns.Command(command => { command.Destroy(); });//.Width(250);
+                })
+                .ToolBar(toolbar =>
+                {
+                    toolbar.Create();
+                    toolbar.Save();
+                    toolbar.Excel();
+                })
+                .Editable(editable => editable.Mode(GridEditMode.InCell))
+                .AutoBind(false)
+                .Resizable(r => r.Columns(true))
+                .Scrollable(sc => sc.Endless(true))
+                .Sortable()
+                .Selectable(selectable => selectable
+                .Mode(GridSelectionMode.Single))
+                .Mobile(MobileMode.Auto)
+                .Pageable(p => p.Numeric(false)
+                    .PreviousNext(false)
+                    .Refresh(true)
+                )
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Batch(true)
+                .ServerOperation(false)
+                .PageSize(50)
+                .Events(e =>
+                {
+                    e.Error("error_handler");
+                })
+                .Model(model =>
+                {
+                    model.Id(p => p.ID);
+                    model.Field(p => p.Doctor).Editable(false);
+                    model.Field(p => p.DoneBy).Editable(false);
+                })
+                    .Read(read => read.Action("LabRequest_Read", "Consultation").Data("filterLabData"))
+                    .Update(update => update.Action("LabRequest_BatchUpdate", "Consultation"))
+                    .Create(c => c.Action("LabRequest_Create", "Consultation").Data("filterLabData"))
+                    .Destroy(d => d.Action("LabRequest_Delete", "Consultation"))
+                )
+                        )
+                        <script>
+                            function filterLabData() {
+                                var grid = $("#consPtsGrid").data("kendoGrid");
+                                if (grid != null) {
+                                    var selectedItem = grid.dataItem(grid.select());
+                                    if (selectedItem != null) {
+                                        return {
+                                            attId: selectedItem.AttdID
+                                        };
+                                    } else {
+                                        return {
+                                            patientID: 0
+                                        };
+                                    }
+                                }
+                            };
+                        </script>
+                    </div>
                 </div>
             </div>
-
-
         </div>
         
     </div>
