@@ -455,6 +455,7 @@ namespace Web.Controllers
         public ActionResult Admission()
         {
             ViewData["vstatus"] = _irepoUtil.ProcessStatuses();
+            ViewData["admstatus"] = _irepoUtil.AdmissionStatus();
             return View();
         }
         
@@ -499,6 +500,14 @@ namespace Web.Controllers
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
+        }
+        #endregion
+
+        #region WARD ROUND CODECS
+        public ActionResult WardRound()
+        {
+            ViewData["admstatus"] = _irepoUtil.AdmissionStatus();
+            return View();
         }
         #endregion
     }

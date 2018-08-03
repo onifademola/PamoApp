@@ -39,7 +39,7 @@
                         .Icon("refresh")
                         .Content("Return to OPD")
                         .Events(e => e.Click("csonClick"))
-                        //.Content("<span class='fa-share' title='Click to run process'>Send to Consulting</span>")
+                    //.Content("<span class='fa-share' title='Click to run process'>Send to Consulting</span>")
 
                     )
                 </div>
@@ -85,15 +85,9 @@
                     columns.Bound(c => c.Test).Title("Requested Test");
                     columns.Bound(c => c.Doctor).Title("Requested By");
                     columns.Bound(c => c.DoneBy).Title("Test Done By");
-                    columns.Command(command => { command.Destroy(); });//.Width(250);
+                    //columns.Command(command => { command.Destroy(); });//.Width(250);
                 })
-                .ToolBar(toolbar =>
-                {
-                    toolbar.Create();
-                    toolbar.Save();
-                    toolbar.Excel();
-                })
-                .Editable(editable => editable.Mode(GridEditMode.InCell))
+                //.Editable(editable => editable.Mode(GridEditMode.InCell))
                 .AutoBind(false)
                 .Resizable(r => r.Columns(true))
                 .Scrollable(sc => sc.Endless(true))
@@ -122,8 +116,8 @@
                 })
                     .Read(read => read.Action("LabRequest_Read", "Consultation").Data("filterLabData"))
                     .Update(update => update.Action("LabRequest_BatchUpdate", "Consultation"))
-                    //.Create(c => c.Action("LabRequest_Create", "Consultation").Data("filterLabData"))
-                    //.Destroy(d => d.Action("LabRequest_Delete", "Consultation"))
+                //.Create(c => c.Action("LabRequest_Create", "Consultation").Data("filterLabData"))
+                //.Destroy(d => d.Action("LabRequest_Delete", "Consultation"))
                 )
                 )
                 <script>
@@ -146,15 +140,18 @@
             </div>
 
         </div>
-        <div><textarea class="tinymce" id="texteditor"></textarea></div>       
+        <div>
+            <textarea class="tinymce" id="texteditor"></textarea>
+        </div>
     </div>
 
 </div>
 
-<div class="container">
-    @Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
-</div>
+@Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
 
+
+<script src="~/Scripts/tinymce/jquery.tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/lab-tinymce.js"></script>
 <script src="~/Scripts/appjs/lab.js"></script>
 <script src="~/Scripts/custom/progressBar.js"></script>
-

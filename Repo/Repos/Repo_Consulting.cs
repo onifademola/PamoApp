@@ -222,5 +222,185 @@ namespace Repo.Repos
             }
         }
         #endregion
+
+        #region ADMISSION Repo
+        public IQueryable<dto_Admission> GetAllAdmissions()
+        {
+            var model = _entities.Admissions.ProjectTo<dto_Admission>();
+            return model;
+        }
+
+        public IQueryable<dto_Admission> GetAdmissionForAttendance(int attdID)
+        {
+            var allPres = _entities.Admissions.ProjectTo<dto_Admission>().Where(n => n.AttID == attdID);
+            return allPres;
+        }
+
+        public RepositoryActionResult<dto_Admission> AddAdmission(dto_Admission pat, int attdId)
+        {
+            try
+            {
+                pat.AttID = attdId;
+                var entity = Mapper.Map<Admission>(pat);
+                _entities.Admissions.Add(entity);
+                var result = _entities.SaveChanges();
+                if (result > 0)
+                {
+                    return new RepositoryActionResult<dto_Admission>(pat, RepositoryActionStatus.Created);
+                }
+                else
+                {
+                    return new RepositoryActionResult<dto_Admission>(pat, RepositoryActionStatus.NothingModified, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<dto_Admission>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<dto_Admission> EditAdmission(dto_Admission pat)
+        {
+            try
+            {
+                var getBio = _entities.Admissions.FirstOrDefault(n => n.ID == pat.ID);
+                if (getBio == null)
+                    return new RepositoryActionResult<dto_Admission>(pat, RepositoryActionStatus.NothingModified, null);
+                var entity = Mapper.Map<Admission>(pat);
+                var local = _entities.Set<labrequest>().Local.FirstOrDefault(f => f.ID == pat.ID);
+                if (local != null)
+                {
+                    _entities.Entry(local).State = EntityState.Detached;
+                }
+                _entities.Set<Admission>().Attach(entity);
+                _entities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                var result = _entities.SaveChanges();
+                if (result > 0)
+                {
+                    return new RepositoryActionResult<dto_Admission>(pat, RepositoryActionStatus.Updated);
+                }
+                else
+                {
+                    return new RepositoryActionResult<dto_Admission>(pat, RepositoryActionStatus.NothingModified, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<dto_Admission>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<dto_Admission> DeleteAdmission(int labId)
+        {
+            try
+            {
+                var biovit = _entities.Admissions.FirstOrDefault(n => n.ID == labId);
+                if (biovit == null)
+                    return new RepositoryActionResult<dto_Admission>(null, RepositoryActionStatus.NothingModified);
+                //if (string.IsNullOrEmpty(biovit.Remark))
+                //    return new RepositoryActionResult<dto_Admission>(null, RepositoryActionStatus.NothingModified, "You cannot delete a Lab request with valid Lab report.", "");
+                _entities.Admissions.Remove(biovit);
+                var result = _entities.SaveChanges();
+                if (result > 0)
+                    return new RepositoryActionResult<dto_Admission>(null, RepositoryActionStatus.Deleted);
+                else
+                    return new RepositoryActionResult<dto_Admission>(null, RepositoryActionStatus.NothingModified);
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<dto_Admission>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+        #endregion
+
+        #region WARD ROUND Repo
+        public IQueryable<dto_WardRound> GetAllWardRounds()
+        {
+            var model = _entities.WardRounds.ProjectTo<dto_WardRound>();
+            return model;
+        }
+
+        public IQueryable<dto_WardRound> GetWardRoundForAdmission(int admID)
+        {
+            var allPres = _entities.WardRounds.ProjectTo<dto_WardRound>().Where(n => n.AdmissionID == admID);
+            return allPres;
+        }
+
+        public RepositoryActionResult<dto_WardRound> AddWardRound(dto_WardRound pat, int admID)
+        {
+            try
+            {
+                pat.AdmissionID = admID;
+                var entity = Mapper.Map<WardRound>(pat);
+                _entities.WardRounds.Add(entity);
+                var result = _entities.SaveChanges();
+                if (result > 0)
+                {
+                    return new RepositoryActionResult<dto_WardRound>(pat, RepositoryActionStatus.Created);
+                }
+                else
+                {
+                    return new RepositoryActionResult<dto_WardRound>(pat, RepositoryActionStatus.NothingModified, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<dto_WardRound>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<dto_WardRound> EditWardRound(dto_WardRound pat)
+        {
+            try
+            {
+                var getBio = _entities.WardRounds.FirstOrDefault(n => n.ID == pat.ID);
+                if (getBio == null)
+                    return new RepositoryActionResult<dto_WardRound>(pat, RepositoryActionStatus.NothingModified, null);
+                var entity = Mapper.Map<WardRound>(pat);
+                var local = _entities.Set<labrequest>().Local.FirstOrDefault(f => f.ID == pat.ID);
+                if (local != null)
+                {
+                    _entities.Entry(local).State = EntityState.Detached;
+                }
+                _entities.Set<WardRound>().Attach(entity);
+                _entities.Entry(entity).State = System.Data.Entity.EntityState.Modified;
+                var result = _entities.SaveChanges();
+                if (result > 0)
+                {
+                    return new RepositoryActionResult<dto_WardRound>(pat, RepositoryActionStatus.Updated);
+                }
+                else
+                {
+                    return new RepositoryActionResult<dto_WardRound>(pat, RepositoryActionStatus.NothingModified, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<dto_WardRound>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+
+        public RepositoryActionResult<dto_WardRound> DeleteWardRound(int admID)
+        {
+            try
+            {
+                var biovit = _entities.WardRounds.FirstOrDefault(n => n.ID == admID);
+                if (biovit == null)
+                    return new RepositoryActionResult<dto_WardRound>(null, RepositoryActionStatus.NothingModified);
+                //if (string.IsNullOrEmpty(biovit.Remark))
+                //    return new RepositoryActionResult<dto_WardRound>(null, RepositoryActionStatus.NothingModified, "You cannot delete a Lab request with valid Lab report.", "");
+                _entities.WardRounds.Remove(biovit);
+                var result = _entities.SaveChanges();
+                if (result > 0)
+                    return new RepositoryActionResult<dto_WardRound>(null, RepositoryActionStatus.Deleted);
+                else
+                    return new RepositoryActionResult<dto_WardRound>(null, RepositoryActionStatus.NothingModified);
+            }
+            catch (Exception ex)
+            {
+                return new RepositoryActionResult<dto_WardRound>(null, RepositoryActionStatus.Error, ex);
+            }
+        }
+        #endregion
     }
 }

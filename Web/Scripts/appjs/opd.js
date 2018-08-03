@@ -13,38 +13,46 @@
 }
 
 function csonClick() {
-    if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to return Patient to OPD?'))
-        sendToOPDfromLab();
-    else
-        CustomErrorNotify("Return to OPD aborted.", "Abort !");
+    var consulRmID = $("#consDrpdwn").data("kendoDropDownList").value();
+    //console.log(consulRmID);
+    if (consulRmID > 0) {
+        if (confirm('NOTE: This process cannot be reversed ! \n \n Is it Ok to send Patient to Consulting?'))
+            sendToConsulting(consulRmID);
+        else
+            CustomErrorNotify("Send to Consulting aborted.", "Abort !");
+    } else {
+        return CustomErrorNotify("Sorry! You have not specified a Consulting Room", "Error !");
+    }
 };
 
-
-function sendToOPDfromLab() {
-    var grid = $("#GridLab").data("kendoGrid");
+function sendToConsulting(consulRmID) {
+    //console.log(consulRmID);
+    var grid = $("#GridOPD").data("kendoGrid");
     var selectedItem = grid.dataItem(grid.select());
-
+    //console.log(selectedItem);
     if (selectedItem === null) {
         return CustomErrorNotify("Sorry! You have not selected a Patient", "Error !");
     }
     var data = {
-        "attdID": selectedItem.AttdID
+        "attdID": selectedItem.AttdID,
+        "consultnRmID": consulRmID
     };
 
     beginProgress();
 
-    $.post("/Main/ReturnToOpdFromLab", data)
+    $.post("/Main/SendToConsulting", data)
         .done(function (result) {
             endProgress();
 
             if (result[0].resp === "ok") {
                 CustomSuccessNotify(result[0].mesag, "Success !");
-
-                var agrid = $("#GridLab").data("kendoGrid");
+                //reset the dropdown control
+                $("#consDrpdwn").val("").data("kendoDropDownList").text("")
+                var agrid = $("#GridOPD").data("kendoGrid");
                 agrid.dataSource.read();
                 //clear bio data grid
-                //var abgrid = $("#GridBV").data("kendoGrid");
-                //abgrid.dataSource.data([]);
+                var abgrid = $("#GridBV").data("kendoGrid");
+                abgrid.dataSource.data([]);
 
             }
             else {
@@ -63,12 +71,12 @@ $(function () {
     var notifications = $.connection.flowQueueHub;
 
     // Create a function that the hub can call to broadcast messages.
-    notifications.client.updateLabMsgs = function () {
+    notifications.client.updateMessages = function () {
 
-        var clsRegGrid = $("#GridLab").data("kendoGrid");
+        var clsRegGrid = $("#GridOPD").data("kendoGrid");
         clsRegGrid.dataSource.read();
 
-        CustomQueueNotify("New Patient arrives LAB", "Out Patient Alert !");
+        CustomQueueNotify("New Patient arrives OPD", "Out Patient Alert !");
     };
     // Start the connection.
     $.connection.hub.start().done(function () {
@@ -79,8 +87,11 @@ $(function () {
 });
 
 function onChange(arg) {
-    var labgrid = $("#labReqGrid").data("kendoGrid");
-    labgrid.dataSource.read();
+    //kendoConsole.log("The selected product ids are: [" + this.selectedKeyNames().join(", ") + "]");
+    var grid = $("#GridBV").data("kendoGrid");
+    grid.dataSource.read();
+    $("#scoreList").show();
+    $("#scoreTop").show();
 }
 
 function onFilterChange() {

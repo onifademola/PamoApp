@@ -86,12 +86,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\dto_Admission.cs" />
     <Compile Include="DTOs\dto_AspNetUser.cs" />
     <Compile Include="DTOs\dto_Attendance.cs" />
     <Compile Include="DTOs\dto_BioVital.cs" />
     <Compile Include="DTOs\dto_LabRequest.cs" />
     <Compile Include="DTOs\dto_Patients.cs" />
     <Compile Include="DTOs\dto_Prescription.cs" />
+    <Compile Include="DTOs\dto_WardRound.cs" />
     <Compile Include="Models\Admission.cs">
       <DependentUpon>PamoModel.tt</DependentUpon>
     </Compile>

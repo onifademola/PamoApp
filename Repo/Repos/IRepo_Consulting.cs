@@ -23,5 +23,21 @@ namespace Repo.Repos
         RepositoryActionResult<dto_LabRequest> EditLab(dto_LabRequest pat);
         RepositoryActionResult<dto_LabRequest> DeleteLab(int labId);
         #endregion
+
+        #region ADMISSION Repo
+        IQueryable<dto_Admission> GetAllAdmissions();
+        IQueryable<dto_Admission> GetAdmissionForAttendance(int attdID);
+        RepositoryActionResult<dto_Admission> AddAdmission(dto_Admission pat, int attdId);
+        RepositoryActionResult<dto_Admission> EditAdmission(dto_Admission pat);
+        RepositoryActionResult<dto_Admission> DeleteAdmission(int labId);
+        #endregion
+
+        #region WARD ROUND Repo
+        IQueryable<dto_WardRound> GetAllWardRounds();
+        IQueryable<dto_WardRound> GetWardRoundForAdmission(int attdID);
+        RepositoryActionResult<dto_WardRound> AddWardRound(dto_WardRound pat, int attdId);
+        RepositoryActionResult<dto_WardRound> EditWardRound(dto_WardRound pat);
+        RepositoryActionResult<dto_WardRound> DeleteWardRound(int labId);
+        #endregion
     }
 }

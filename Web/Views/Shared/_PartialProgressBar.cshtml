@@ -1,19 +1,20 @@
-﻿<div id="progBar">
+﻿<div class="container">
+    <div id="progBar">
 
-    @(Html.Kendo().ProgressBar()
+        @(Html.Kendo().ProgressBar()
               .Name("progressBar")
               .Animation(true)
               .ChunkCount(10)
               .Min(0)
               .Max(10).ShowStatus(true)
               .Type(ProgressBarType.Percent)
-    )
-    <div class="alert alert-info" style="text-align:center; font-size:medium;">
-        Please be patient, we are still working on your requested task.
-        We will navigate you to the resulting view once we are done !
+        )
+        <div class="alert alert-info" style="text-align:center; font-size:medium;">
+            Please be patient, we are still working on your requested task.
+            We will navigate you to the resulting view once we are done !
+        </div>
     </div>
 </div>
-
 
 <style>
     #progressBar {

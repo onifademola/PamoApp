@@ -205,5 +205,66 @@ namespace Web.Controllers
         }
 
         #endregion
+
+        #region LAB REQUEST CODECS
+        public JsonResult AdmissionAll_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            var model = _irepoConsult.GetAllAdmissions();
+            JsonResult result = Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            result.MaxJsonLength = int.MaxValue;
+            return result;
+        }
+
+        public JsonResult Admission_Read([DataSourceRequest] DataSourceRequest request, int attId)
+        {
+            var model = _irepoConsult.GetAdmissionForAttendance(attId);
+            JsonResult result = Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            result.MaxJsonLength = int.MaxValue;
+            return result;
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Admission_Create([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_Admission> labreqs, int attId)
+        {
+            foreach (var labreq in labreqs)
+            {
+                if (labreq != null && ModelState.IsValid)
+                {
+                    _irepoConsult.AddAdmission(labreq, attId);
+                }
+            }
+
+            return Json(labreqs.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Admission_BatchUpdate([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_Admission> labreqs)
+        {
+            foreach (var labreq in labreqs)
+            {
+                if (labreq != null)
+                {
+                    _irepoConsult.EditAdmission(labreq);
+                }
+            }
+
+            return Json(labreqs.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Admission_Destroy([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_Admission> labreqs)
+        {
+            foreach (var labreq in labreqs)
+            {
+                if (labreq != null && ModelState.IsValid)
+                {
+                    _irepoConsult.DeleteAdmission(labreq.ID);
+                }
+            }
+
+            return Json(labreqs.ToDataSourceResult(request, ModelState));
+        }
+
+        #endregion
     }
 }

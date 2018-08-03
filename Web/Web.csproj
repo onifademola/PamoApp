@@ -1631,8 +1631,12 @@
     <Content Include="layout_assets\less\other-less\index.html" />
     <Content Include="layout_assets\less\xenon-less\index.html" />
     <Content Include="ReadMe.txt" />
+    <Content Include="Scripts\appjs\accounts.js" />
+    <Content Include="Scripts\appjs\admission.js" />
     <Content Include="Scripts\appjs\consulting.js" />
+    <Content Include="Scripts\appjs\frontdesk.js" />
     <Content Include="Scripts\appjs\lab.js" />
+    <Content Include="Scripts\appjs\opd.js" />
     <Content Include="Scripts\appjs\pharmacy.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -3070,6 +3074,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\tinymce\init-tinymce.js" />
     <Content Include="Scripts\tinymce\jquery.tinymce.min.js" />
+    <Content Include="Scripts\tinymce\lab-tinymce.js" />
     <Content Include="Scripts\tinymce\license.txt" />
     <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />
     <Content Include="Scripts\tinymce\plugins\anchor\plugin.min.js" />
