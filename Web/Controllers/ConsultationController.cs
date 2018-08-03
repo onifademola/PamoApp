@@ -206,7 +206,7 @@ namespace Web.Controllers
 
         #endregion
 
-        #region LAB REQUEST CODECS
+        #region ADMISSION CODECS
         public JsonResult AdmissionAll_Read([DataSourceRequest] DataSourceRequest request)
         {
             var model = _irepoConsult.GetAllAdmissions();
@@ -259,6 +259,67 @@ namespace Web.Controllers
                 if (labreq != null && ModelState.IsValid)
                 {
                     _irepoConsult.DeleteAdmission(labreq.ID);
+                }
+            }
+
+            return Json(labreqs.ToDataSourceResult(request, ModelState));
+        }
+
+        #endregion
+
+        #region ADMISSION CODECS
+        public JsonResult WardRoundAll_Read([DataSourceRequest] DataSourceRequest request)
+        {
+            var model = _irepoConsult.GetAllWardRounds();
+            JsonResult result = Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            result.MaxJsonLength = int.MaxValue;
+            return result;
+        }
+
+        public JsonResult WardRound_Read([DataSourceRequest] DataSourceRequest request, int admID)
+        {
+            var model = _irepoConsult.GetWardRoundForAdmission(admID);
+            JsonResult result = Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            result.MaxJsonLength = int.MaxValue;
+            return result;
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult WardRound_Create([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_WardRound> labreqs, int admID)
+        {
+            foreach (var labreq in labreqs)
+            {
+                if (labreq != null && ModelState.IsValid)
+                {
+                    _irepoConsult.AddWardRound(labreq, admID);
+                }
+            }
+
+            return Json(labreqs.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult WardRound_BatchUpdate([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_WardRound> labreqs)
+        {
+            foreach (var labreq in labreqs)
+            {
+                if (labreq != null)
+                {
+                    _irepoConsult.EditWardRound(labreq);
+                }
+            }
+
+            return Json(labreqs.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult WardRound_Destroy([DataSourceRequest] DataSourceRequest request, [Bind(Prefix = "models")]IEnumerable<dto_WardRound> labreqs)
+        {
+            foreach (var labreq in labreqs)
+            {
+                if (labreq != null && ModelState.IsValid)
+                {
+                    _irepoConsult.DeleteWardRound(labreq.ID);
                 }
             }
 
