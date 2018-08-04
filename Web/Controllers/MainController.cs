@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Repo.DTOs;
 using Repo.Repos;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,14 @@ namespace Web.Controllers
         public IRepo_Util _irepoUtil;
         public IRepo_PFlow _irepoPflow;
         public IRepo_Patient _irepoPatient;
+        public IRepo_Consulting _irepoConsult;
 
-        public MainController(IRepo_Util irepoUtil, IRepo_PFlow irepoPflow, IRepo_Patient irepoPatient)
+        public MainController(IRepo_Util irepoUtil, IRepo_PFlow irepoPflow, IRepo_Patient irepoPatient, IRepo_Consulting irepoConsult)
         {
             _irepoUtil = irepoUtil;
             _irepoPflow = irepoPflow;
             _irepoPatient = irepoPatient;
+            _irepoConsult = irepoConsult;
         }
 
         // GET: Main
@@ -276,6 +279,48 @@ namespace Web.Controllers
             {
                 FlowQueueHub.NotifyAdmission();
                 FlowQueueHub.NotifyFrontDesk("Fresh update !");
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "ok",
+                        mesag = "Patient has been admitted !"
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "error",
+                        mesag = "Process aborted, something went wrong. Please check your task and retry, or contact Support."
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult AdmitPatient(int attdID, int wardID, string rmk)
+        {
+            bool result = false;
+            if (attdID < 0)
+                return null;
+            string uid = User.Identity.GetUserId();
+            var userDoingTask = _irepoPflow.GetUserDoingTask(uid);
+            if (userDoingTask != null)
+            {
+                dto_Admission dtoAdm = new dto_Admission();
+                dtoAdm.ClinicWardID = wardID;
+                dtoAdm.Remark = rmk;
+                _irepoConsult.AddAdmission(dtoAdm, attdID);
+                result = true;
+            }
+
+            if (result == true)
+            {
                 var data = new[]
                  {
                     new

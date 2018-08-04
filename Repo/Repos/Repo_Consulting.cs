@@ -10,6 +10,8 @@ namespace Repo.Repos
 {
     public class Repo_Consulting : RepositoryBase<PamoDbEntities, attendance>, IRepo_Consulting
     {
+        Repo_Util _repoUtil = new Repo_Util();
+
         public bool UpdateDocRecAttendance(dto_Attendance attd)
         {
             attendance attends = _entities.attendances.FirstOrDefault(n => n.ID == attd.ID);
@@ -235,7 +237,7 @@ namespace Repo.Repos
             var allPres = _entities.Admissions.ProjectTo<dto_Admission>().Where(n => n.AttID == attdID);
             return allPres;
         }
-
+                
         public RepositoryActionResult<dto_Admission> AddAdmission(dto_Admission pat, int attdId)
         {
             try

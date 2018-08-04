@@ -59,6 +59,45 @@ function sendToPharmacy() {
         );
 };
 
+function admClick() {
+    var grid = $("#GridAdmsn").data("kendoGrid");
+    var selectedItem = grid.dataItem(grid.select());
+    var wdID = $("#admDrpdwn").data("kendoDropDownList").value();
+    var remark = $("#txtbox").val();
+    //console.log(selectedItem);
+    if (selectedItem === null) {
+        return CustomErrorNotify("Sorry! You have not selected a Patient", "Error !");
+    }
+    var data = {
+        "attdID": selectedItem.AttdID,
+        "wardID": wdID,
+        "rmk": remark
+    };
+
+    beginProgress();
+
+    $.post("/Main/AdmitPatient", data)
+        .done(function (result) {
+            endProgress();
+
+            if (result[0].resp === "ok") {
+                CustomSuccessNotify(result[0].mesag, "Success !");
+                $("#admDrpdwn").val("").data("kendoDropDownList").text("")
+                var agrid = $("#GridADM").data("kendoGrid");
+                agrid.dataSource.read();
+
+            }
+            else {
+                CustomErrorNotify(result[0].mesag, "Error !");
+            }
+        }
+        ).error(function (xhr, ajaxOptions, thrownError) {
+            endProgress();
+            ServiceError();
+        }
+        );
+};
+
 $(function () {
     // Declare a proxy to reference the hub.
     var notifications = $.connection.flowQueueHub;

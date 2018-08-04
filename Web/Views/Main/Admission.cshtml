@@ -33,15 +33,41 @@
                 toolbar.Template(@<text>
             <div class="row">
                 <div class="col-sm-4 col-md-6 toolbar">
-                    @(Html.Kendo().Button()
+                    @(Html.Kendo().DropDownList()
+                                  .Name("admDrpdwn")
+                                  //.HtmlAttributes(new { style = "width:100%;" })
+                                  .OptionLabel("Select a Room...")
+                                  .DataTextField("Text")
+                                  .DataValueField("Value")
+                                  .DataSource(source =>
+                                  {
+                                      source.Read(read =>
+                                      {
+                                          read.Action("GetConsultingRoomsForGrid", "Main");
+                                      });
+                                  })
+                    )
+                    
+                </div>
+                <div class="col-sm-4 col-md-6 toolbar">
+                    <div>
+                        @(Html.Kendo().Button()
                         .Name("iconButton")
+                        .Tag("a")
+                        .Icon("refresh")
+                        .Content("Admit Patient")
+                        .Events(e => e.Click("admClick"))
+                    )
+                </div>
+                    <div>
+                        @(Html.Kendo().Button()
+                        .Name("iconBtnP")
                         .Tag("a")
                         .Icon("refresh")
                         .Content("Discharge & Send to Pharmacy")
                         .Events(e => e.Click("csonClick"))
-                        //.Content("<span class='fa-share' title='Click to run process'>Send to Consulting</span>")
-
                     )
+                </div>
                 </div>
             </div>
                 </text>);
@@ -78,13 +104,12 @@
     <div class="col-md-8" id="admissionList">
         @*@Html.Partial("_PartialPageSelection")*@
         @(Html.Kendo().Grid<Repo.DTOs.dto_Admission>()
-                .Name("GridBV")
-                .NoRecords("No admission found")
+                .Name("GridADM")
+                .NoRecords("Selected Patient not yet admitted")
                 .Columns(columns =>
                 {
                     columns.Bound(c => c.ClinicWardID);
-                    columns.Bound(c => c.ActivityType);
-                    columns.ForeignKey(c => c.StatusID, (System.Collections.IEnumerable)ViewData["admstatus"], "Value", "Text")
+                    columns.ForeignKey(c => c.StatusID, (System.Collections.IEnumerable)ViewData["admstatus"], "Key", "Value")
                     .Title("Admission Status");
                     columns.Bound(c => c.C_Date).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("Date Admitted");
                     columns.Bound(c => c.Remark);
@@ -107,6 +132,7 @@
                     .PreviousNext(false)
                     .Refresh(true)
                 )
+                .ClientDetailTemplateId("template")
                 .DataSource(dataSource => dataSource
                 .Ajax()
                 .Batch(false)
@@ -143,6 +169,43 @@
             };
         </script>
     </div>
+    <script id="template" type="text/kendo-tmpl">
+        @(Html.Kendo().Grid<Repo.DTOs.dto_WardRound>()
+                      .Name("grid_#=AttID#")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(o => o.Date).Format("{0:dd/MM/yyyy}").EditorTemplateName("Date").Width(120);
+                            columns.Bound(o => o.Hour);
+                            columns.Bound(o => o.Note);
+                            columns.Command(command => { command.Edit(); command.Destroy(); }).Width(170);
+                        })
+                        .ToolBar(toolbar => toolbar.Create())
+                        .Editable(editable => editable.Mode(GridEditMode.InLine))
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            //.AutoSync(true)
+                            .PageSize(5)
+                            .ServerOperation(false)
+                                    .Model(model =>
+                                    {
+                                        model.Id(p => p.ID);
+                                        model.Field(f => f.Date).Editable(false);
+                                        model.Field(f => f.Hour).Editable(false);
+
+                                    })
+                            //.Events(events =>
+                            //{
+                            //    events.Error("ServiceError");
+                            //    events.Sync("sync_handler");
+                            //})
+                            .Create(update => update.Action("WardRound_Create", "Consultation", new { admID = "#=AttID#" }))
+                            .Read(read => read.Action("WardRound_Read", "Consultation", new { admID = "#=AttID#" }))
+                            .Update(update => update.Action("WardRound_BatchUpdate", "Consultation"))
+                            .Destroy(update => update.Action("WardRound_Destroy", "Consultation"))
+                        )
+                        .Sortable()
+                        .ToClientTemplate())
+    </script>
 
 </div>
 
