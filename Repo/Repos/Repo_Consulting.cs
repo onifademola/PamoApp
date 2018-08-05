@@ -243,6 +243,11 @@ namespace Repo.Repos
             try
             {
                 pat.AttID = attdId;
+                var existn = _entities.Admissions.FirstOrDefault(b => b.AttID == attdId);
+                if (existn != null)
+                {
+                    return new RepositoryActionResult<dto_Admission>(pat, RepositoryActionStatus.DuplicateEntry);
+                }
                 var entity = Mapper.Map<Admission>(pat);
                 _entities.Admissions.Add(entity);
                 var result = _entities.SaveChanges();

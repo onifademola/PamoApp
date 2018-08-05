@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Text;
 using System.Threading.Tasks;
+using Repo.DTOs;
+using AutoMapper.QueryableExtensions;
 
 namespace Repo.Repos
 {
@@ -131,6 +133,24 @@ namespace Repo.Repos
             {
                 Value = x.ID.ToString(),
                 Text = x.Room
+            });
+        }
+
+        public IQueryable<SelectListItem> ClinicWardForGrid()
+        {
+            return _entities.ClinicWards.ProjectTo<dto_ClinicWard>().Select(x => new SelectListItem
+            {
+                Value = x.ID.ToString(),
+                Text = x.Name + " - Capacity:" + x.Beds + ", Used:" + x.UsedBeds + ", Available: " + (x.Beds - x.UsedBeds)
+            });
+        }
+
+        public IQueryable<SelectListItem> ClinicWardForMainGrid()
+        {
+            return _entities.ClinicWards.ProjectTo<dto_ClinicWard>().Select(x => new SelectListItem
+            {
+                Value = x.ID.ToString(),
+                Text = x.Name
             });
         }
 

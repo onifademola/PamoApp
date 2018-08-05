@@ -15,6 +15,55 @@
 
 <div id="pageDP">
     <div class="col-md-4" id="pageGridPatient">
+        <div class="panel panel-color panel-blue">
+            <div class="panel-heading" style="background-color:#1C3857;">
+                <i class="fa-5x fa fa-hand-o-right pull-left"></i>
+                <h5 class="panel-title" style="font-size:14px">Admit A Patient</h5>
+                <div class="panel-options">
+                    <a href="#" data-toggle="panel">
+                        <span class="collapse-icon">&ndash;</span>
+                        <span class="expand-icon">+</span>
+                    </a>
+                    <a href="#" data-toggle="reload" id="filterReload">
+                        <i class="fa-rotate-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-4 col-md-6 toolbar">
+                        @(Html.Kendo().DropDownList()
+                                  .Name("admDrpdwn")
+                                  //.HtmlAttributes(new { style = "width:100%;" })
+                                  .OptionLabel("Select a Room...")
+                                  .DataTextField("Text")
+                                  .DataValueField("Value")
+                                  .DataSource(source =>
+                                  {
+                                      source.Read(read =>
+                                      {
+                                          read.Action("GetClinicWardsForGrid", "Main");
+                                      });
+                                  })
+                    )
+                </div>
+                    
+                    <div>
+                        @(Html.Kendo().Button()
+                        .Name("iconButton")
+                        .Tag("a")
+                        .Icon("refresh")
+                        .Content("Admit Patient")
+                        .Events(e => e.Click("admClick"))
+                        )
+                    </div>
+                </div>
+                <br />
+                <span class="uk-form-controls" style="width:100%">
+                    <textarea id="txtbox" name="txtboxx" type="text" width="100%" placeholder="add comments here"></textarea>
+                </span>
+            </div>
+        </div>
 
         @(Html.Kendo().Grid<Repo.Models.vwFlowQueueAttendance>()
                 .Name("GridAdmsn")
@@ -32,33 +81,9 @@
                 {
                 toolbar.Template(@<text>
             <div class="row">
+                
                 <div class="col-sm-4 col-md-6 toolbar">
-                    @(Html.Kendo().DropDownList()
-                                  .Name("admDrpdwn")
-                                  //.HtmlAttributes(new { style = "width:100%;" })
-                                  .OptionLabel("Select a Room...")
-                                  .DataTextField("Text")
-                                  .DataValueField("Value")
-                                  .DataSource(source =>
-                                  {
-                                      source.Read(read =>
-                                      {
-                                          read.Action("GetConsultingRoomsForGrid", "Main");
-                                      });
-                                  })
-                    )
-                    
-                </div>
-                <div class="col-sm-4 col-md-6 toolbar">
-                    <div>
-                        @(Html.Kendo().Button()
-                        .Name("iconButton")
-                        .Tag("a")
-                        .Icon("refresh")
-                        .Content("Admit Patient")
-                        .Events(e => e.Click("admClick"))
-                    )
-                </div>
+                   
                     <div>
                         @(Html.Kendo().Button()
                         .Name("iconBtnP")
@@ -108,7 +133,8 @@
                 .NoRecords("Selected Patient not yet admitted")
                 .Columns(columns =>
                 {
-                    columns.Bound(c => c.ClinicWardID);
+                    columns.ForeignKey(c => c.ClinicWardID, (System.Collections.IEnumerable)ViewData["wrdstatus"], "Value", "Text")
+                    .Title("Ward");
                     columns.ForeignKey(c => c.StatusID, (System.Collections.IEnumerable)ViewData["admstatus"], "Key", "Value")
                     .Title("Admission Status");
                     columns.Bound(c => c.C_Date).Format("{0:dd/MM/yyyy hh:mm: tt}").Title("Date Admitted");
@@ -169,8 +195,10 @@
             };
         </script>
     </div>
-    <script id="template" type="text/kendo-tmpl">
-        @(Html.Kendo().Grid<Repo.DTOs.dto_WardRound>()
+</div>
+
+<script id="template" type="text/kendo-tmpl">
+    @(Html.Kendo().Grid<Repo.DTOs.dto_WardRound>()
                       .Name("grid_#=AttID#")
                         .Columns(columns =>
                         {
@@ -205,9 +233,7 @@
                         )
                         .Sortable()
                         .ToClientTemplate())
-    </script>
-
-</div>
+</script>
 
 @Html.Partial("~/Views/Shared/_PartialProgressBar.cshtml")
 

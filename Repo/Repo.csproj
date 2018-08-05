@@ -90,6 +90,7 @@
     <Compile Include="DTOs\dto_AspNetUser.cs" />
     <Compile Include="DTOs\dto_Attendance.cs" />
     <Compile Include="DTOs\dto_BioVital.cs" />
+    <Compile Include="DTOs\dto_ClinicWard.cs" />
     <Compile Include="DTOs\dto_LabRequest.cs" />
     <Compile Include="DTOs\dto_Patients.cs" />
     <Compile Include="DTOs\dto_Prescription.cs" />

@@ -19,5 +19,7 @@ namespace Repo.Repos
         void AddToRolesTable();
         IQueryable<SelectListItem> UserForGrid();
         IQueryable<SelectListItem> ConsultingRoomForGrid();
+        IQueryable<SelectListItem> ClinicWardForGrid();
+        IQueryable<SelectListItem> ClinicWardForMainGrid();
     }
 }

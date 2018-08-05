@@ -306,20 +306,34 @@ namespace Web.Controllers
         public ActionResult AdmitPatient(int attdID, int wardID, string rmk)
         {
             bool result = false;
+            DateTime eventTime = _irepoUtil.GetNijaTime(DateTime.Now);
             if (attdID < 0)
                 return null;
             string uid = User.Identity.GetUserId();
             var userDoingTask = _irepoPflow.GetUserDoingTask(uid);
-            if (userDoingTask != null)
+            
+            if (userDoingTask == null)
             {
-                dto_Admission dtoAdm = new dto_Admission();
-                dtoAdm.ClinicWardID = wardID;
-                dtoAdm.Remark = rmk;
-                _irepoConsult.AddAdmission(dtoAdm, attdID);
-                result = true;
+                var data = new[]
+                 {
+                    new
+                    {
+                        resp = "error",
+                        mesag = "Process aborted, We cannot find your login details, Please confirm that you are logged in."
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
-
-            if (result == true)
+            RepositoryActionResult<dto_Admission> res;
+            dto_Admission dtoAdm = new dto_Admission();
+            dtoAdm.ClinicWardID = wardID;
+            dtoAdm.Remark = rmk;
+            dtoAdm.StatusID = 1;
+            dtoAdm.C_Date = eventTime;
+            res = _irepoConsult.AddAdmission(dtoAdm, attdID);
+            //result = true;
+            
+            if (res.Status == RepositoryActionStatus.Created)
             {
                 var data = new[]
                  {
@@ -497,10 +511,16 @@ namespace Web.Controllers
         #endregion
 
         #region ADMISSION CODECS
+        public JsonResult GetClinicWardsForGrid()
+        {
+            return Json(_irepoUtil.ClinicWardForGrid(), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Admission()
         {
             ViewData["vstatus"] = _irepoUtil.ProcessStatuses();
             ViewData["admstatus"] = _irepoUtil.AdmissionStatus();
+            ViewData["wrdstatus"] = _irepoUtil.ClinicWardForMainGrid();
             return View();
         }
         

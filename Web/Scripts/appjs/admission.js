@@ -82,7 +82,8 @@ function admClick() {
 
             if (result[0].resp === "ok") {
                 CustomSuccessNotify(result[0].mesag, "Success !");
-                $("#admDrpdwn").val("").data("kendoDropDownList").text("")
+                $("#admDrpdwn").val("").data("kendoDropDownList").text("");
+                $("#txtbox").val("");
                 var agrid = $("#GridADM").data("kendoGrid");
                 agrid.dataSource.read();
 
@@ -120,6 +121,6 @@ $(function () {
 
 function onChange(arg) {
     //kendoConsole.log("The selected product ids are: [" + this.selectedKeyNames().join(", ") + "]");
-    var grid = $("#GridBV").data("kendoGrid");
+    var grid = $("#GridADM").data("kendoGrid");
     grid.dataSource.read();
 }

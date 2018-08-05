@@ -39,6 +39,16 @@ namespace Web.App_Start
 
                 config.CreateMap<labrequest, dto_LabRequest>();
                 config.CreateMap<dto_LabRequest, labrequest>();
+
+                config.CreateMap<Admission, dto_Admission>();
+                config.CreateMap<dto_Admission, Admission>();
+
+                config.CreateMap<ClinicWard, dto_ClinicWard>()
+                .ForMember(dest => dest.UsedBeds, opt => opt.MapFrom(src => src.Admissions.Count(c => c.ClinicWardID.HasValue)));
+                config.CreateMap<dto_ClinicWard, ClinicWard>();
+                //.ReverseMap()
+                //.ForMember(m => m.UsedBeds, m => m.Ignore())                
+                //.ForMember(m => m.AvailableBeds, m => m.Ignore());
             });
         }
     }
